@@ -1,0 +1,28 @@
+#java I think
+build*
+dist
+manifest.mf
+
+#netbeans
+nbproject
+
+# vim
+*.swp
+*.swo
+
+# eclipse
+.project
+.classpath
+.settings/*
+
+#binary
+bin
+*.so
+
+# archives...
+*.zip
+*.jar
+
+
+#do not commit other projects
+vendor/*
