@@ -1,21 +1,24 @@
 package nl.jappieklooster.ISAI
 
+import nl.jappieklooster.ISAI.state.Patrol
 import nl.jappieklooster.ISAI.state.StateMachine
 
 class GameCharacter {
+	Random r = new Random()
 
 	int magickPower
 	int strength
-	StateMachine machine
+	StateMachine stateMachine
 
 	GameCharacter(){
-		machine = new StateMachine(this)
+		strength = 10
+		stateMachine= new StateMachine(new Patrol(this))
 	}
-	void Update(){
-		machine.Update();
+	void update(){
+		stateMachine.update();
 	}
 	
-	boolean isInRange(){
-		
+	boolean isEnemyClose(){
+		r.nextBoolean()
 	}
 }

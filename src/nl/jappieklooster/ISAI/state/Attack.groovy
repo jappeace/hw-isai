@@ -1,29 +1,30 @@
 package nl.jappieklooster.ISAI.state
 import nl.jappieklooster.ISAI.GameCharacter
 
+import groovy.util.logging.*
+@Log
 class Attack extends GameCharacterState{
 
 	Attack(GameCharacter entity){
 		super(entity)
 	}
 	@Override
-	void Enter() {
+	public void enter() {
 		// TODO Auto-generated method stub
+		log.info "CHAAAARRGGGGEEEHHHHH!!!"
 		
 	}
-
 	@Override
-	void Update() {
-		// TODO Auto-generated method stub
-		entity.Strength--
+	void update() {
+		log.info "The battle is going glorieus"
+		entity.strength--
+		if(entity.strength < 5){
+			stateMachine.changeState(new Hide(entity))
+		}
 		
 	}
-
 	@Override
-	void Exit() {
-		// TODO Auto-generated method stub
-		
+	public void exit() {
+		log.info "Retreaat!!!"
 	}
-
-
 }

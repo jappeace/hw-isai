@@ -4,16 +4,24 @@ import nl.jappieklooster.ISAI.GameCharacter
 
 class StateMachine{
 
-	State currentState
-	State previousState
-	
-	void ChangeState(State s){
-		previousState = currentState
-		currentState = s
-		
+	private State currentState
+	private State previousState
+	StateMachine(State startingState){
+		currentState = startingState
+		previousState = null
 	}
 	
-	void Update(){
-		currentState?.Update()
+	void changeState(State state){
+		state = state ?: currentState
+
+		previousState = currentState
+		currentState = state
+		
+		previousState.exit()
+		currentState.enter()
+	}
+	
+	void update(){
+		currentState?.update()
 	}
 }

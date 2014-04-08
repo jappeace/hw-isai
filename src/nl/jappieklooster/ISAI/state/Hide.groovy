@@ -1,6 +1,8 @@
 package nl.jappieklooster.ISAI.state
 
 import nl.jappieklooster.ISAI.GameCharacter
+import groovy.util.logging.*
+@Log
 class Hide extends GameCharacterState{
 
 
@@ -8,21 +10,24 @@ class Hide extends GameCharacterState{
 		super(entity)
 	}
 	@Override
-	void Enter() {
-		// TODO Auto-generated method stub
+	void enter() {
+		log.info "im hiding"
 		
 	}
 
 	@Override
-	void Update() {
-		// TODO Auto-generated method stub
+	void update() {
+		log.info "scared and hiding ... :("
 		entity.strength++
+		if(!entity.enemyClose){
+			stateMachine.changeState(new Patrol(entity))
+		}
 		
 	}
 
 	@Override
-	void Exit() {
-		// TODO Auto-generated method stub
+	void exit() {
+		log.info "I'm comming out of hiding"
 		
 	}
 
