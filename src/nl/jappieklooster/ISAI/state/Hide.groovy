@@ -1,24 +1,30 @@
 package nl.jappieklooster.ISAI.state
 
 import nl.jappieklooster.ISAI.GameCharacter
-class Hide implements State<GameCharacter>{
+class Hide extends GameCharacterState{
 
+
+	Hide(GameCharacter entity){
+		super(entity)
+	}
 	@Override
-	public void Enter(GameCharacter entity) {
+	void Enter() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void Execute(GameCharacter entity) {
-		entity.Strength++
+	void Update() {
+		// TODO Auto-generated method stub
+		entity.strength++
 		
 	}
 
 	@Override
-	public void Exit(GameCharacter entity) {
+	void Exit() {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }

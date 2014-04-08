@@ -2,9 +2,9 @@ package nl.jappieklooster.ISAI.state
 
 import nl.jappieklooster.ISAI.GameCharacter
 
-interface State<T extends GameCharacter> {
+interface State{
 
-	void Enter(T entity);
-	void Execute(T entity);
-	void Exit(T entity);
+	void Enter()
+	void Update()
+	void Exit()
 }

@@ -4,14 +4,18 @@ import nl.jappieklooster.ISAI.state.StateMachine
 
 class GameCharacter {
 
-	int MagickPower
-	int Strength
-	
-	StateMachine<GameCharacter> machine
+	int magickPower
+	int strength
+	StateMachine machine
+
 	GameCharacter(){
-		machine = new StateMachine<>(this)
+		machine = new StateMachine(this)
 	}
 	void Update(){
 		machine.Update();
+	}
+	
+	boolean isInRange(){
+		
 	}
 }

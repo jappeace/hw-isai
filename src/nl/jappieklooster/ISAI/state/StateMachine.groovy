@@ -2,22 +2,18 @@ package nl.jappieklooster.ISAI.state
 
 import nl.jappieklooster.ISAI.GameCharacter
 
-class StateMachine<T extends GameCharacter> {
+class StateMachine{
 
-	private T entity
-	State<T> currentState
-	State<T> previousState
-	StateMachine(T input){
-		entity = input
-	}
+	State currentState
+	State previousState
 	
-	void ChangeState(State<T> s){
+	void ChangeState(State s){
 		previousState = currentState
 		currentState = s
 		
 	}
 	
 	void Update(){
-		currentState?.Execute(entity)
+		currentState?.Update()
 	}
 }
