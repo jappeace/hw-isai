@@ -8,7 +8,7 @@ class Starter {
 		World w = new World()
 		while(true){
 			Thread.sleep(1000)
-			w.zelda.update()
+			w.zelda.update(10)
 		}
 	}
 

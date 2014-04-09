@@ -21,7 +21,7 @@ class StateMachine{
 		currentState.enter()
 	}
 	
-	void update(){
-		currentState?.update()
+	void update(float tpf){
+		currentState?.update(tpf)
 	}
 }

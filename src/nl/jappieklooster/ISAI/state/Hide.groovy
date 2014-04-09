@@ -16,7 +16,7 @@ class Hide extends GameCharacterState{
 	}
 
 	@Override
-	void update() {
+	void update(float tpf) {
 		log.info "scared and hiding ... :("
 		entity.strength++
 		if(!entity.enemyClose){

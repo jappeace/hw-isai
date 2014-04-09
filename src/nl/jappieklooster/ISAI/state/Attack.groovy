@@ -15,7 +15,7 @@ class Attack extends GameCharacterState{
 		
 	}
 	@Override
-	void update() {
+	void update(float tpf) {
 		log.info "The battle is going glorieus"
 		entity.strength--
 		if(entity.strength < 5){

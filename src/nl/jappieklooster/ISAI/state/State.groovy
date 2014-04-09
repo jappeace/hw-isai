@@ -4,6 +4,6 @@ import nl.jappieklooster.ISAI.GameCharacter
 
 interface State{
 	void enter()
-	void update()
+	void update(float tpf)
 	void exit()
 }
