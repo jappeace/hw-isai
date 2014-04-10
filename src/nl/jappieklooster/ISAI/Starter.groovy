@@ -4,12 +4,9 @@ package nl.jappieklooster.ISAI
 class Starter {
 
 	static main(args) {
+		Window game = new Window()
+		game.start()
 	
-		World w = new World()
-		while(true){
-			Thread.sleep(1000)
-			w.zelda.update(10)
-		}
 	}
 
 }

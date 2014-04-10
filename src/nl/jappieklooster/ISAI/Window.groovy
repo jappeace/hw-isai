@@ -11,6 +11,8 @@ import com.jme3.math.Vector3f
 class Window extends SimpleApplication {
 
 	World world
+	Geometry cube
+	float timepassed
 
 	Window(){
 		
@@ -21,14 +23,16 @@ class Window extends SimpleApplication {
 		world.zelda = new GameCharacter()
 		Transform transform = new Transform()
 		world.zelda.transform = transform
-		createCube().setLocalTransform(transform)
+		cube = createCube()
 	}
 	
 	@Override
     public void simpleUpdate(float tpf) {
-		world.zelda.update(tpf)
-		rootNode.children.each{
-			it.setTransformRefresh()
+		timepassed += tpf
+		if(timepassed > 1){
+			timepassed = 0
+            world.zelda.update(tpf)
+            cube.setLocalTransform(world.zelda.transform)
 		}
     }
 	
@@ -39,5 +43,6 @@ class Window extends SimpleApplication {
         mat.setColor("Color", ColorRGBA.Blue);   // set color of material to blue
         geom.setMaterial(mat);                   // set the cube's material
         rootNode.attachChild(geom);
+		return geom
 	}
 }
