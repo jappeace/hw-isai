@@ -1,6 +1,7 @@
 package nl.jappieklooster.ISAI
 
 import com.jme3.math.Transform
+import com.jme3.math.Vector3f
 import nl.jappieklooster.ISAI.state.Patrol
 import nl.jappieklooster.ISAI.state.StateMachine
 
@@ -8,7 +9,7 @@ class GameCharacter {
 	Random r = new Random()
 
 	int magickPower
-	int strength
+	float strength
 	Transform transform
 	StateMachine stateMachine
 
@@ -17,6 +18,8 @@ class GameCharacter {
 		stateMachine= new StateMachine(new Patrol(this))
 	}
 	void update(float tpf){
+
+		transform.scale = strength
 		stateMachine.update(tpf);
 	}
 	

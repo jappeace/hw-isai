@@ -21,11 +21,11 @@ class Patrol extends GameCharacterState{
 	@Override
 	void update(float tpf) {
 		log.info "patrolling..."
-		entity.strength++
+		entity.strength += tpf * GameCharacterState.damage
 		
 		if(entity.transform.translation.equals(new Vector3f(0,0,0))){
 			
-			float direction = isGoingRight ? 1 : -1
+			float direction = isGoingRight ? tpf : -tpf
 			entity.transform.translation.x = direction
 		}
 		if(!entity.enemyClose){

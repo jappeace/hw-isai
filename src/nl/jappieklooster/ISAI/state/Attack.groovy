@@ -17,8 +17,7 @@ class Attack extends GameCharacterState{
 	@Override
 	void update(float tpf) {
 		log.info "The battle is going glorieus"
-		entity.strength--
-		entity.transform.scale.y += entity.strength %2
+		entity.strength -= tpf * GameCharacterState.damage
 		if(entity.strength < 5){
 			stateMachine.changeState(new Hide(entity))
 		}

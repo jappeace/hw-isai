@@ -18,8 +18,8 @@ class Hide extends GameCharacterState{
 	@Override
 	void update(float tpf) {
 		log.info "scared and hiding ... :("
-		entity.strength++
-		entity.transform.rot.w += 1
+		entity.strength += tpf * GameCharacterState.damage
+		entity.transform.rot.w += tpf
 		if(!entity.enemyClose){
 			stateMachine.changeState(new Patrol(entity))
 		}
