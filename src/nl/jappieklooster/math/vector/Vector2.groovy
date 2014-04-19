@@ -1,6 +1,6 @@
 package nl.jappieklooster.math.vector
 
-import nl.jappieklooster.math.vector.compareStrategies.BothComparator
+import nl.jappieklooster.math.vector.compareStrategies.TwoWayComparator
 
 /**
  * this is a basic 2 double container with all the operator overloading that made sense, so no getat and putat but practicly evreything else
@@ -38,7 +38,7 @@ class Vector2 implements Cloneable, Comparable<Vector2>{
 	Vector2(float x, float y){
 		this.x = x
 		this.y = y
-		compareStrategy = new BothComparator()
+		compareStrategy = new TwoWayComparator()
 	}
 
 	@Override
@@ -123,6 +123,39 @@ class Vector2 implements Cloneable, Comparable<Vector2>{
 			+this.y
 		)
 	}
+	
+	float getLength(){
+		Math.sqrt(this.x * this.x + this.y * this.y)
+	}
+	Vector2 getNormalized(){
+		float magnitude = getLength();
+		new Vector2 (
+			this.x / magnitude,
+			this.y / magnitude
+		)
+	}
+	float dotProduct(Vector2 from){
+		from = from.normalized;
+		Math.acos(this.x*from.x + this.y*from.y)
+
+	}
+	void truncate(float max){
+		max = Math.abs(max)
+		x = truncateOrKeep(x, max)
+		y = truncateOrKeep(y, max)
+	}
+	protected float truncateOrKeep(float target, float max){
+		if(target < 0){
+			target = target < -max ? -max : target
+		}else{
+			target = target < max ? max : target
+		}
+		return target
+	}
+	float distance(Vector to){
+		Vector2 space = this - to
+		return space.length
+	}
 	/////// comparison
 	/** note this equals does a straight and cross comparison, either X and X and Y and Y or X and Y and Y and X, because the way the compareto is handled*/
 	@Override
@@ -153,7 +186,7 @@ class Vector2 implements Cloneable, Comparable<Vector2>{
 	{
 
 		// use the sqrt of one field to differentiate between the two
-		return (this.x * Math.sqrt(Math.abs(this.y))).hashCode()
+		return (this.x * this.y).hashCode()
 	}
 	
 }
