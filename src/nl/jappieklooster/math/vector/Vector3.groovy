@@ -1,5 +1,7 @@
 package nl.jappieklooster.math.vector
 
+import com.jme3.math.Vector3f
+
 class Vector3 extends Vector2{
 	float z
 
@@ -114,6 +116,35 @@ class Vector3 extends Vector2{
 			+this.y,
 			+this.z
 		)
+	}
+	@Override
+	float getLength(){
+		float xy = super.length
+		Math.sqrt(xy*xy + z*z)
+	}
+	@Override
+	Vector3 getNormalized(){
+		float magnitude = getLength();
+		new Vector3 (
+			this.x / magnitude,
+			this.y / magnitude,
+			this.z / magnitude
+		)
+	}
+	@Override
+	float dotProduct(Vector3 from){
+		from = from.normalized
+		Math.acos(this.x * from.x + this.y * from.y + this.z * from.z)
+	}
+	void truncate(float max){
+		max = Math.abs(max)
+		super.truncate(max)
+		z = super.truncateOrKeep(z, max)
+
+	}
+	float distance(Vector2 to){
+		Vector2 space = this - to
+		return space.length
 	}
 	/////// comparison
 	/** note this equals does a straight and cross comparison, either X and X and Y and Y or X and Y and Y and X, because the way the compareto is handled*/

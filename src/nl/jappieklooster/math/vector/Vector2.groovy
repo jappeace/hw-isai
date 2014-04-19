@@ -152,7 +152,7 @@ class Vector2 implements Cloneable, Comparable<Vector2>{
 		}
 		return target
 	}
-	float distance(Vector to){
+	float distance(Vector2 to){
 		Vector2 space = this - to
 		return space.length
 	}
