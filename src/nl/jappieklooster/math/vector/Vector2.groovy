@@ -49,7 +49,7 @@ class Vector2 implements Cloneable, Comparable<Vector2>{
 
 	@Override
 	String toString(){
-		return "(" + x + ", " + y + ")"
+		return "(" + x + "," + y + ")"
 	}
 	///////// aritmatics
 	@Override
