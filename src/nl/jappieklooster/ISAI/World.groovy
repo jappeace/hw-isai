@@ -7,7 +7,6 @@ class World {
 	List<Entity> entities
 	void update(float tpf){
 		entities.each{
-			it.geometry.setLocalTranslation(new Vector3f())
 			it.update(tpf)
 		}
 	}

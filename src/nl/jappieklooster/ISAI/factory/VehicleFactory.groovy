@@ -28,7 +28,7 @@ class VehicleFactory extends AbstractFactory{
 		geometry.setMaterial(material);
 		world.node.attachChild(geometry);
 		vehicle.geometry = geometry
-		vehicle.velocity = new Vector3(3,1)
+		vehicle.velocity = new Vector3()
 		vehicle.position = new Vector3()
 	}
 	

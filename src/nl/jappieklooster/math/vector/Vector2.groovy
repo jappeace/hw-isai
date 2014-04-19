@@ -139,10 +139,11 @@ class Vector2 implements IVector2{
 		Math.acos(this.x*from.x + this.y*from.y)
 
 	}
-	void truncate(float max){
+	Vector2 truncate(float max){
 		max = Math.abs(max)
 		x = truncateOrKeep(x, max)
 		y = truncateOrKeep(y, max)
+		return this
 	}
 	float truncateOrKeep(float target, float max){
 		if(target < 0){

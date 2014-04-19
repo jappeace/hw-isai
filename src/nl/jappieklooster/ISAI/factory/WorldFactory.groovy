@@ -2,6 +2,7 @@ package nl.jappieklooster.ISAI.factory
 
 import com.jme3.asset.AssetManager
 import nl.jappieklooster.ISAI.World
+import nl.jappieklooster.ISAI.entity.impl.Vehicle
 import com.jme3.scene.Node
 
 class WorldFactory extends AbstractFactory{
@@ -18,9 +19,10 @@ class WorldFactory extends AbstractFactory{
 		return world
 	}
 	
-	void vehicle(Closure commands){
+	Vehicle vehicle(Closure commands){
 		VehicleFactory factory = new VehicleFactory(world, assetManager)
 		new DelegateClosure(to:factory).call(commands)
 		world.entities.add(factory.vehicle)
+		return factory.vehicle
 	}
 }

@@ -159,10 +159,11 @@ class Vector3 implements IVector3{
 		from = from.normalized
 		Math.acos(this.x * from.x + this.y * from.y + this.z * from.z)
 	}
-	void truncate(float max){
+	Vector3 truncate(float max){
 		max = Math.abs(max)
 		base.truncate(max)
 		z = base.truncateOrKeep(z, max)
+		return this
 
 	}
 	float distance(Vector2 to){
