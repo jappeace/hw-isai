@@ -17,6 +17,7 @@ class VehicleFactory extends AbstractFactory{
 	VehicleFactory(World world, AssetManager manager){
 
 		vehicle = new Vehicle()
+		assetManager = manager
 		Geometry geometry = new Geometry("Default box", new Box(1,1,1));
 		geometry.setLocalTranslation(new Vector3f());
 
@@ -27,6 +28,8 @@ class VehicleFactory extends AbstractFactory{
 		geometry.setMaterial(material);
 		world.node.attachChild(geometry);
 		vehicle.geometry = geometry
+		vehicle.velocity = new Vector3(3,1)
+		vehicle.position = new Vector3()
 	}
 	
 	void texture(String path){

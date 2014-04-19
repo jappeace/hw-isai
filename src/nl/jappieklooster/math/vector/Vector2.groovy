@@ -9,7 +9,7 @@ import nl.jappieklooster.math.vector.compareStrategies.TwoWayComparator
  * @author jappie
  *
  */
-class Vector2 implements Cloneable, Comparable<Vector2>{
+class Vector2 implements IVector2{
 	static final double defaultValue = 0
 	float x, y
 	
@@ -17,7 +17,7 @@ class Vector2 implements Cloneable, Comparable<Vector2>{
 	* This means the indivudaul comparators and the equals methods don't take in acount which strategy is used
 	* By default they all use the same (the bothcomparator)
 	*/
-	Comparator<Vector2> compareStrategy
+	Comparator<IVector2> compareStrategy
 	//////// constructors
 	Vector2(){
 		this(defaultValue,defaultValue)
@@ -144,7 +144,7 @@ class Vector2 implements Cloneable, Comparable<Vector2>{
 		x = truncateOrKeep(x, max)
 		y = truncateOrKeep(y, max)
 	}
-	protected float truncateOrKeep(float target, float max){
+	float truncateOrKeep(float target, float max){
 		if(target < 0){
 			target = target < -max ? -max : target
 		}else{
@@ -172,7 +172,7 @@ class Vector2 implements Cloneable, Comparable<Vector2>{
 		
 	}
 	@Override
-	int compareTo(Vector2 to) {
+	int compareTo(IVector2 to) {
 		return compareStrategy.compare(this, to);
 	}
 
@@ -188,5 +188,4 @@ class Vector2 implements Cloneable, Comparable<Vector2>{
 		// use the sqrt of one field to differentiate between the two
 		return (this.x * this.y).hashCode()
 	}
-	
 }

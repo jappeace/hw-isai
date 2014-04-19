@@ -16,7 +16,7 @@ class Vehicle extends MovingEntity {
 			it.steer(tpf)
 		}
 		position += velocity
-		geom.move(Converter.toJME(velocity))
+		geometry.move(Converter.toJME(velocity))
 	}
 	
 	void add(ISteerable behaviour){

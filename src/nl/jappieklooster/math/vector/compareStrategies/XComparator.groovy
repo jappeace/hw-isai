@@ -1,11 +1,11 @@
 package nl.jappieklooster.math.vector.compareStrategies
 
-import nl.jappieklooster.math.vector.Vector2
+import nl.jappieklooster.math.vector.IVector2
 
-class XComparator extends BaseComparator implements Comparator<Vector2>{
+class XComparator extends BaseComparator implements Comparator<IVector2>{
 
 	@Override
-	public int compare(Vector2 one, Vector2 two) {
+	public int compare(IVector2 one, IVector2 two) {
 		return finalStep(one.x - two.x)
 		
 	}

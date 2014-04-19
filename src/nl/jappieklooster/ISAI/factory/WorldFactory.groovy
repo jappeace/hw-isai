@@ -2,6 +2,7 @@ package nl.jappieklooster.ISAI.factory
 
 import com.jme3.asset.AssetManager
 import nl.jappieklooster.ISAI.World
+import com.jme3.scene.Node
 
 class WorldFactory extends AbstractFactory{
 	
@@ -9,12 +10,12 @@ class WorldFactory extends AbstractFactory{
 		assetManager = manager
 		world = new World()
 		world.node = new Node("rootnode of world: " + System.identityHashCode(world))
+		world.entities = new LinkedList<>()
 	}
 	
 	World make(Closure commands){
-		WorldFactory factory = new WorldFactory()
-		new DelegateClosure(to: factory).call(commands)
-		return factory.world
+		new DelegateClosure(to: this).call(commands)
+		return world
 	}
 	
 	void vehicle(Closure commands){

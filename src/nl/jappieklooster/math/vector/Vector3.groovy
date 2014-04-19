@@ -1,12 +1,13 @@
 package nl.jappieklooster.math.vector
 
-import com.jme3.math.Vector3f
+import nl.jappieklooster.math.vector.compareStrategies.ThreeWayComparator
 
-class Vector3 extends Vector2{
+class Vector3 implements IVector3{
 	float z
+	Vector2 base
 
 	Vector3(){
-		this(defaultValue,defaultValue)
+		this(Vector2.defaultValue)
 	}
 	/** copy constructor, because handy*/
 	Vector3(Vector3 input){
@@ -16,14 +17,36 @@ class Vector3 extends Vector2{
 		this((float) both)
 	}
 	Vector3(float both){
-		this(both, both)
+		this(both, both, both)
 	}
 	Vector3(double x, double y){
-		this((float)x, (float)y)
+		this((float)x, (float)y, 0)
+	}
+	Vector3(double x, double y, double z){
+		this((float) x, (float) y, (float) z)
 	}
 	Vector3(float x, float y, float z){
-		super(x, y);
+		base = new Vector2(x, y);
+		compareStrategy = new ThreeWayComparator()
 		this.z = z;
+	}
+	float getX(){
+		base.x
+	}
+	float getY(){
+		base.y
+	}
+	void setX(float value){
+		base.x = value
+	}
+	void setY(float value){
+		base.y = value
+	}
+	Comparator<IVector2> getCompareStrategy(){
+		return base.compareStrategy
+	}
+	void setCompareStrategy(Comparator<IVector2> to){
+		base.compareStrategy = to
 	}
 	@Override
 	Object clone(){
@@ -119,7 +142,7 @@ class Vector3 extends Vector2{
 	}
 	@Override
 	float getLength(){
-		float xy = super.length
+		float xy = base.length
 		Math.sqrt(xy*xy + z*z)
 	}
 	@Override
@@ -138,8 +161,8 @@ class Vector3 extends Vector2{
 	}
 	void truncate(float max){
 		max = Math.abs(max)
-		super.truncate(max)
-		z = super.truncateOrKeep(z, max)
+		base.truncate(max)
+		z = base.truncateOrKeep(z, max)
 
 	}
 	float distance(Vector2 to){
@@ -162,7 +185,7 @@ class Vector3 extends Vector2{
 		
 	}
 	@Override
-	int compareTo(Vector3 to) {
+	int compareTo(IVector2 to) {
 		return compareStrategy.compare(this, to);
 	}
 
