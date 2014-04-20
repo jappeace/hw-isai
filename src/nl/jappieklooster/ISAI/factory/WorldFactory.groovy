@@ -13,9 +13,7 @@ import com.jme3.scene.Spatial;
 class WorldFactory extends SpatialFactory{
 	World world
 	AssetManager assetManager
-	private DelegateClosure closure
 	WorldFactory(AssetManager manager){
-		closure = new DelegateClosure(to: this)
 		assetManager = manager
 		world = new World()
 		world.node = new Node("rootnode of world: " + System.identityHashCode(world))
@@ -23,7 +21,7 @@ class WorldFactory extends SpatialFactory{
 	}
 	
 	World make(Closure commands){
-		closure.call(commands)
+		new DelegateClosure(to: this).call(commands)
 		return world
 	}
 	
@@ -41,25 +39,14 @@ class WorldFactory extends SpatialFactory{
 	 * It is a bit abstract but fairly clever*/
 	World group(Closure commands){
 		WorldFactory child = new WorldFactory(assetManager)
-
-		child.make(commands)
+		new DelegateClosure(to:child).call(commands)
 
 		world.entities.add(child.world)
 		world.node.attachChild(child.world.node)
 
 		return child.world
 	}
-	World groupEach(Collection items, Closure commands){
-        WorldFactory child = new WorldFactory(assetManager)
-		items.each{
-			child.closure.arguments = it
-			child.make(commands)
-		}
-		world.entities.add(child.world)
-		world.node.attachChild(child.world.node)
-		return child.world
-	}
-	
+
 	@Override
 	public Spatial getSpatial() {
 		world.node
