@@ -11,5 +11,8 @@ abstract class BaseComparator{
 		// the least likley is equality
 		return 0
 	}
+	int finalStep(double result){
+		return finalStep((float) result)
+	}
 
 }

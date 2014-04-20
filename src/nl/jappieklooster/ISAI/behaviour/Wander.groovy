@@ -10,7 +10,7 @@ class Wander implements ISteerable{
 	float jitter
 	Random random
 	Vector3 wanderTarget
-	MovingEntity target
+	MovingEntity entity
 
 	Wander(Random r){
 		random = r
@@ -22,10 +22,11 @@ class Wander implements ISteerable{
 		wanderTarget = wanderTarget.normalized
 		wanderTarget += new Vector3(constraintRadius)
 		Vector3 localTarget = wanderTarget + new Vector3(circleDistance, 0,0)
+		entity.force = entity.localToWorld(localTarget) - entity.position
 	}
 	@Override
 	public void setEntity(MovingEntity to) {
-		target = to
+		entity = to
 		
 	}
 	private float randomClamped(){

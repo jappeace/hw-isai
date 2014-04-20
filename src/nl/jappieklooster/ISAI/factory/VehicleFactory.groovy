@@ -12,8 +12,11 @@ import nl.jappieklooster.ISAI.entity.impl.Vehicle
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
-class VehicleFactory extends AbstractFactory{
+class VehicleFactory{
 	Vehicle vehicle
+	World world
+	private AssetManager assetManager
+
 	VehicleFactory(World world, AssetManager manager){
 
 		vehicle = new Vehicle()

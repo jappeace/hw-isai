@@ -20,4 +20,16 @@ abstract class MovingEntity extends Entity{
 		maxForce = 10
 		maxRotation = 10
 	}
+	
+	Vector3 localToWorld(Vector3 point){
+		point *= heading
+		point += position
+		return point
+	}
+	Vector3 worldToLocal(Vector3 point){
+		point -= position
+		point /= heading
+		return point
+	}
 }
+

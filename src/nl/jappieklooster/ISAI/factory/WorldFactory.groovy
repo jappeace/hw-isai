@@ -5,8 +5,10 @@ import nl.jappieklooster.ISAI.World
 import nl.jappieklooster.ISAI.entity.impl.Vehicle
 import com.jme3.scene.Node
 
-class WorldFactory extends AbstractFactory{
-	
+class WorldFactory{
+	World world
+	AssetManager assetManager
+
 	WorldFactory(AssetManager manager){
 		assetManager = manager
 		world = new World()
