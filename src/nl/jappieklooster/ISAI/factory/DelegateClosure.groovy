@@ -4,6 +4,7 @@ package nl.jappieklooster.ISAI.factory
 class DelegateClosure{
 
 	def to
+	def arguments
 	
 	void call( Closure callable ) {
 		if ( !callable ){
@@ -12,7 +13,12 @@ class DelegateClosure{
 
 		callable.delegate = to
 		callable.resolveStrategy = Closure.DELEGATE_FIRST
+		if(arguments){
+            callable.call(arguments)
+			return
+		}
 		callable.call()
 	}
+
 
 }
