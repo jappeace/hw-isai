@@ -21,6 +21,7 @@ class VehicleFactory extends SpatialFactory{
 
 	VehicleFactory(World world, AssetManager manager){
 
+		this.world = world
 		vehicle = new Vehicle()
 		assetManager = manager
 		Geometry geometry = new Geometry("Default box", new Box(1,1,1));
@@ -51,12 +52,16 @@ class VehicleFactory extends SpatialFactory{
 		vehicle.position = where
 	}
 	void behaviour(Closure commands){
-		new DelegateClosure(to:new BehaviourFactory(vehicle)).call(commands)
+		new DelegateClosure(to:new BehaviourFactory(vehicle, world)).call(commands)
 	}
 
 	@Override
 	public Spatial getSpatial() {
 		return vehicle.geometry
+	}
+	
+	void speed(float to){
+		vehicle.maxSpeed = to
 	}
 	
 }

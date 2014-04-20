@@ -25,7 +25,7 @@ class Window extends SimpleApplication {
 	@Override
 	public void simpleInitApp() {
 		flyCam.setMoveSpeed(100)
-        setUpLight()
+		setUpLight()
 		viewPort.setBackgroundColor(new ColorRGBA(0.5f, 0.3f, 0.2f, 1f));
 		world = new WorldFactory(assetManager).make{
 			vehicle{
@@ -33,25 +33,40 @@ class Window extends SimpleApplication {
 				location new Vector3(-3, 1.1, 0)
 			}
 
-			(0..20).each{ int number ->
-				vehicle{
-					location new Vector3(0,0,-20 * number)
-					behaviour{
-						flee{
-							Converter.fromJME(flyCam.cam.location)
-						}
+			group{
+				(0..20).each{ int number ->
+					vehicle{
+						location new Vector3(0,0,-20 * number)
 					}
 				}
-				vehicle{
-					location new Vector3(0,10*number,-2 * number)
-					behaviour{ wander() }
-				}
-				vehicle{
-					location new Vector3(-10*number, 0, 0)
+			}
+			group{
+				(0..10).each{ int number ->
+					vehicle{
+						location new Vector3(5*number,-7 * number, 6 * number - 50)
+						behaviour{ 
+							flock() 
+                        }
+						speed 10
+					}
+					vehicle{
+						location new Vector3(8*number,-10 * number, 7 * number - 30)
+						behaviour{ 
+							flock() 
+                        }
+						speed 12
+					}
 				}
 			}
+			group{
+				(0..20).each{ int number ->
+					vehicle{
+						location new Vector3(0.01 * number, 0, 0)
+					}
+				}
+			}
+			rootNode.attachChild(world.node)
 		}
-		rootNode.attachChild(world.node)
 	}
 
 	@Override

@@ -18,5 +18,32 @@ class World implements IWorldItem{
 	public Vector3 getPosition() {
 		return Converter.fromJME(node.localTranslation)
 	}
+	
+	/**
+	 * find stuff in this world
+	 * @param to: where to start measuring from
+	 * @param distance: the minimum distance to consider somthing a neighbour
+	 * @param test: an extra filter
+	 * @return
+	 */
+	List<IWorldItem> findNeighbours(IWorldItem to, float distance, Closure test = null){
+		List<IWorldItem> result = new ArrayList<>()
+		
+		entities.each{
+			if(it == to){
+				return
+			}
+			if(test){
+				if(!test(it)){
+					return
+				}
+			}
+			if((it.position - to.position).lengthSq < distance*distance){
+				result.add(it)
+			}
+		}
+		
+		return result
+	}
 
 }

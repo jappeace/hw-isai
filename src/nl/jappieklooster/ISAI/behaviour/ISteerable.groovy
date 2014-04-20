@@ -8,5 +8,6 @@ interface ISteerable {
 	
 	void steer()
 	void setEntity(MovingEntity to)
+	void setPower(Vector3 to)
 
 }
