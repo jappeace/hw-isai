@@ -21,10 +21,13 @@ abstract class MovingEntity extends Entity{
 		maxRotation = 10
 	}
 	
-	Vector3 localToWorld(Vector3 point){
-		point *= heading
-		point += position
-		return point
+	void setHeading(Vector3 to){
+		heading = to
+		geometry.rotateUpTo(Converter.toJME(to))
+	}
+	
+	Vector3 toWorldSpace(Vector3 input){
+		return Converter.fromJME(geometry.localToWorld(Converter.toJME(input), null))
 	}
 }
 

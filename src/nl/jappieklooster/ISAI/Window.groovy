@@ -34,9 +34,15 @@ class Window extends SimpleApplication {
 			(0..20).each{ int number ->
                 vehicle{
                     location new Vector3(0,0,-20 * number)
+					behaviour{
+						wander()
+					}
                 }
                 vehicle{
                     location new Vector3(0,10*number,-2 * number)
+					behaviour{
+						wander()
+					}
                 }
 			}
 		}

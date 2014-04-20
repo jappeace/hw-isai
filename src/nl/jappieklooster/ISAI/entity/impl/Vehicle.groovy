@@ -14,6 +14,7 @@ class Vehicle extends MovingEntity {
 	}
 	@Override
 	void update(float tpf){
+		force = new Vector3(0)
 		steeringBehaviours.each{
 			it.steer(tpf)
 		}
