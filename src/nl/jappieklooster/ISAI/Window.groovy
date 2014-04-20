@@ -47,14 +47,21 @@ class Window extends SimpleApplication {
 						behaviour{ 
 							flock() 
                         }
-						speed 10
+						speed 30
 					}
 					vehicle{
 						location new Vector3(8*number,-10 * number, 7 * number - 30)
 						behaviour{ 
 							flock() 
                         }
-						speed 12
+						speed 20
+					}
+					vehicle{
+						location new Vector3(8*number,-10 * number, 7 * number - 30)
+						behaviour{ 
+							flock() 
+                        }
+						speed 10
 					}
 				}
 			}

@@ -42,21 +42,21 @@ class BehaviourFactory{
 		bind(flee)
 	}
 	
-	ISteerable alignment(float radius = 160){
+	ISteerable alignment(float radius = 300){
 		Alignment alignment = new Alignment()
 		alignment.world = world
 		alignment.neighbourRadius = radius
 		bind(alignment)
 	}
 	
-	ISteerable cohesion(float radius = 100){
+	ISteerable cohesion(float radius = 140){
 		Cohesion cohesion = new Cohesion()
 		cohesion.world = world
 		cohesion.neighbourRadius = radius
 		bind(cohesion)
 	}
 	
-	ISteerable seperate(float radius = 50){
+	ISteerable seperate(float radius = 120){
 		Seperation seperation = new Seperation()
 		seperation.world = world
 		seperation.neighbourRadius = radius
@@ -66,11 +66,11 @@ class BehaviourFactory{
 	/** shorthand for flocking like behavior (its a combination) */
 	void flock(){
 		ISteerable seperate = seperate()
-		seperate.power = new Vector3(1)
+		seperate.power = new Vector3(6)
 		ISteerable cohesion = cohesion()
-		cohesion.power = new Vector3(0.5)
+		cohesion.power = new Vector3(0.1)
 		ISteerable alignment = alignment()
-		alignment.power = new Vector3(0.7)
+		alignment.power = new Vector3(1)
 		ISteerable wander = wander()
 		wander.power = new Vector3(1)
 	}

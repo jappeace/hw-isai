@@ -29,7 +29,7 @@ class VehicleFactory extends SpatialFactory{
 
 		Material material = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
 
-		material.setTexture("ColorMap", assetManager.loadTexture("Interface/Logo/Monkey.jpg"));
+		material.setTexture("ColorMap", assetManager.loadTexture("Textures/smile.png"));
 
 		geometry.setMaterial(material);
 		world.node.attachChild(geometry);
