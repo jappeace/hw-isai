@@ -44,6 +44,12 @@ class Window extends SimpleApplication {
 						wander()
 					}
                 }
+                vehicle{
+                    location new Vector3(-10*number, 0, 0)
+					behaviour{
+						wander()
+					}
+                }
 			}
 		}
 		rootNode.attachChild(world.node)

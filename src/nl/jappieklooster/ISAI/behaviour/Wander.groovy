@@ -18,7 +18,7 @@ class Wander implements ISteerable{
 	}
 	@Override
 	public void steer(float tpf) {
-		wanderTarget += new Vector3(randomClamped()*jitter)
+		wanderTarget += new Vector3(randomClamped()*jitter, randomClamped()*jitter, randomClamped()*jitter).normalized
 		wanderTarget = wanderTarget.normalized
 		wanderTarget *= new Vector3(constraintRadius)
 		entity.force += entity.toWorldSpace(wanderTarget + new Vector3(circleDistance)) - entity.position

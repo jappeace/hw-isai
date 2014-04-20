@@ -22,7 +22,7 @@ class BehaviourFactory{
 		random = random ?: new Random()
 	}
 	
-	ISteerable wander(float constraintRadius = 3, float circleDistance = 3, float jitter = 2){
+	ISteerable wander(float constraintRadius = 3, float circleDistance = 0, float jitter = 2){
 		Wander wander = new Wander(random)
 		wander.constraintRadius = constraintRadius
 		wander.circleDistance = circleDistance
