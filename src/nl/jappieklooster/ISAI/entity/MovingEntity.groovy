@@ -26,10 +26,5 @@ abstract class MovingEntity extends Entity{
 		point += position
 		return point
 	}
-	Vector3 worldToLocal(Vector3 point){
-		point -= position
-		point /= heading
-		return point
-	}
 }
 
