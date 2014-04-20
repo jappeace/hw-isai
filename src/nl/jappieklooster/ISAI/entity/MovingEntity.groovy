@@ -17,7 +17,7 @@ abstract class MovingEntity extends Entity{
 		force = new Vector3()
 		heading = new Vector3()
 		mass = 1
-		maxSpeed = 10
+		maxSpeed = 5
 		maxForce = 10
 		maxRotation = 10
 		friction = 0.05

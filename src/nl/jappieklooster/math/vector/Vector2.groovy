@@ -125,7 +125,10 @@ class Vector2 implements IVector2{
 	}
 	
 	float getLength(){
-		Math.sqrt(this.x * this.x + this.y * this.y)
+		Math.sqrt(getLengthSq())
+	}
+	float getLengthSq(){
+		this.x * this.x + this.y * this.y
 	}
 	Vector2 getNormalized(){
 		float magnitude = getLength();

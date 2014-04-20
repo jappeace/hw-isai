@@ -140,10 +140,13 @@ class Vector3 implements IVector3{
 			+this.z
 		)
 	}
-	@Override
 	float getLength(){
+		Math.sqrt(getLengthSq())
+	}
+	@Override
+	float getLengthSq(){
 		float xy = base.length
-		Math.sqrt(xy*xy + z*z)
+		xy*xy + z*z
 	}
 	@Override
 	Vector3 getNormalized(){

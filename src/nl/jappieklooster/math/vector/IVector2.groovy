@@ -14,4 +14,8 @@ interface IVector2 extends Cloneable, Comparable<IVector2>{
 	float getY()
 	void setX(float value)
 	void setY(float value)
+	/** do some pytagoras to calc the length */
+	float getLength()
+	/** same as length only does not apply square root */
+	float getLengthSq()
 }
