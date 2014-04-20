@@ -32,7 +32,7 @@ class BehaviourFactory{
 		return wander
 	}
 	
-	ISteerable run(Closure from){
+	ISteerable flee(Closure from){
 		Flee flee = new Flee()
 		flee.getFromCallback = from
 		vehicle.add(flee)

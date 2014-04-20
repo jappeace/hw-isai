@@ -5,14 +5,16 @@ import com.jme3.material.Material
 import com.jme3.math.Vector3f
 import com.jme3.scene.Geometry
 import com.jme3.scene.Mesh
+import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box
 import com.jme3.texture.Texture
+
 import nl.jappieklooster.ISAI.World
 import nl.jappieklooster.ISAI.entity.impl.Vehicle
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
-class VehicleFactory{
+class VehicleFactory extends SpatialFactory{
 	Vehicle vehicle
 	World world
 	private AssetManager assetManager
@@ -43,15 +45,18 @@ class VehicleFactory{
 		vehicle.geometry.mesh = shape
 	} 
 	
+	@Override
 	void location(Vector3 where){
+		super.location(where)
 		vehicle.position = where
-		vehicle.geometry.setLocalTranslation(Converter.toJME(where))	
-	}
-	void rotation(Vector3 how){
-		vehicle.geometry.rotateUpTo(Converter.toJME(how))
 	}
 	void behaviour(Closure commands){
 		new DelegateClosure(to:new BehaviourFactory(vehicle)).call(commands)
+	}
+
+	@Override
+	public Spatial getSpatial() {
+		return vehicle.geometry
 	}
 	
 }

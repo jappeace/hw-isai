@@ -1,14 +1,22 @@
 package nl.jappieklooster.ISAI
 import com.jme3.math.Vector3f
 import com.jme3.scene.Node
+import com.jme3.scene.shape.Sphere;
+
 import nl.jappieklooster.ISAI.entity.Entity
-class World {
+import nl.jappieklooster.math.vector.Vector3
+import nl.jappieklooster.math.vector.Converter
+class World implements IWorldItem{
 	Node node
-	List<Entity> entities
+	List<IWorldItem> entities
 	void update(float tpf){
 		entities.each{
 			it.update(tpf)
 		}
+	}
+	/** local position*/
+	public Vector3 getPosition() {
+		return Converter.fromJME(node.localTranslation)
 	}
 
 }
