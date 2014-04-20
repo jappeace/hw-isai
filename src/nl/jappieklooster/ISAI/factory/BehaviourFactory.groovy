@@ -8,6 +8,7 @@ import com.jme3.scene.Mesh
 import com.jme3.scene.shape.Box
 import com.jme3.texture.Texture
 import nl.jappieklooster.ISAI.World
+import nl.jappieklooster.ISAI.behaviour.Flee
 import nl.jappieklooster.ISAI.behaviour.ISteerable
 import nl.jappieklooster.ISAI.behaviour.Wander
 import nl.jappieklooster.ISAI.entity.impl.Vehicle
@@ -22,7 +23,7 @@ class BehaviourFactory{
 		random = random ?: new Random()
 	}
 	
-	ISteerable wander(float constraintRadius = 3, float circleDistance = 0, float jitter = 2){
+	ISteerable wander(float constraintRadius = 3, float circleDistance = 1, float jitter = 1){
 		Wander wander = new Wander(random)
 		wander.constraintRadius = constraintRadius
 		wander.circleDistance = circleDistance
@@ -30,6 +31,14 @@ class BehaviourFactory{
 		vehicle.add(wander) // bind to eachother
 		return wander
 	}
+	
+	ISteerable run(Closure from){
+		Flee flee = new Flee()
+		flee.getFromCallback = from
+		vehicle.add(flee)
+		return flee
+	}
+
 	
 	
 	

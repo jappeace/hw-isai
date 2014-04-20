@@ -13,6 +13,7 @@ import com.jme3.math.Transform
 import com.jme3.math.Vector3f
 import nl.jappieklooster.ISAI.factory.WorldFactory
 import nl.jappieklooster.math.vector.Vector3
+import nl.jappieklooster.math.vector.Converter
 
 class Window extends SimpleApplication {
 
@@ -35,7 +36,9 @@ class Window extends SimpleApplication {
                 vehicle{
                     location new Vector3(0,0,-20 * number)
 					behaviour{
-						wander()
+						run{
+							Converter.fromJME(flyCam.cam.location)
+						}
 					}
                 }
                 vehicle{
@@ -46,9 +49,6 @@ class Window extends SimpleApplication {
                 }
                 vehicle{
                     location new Vector3(-10*number, 0, 0)
-					behaviour{
-						wander()
-					}
                 }
 			}
 		}

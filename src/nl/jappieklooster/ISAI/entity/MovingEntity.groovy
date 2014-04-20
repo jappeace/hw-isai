@@ -10,6 +10,7 @@ abstract class MovingEntity extends Entity{
 	float maxSpeed
 	float maxForce
 	float maxRotation
+	float friction
 	
 	MovingEntity(){
 		velocity = new Vector3()
@@ -19,6 +20,7 @@ abstract class MovingEntity extends Entity{
 		maxSpeed = 10
 		maxForce = 10
 		maxRotation = 10
+		friction = 0.05
 	}
 	
 	void setHeading(Vector3 to){

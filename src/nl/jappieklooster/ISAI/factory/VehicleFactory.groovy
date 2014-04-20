@@ -44,6 +44,7 @@ class VehicleFactory{
 	} 
 	
 	void location(Vector3 where){
+		vehicle.position = where
 		vehicle.geometry.setLocalTranslation(Converter.toJME(where))	
 	}
 	void rotation(Vector3 how){

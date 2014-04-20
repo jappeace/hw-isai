@@ -6,7 +6,7 @@ import nl.jappieklooster.math.vector.Vector3
 
 interface ISteerable {
 	
-	void steer(float tpf)
+	void steer()
 	void setEntity(MovingEntity to)
 
 }
