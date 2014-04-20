@@ -149,7 +149,7 @@ class Vector2 implements IVector2{
 		if(target < 0){
 			target = target < -max ? -max : target
 		}else{
-			target = target < max ? max : target
+			target = target > max ? max : target
 		}
 		return target
 	}

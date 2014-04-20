@@ -8,11 +8,29 @@ import com.jme3.scene.Mesh
 import com.jme3.scene.shape.Box
 import com.jme3.texture.Texture
 import nl.jappieklooster.ISAI.World
+import nl.jappieklooster.ISAI.behaviour.ISteerable
+import nl.jappieklooster.ISAI.behaviour.Wander
 import nl.jappieklooster.ISAI.entity.impl.Vehicle
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
 class BehaviourFactory{
 	Vehicle vehicle
-
+	static Random random
+	BehaviourFactory(Vehicle vehicle){
+		this.vehicle = vehicle
+		random = random ?: new Random()
+	}
+	
+	ISteerable wander(float constraintRadius = 2, float circleDistance = 3, float jitter = 0.1){
+		Wander wander = new Wander(random)
+		wander.constraintRadius = constraintRadius
+		wander.circleDistance = circleDistance
+		wander.jitter = jitter
+		vehicle.add(wander) // bind to eachother
+		return wander
+	}
+	
+	
+	
 }

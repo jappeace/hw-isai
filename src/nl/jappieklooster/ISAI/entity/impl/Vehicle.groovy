@@ -9,6 +9,7 @@ class Vehicle extends MovingEntity {
 	List<ISteerable> steeringBehaviours
 
 	Vehicle(){
+		super()
 		steeringBehaviours = new ArrayList<>()
 	}
 	@Override

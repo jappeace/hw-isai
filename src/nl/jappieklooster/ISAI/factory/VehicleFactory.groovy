@@ -49,5 +49,8 @@ class VehicleFactory{
 	void rotation(Vector3 how){
 		vehicle.geometry.rotateUpTo(Converter.toJME(how))
 	}
+	void behaviour(Closure commands){
+		new DelegateClosure(to:new BehaviourFactory(vehicle)).call(commands)
+	}
 	
 }
