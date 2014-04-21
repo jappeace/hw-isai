@@ -72,6 +72,10 @@ class DivideAndConquer implements IFindStrategy{
 		
 		// prevent sqrt (sort of, the vecctor2 still uses it)
 		Vector3 shortest = one.lengthSq < two.lengthSq ? one : two
+		
+		// I added and [] acces to vector specialy for the following lines, which reduces code a lot
+		// on a 2d plane I used an if to determin the x or y, but adding another case to that construct
+		// seemed dumb
 		double strip = Math.abs(shortest[xyz])
 		double fieldWidth = items[items.size() -1].position[xyz]
 		double start = fieldWidth / 2 - strip / 2

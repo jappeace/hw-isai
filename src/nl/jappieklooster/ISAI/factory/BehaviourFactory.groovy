@@ -60,9 +60,9 @@ class BehaviourFactory extends AWorldFactory{
 		ISteerable seperate = seperate()
 		seperate.power = new Vector3(20)
 		ISteerable cohesion = cohesion()
-		cohesion.power = new Vector3(1)
+		cohesion.power = new Vector3(0.1)
 		ISteerable alignment = alignment()
-		alignment.power = new Vector3(5)
+		alignment.power = new Vector3(50)
 	}
 	
 	/**
