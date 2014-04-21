@@ -18,7 +18,7 @@ class WorldItemDistance {
 		if(obj.is(this)){
 			return true
 		}
-		if(! obj instanceof WorldItemDistance){
+		if(! (obj instanceof WorldItemDistance)){
 			return false
 		}
 		WorldItemDistance idist = (WorldItemDistance) obj

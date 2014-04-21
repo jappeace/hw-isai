@@ -9,7 +9,11 @@ import nl.jappieklooster.math.vector.Converter
 class World implements IWorldItem{
 	Node node
 	List<IWorldItem> entities
+	List<IUpdatable> listeners
 	void update(float tpf){
+		listeners.each{
+			it.update(tpf)
+		}
 		entities.each{
 			it.update(tpf)
 		}
@@ -24,7 +28,7 @@ class World implements IWorldItem{
 		if(obj.is(this)){
 			return true
 		}
-		if(! obj instanceof World){
+		if(!(obj instanceof World)){
 			return false
 		}
 		World world = (World) obj

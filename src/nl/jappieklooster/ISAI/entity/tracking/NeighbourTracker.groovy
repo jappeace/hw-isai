@@ -1,5 +1,6 @@
 package nl.jappieklooster.ISAI.entity.tracking
 
+import nl.jappieklooster.ISAI.IUpdatable
 import nl.jappieklooster.ISAI.World;
 import nl.jappieklooster.ISAI.entity.Entity
 import nl.jappieklooster.ISAI.IWorldItem
@@ -10,11 +11,12 @@ import nl.jappieklooster.ISAI.IWorldItem
  * 
  * This will only work with proper initilization
  * */
-class NeighbourTracker {
+class NeighbourTracker implements IUpdatable{
 
 	/** the world to read from */
 	World world
 	
+	/** a set of distances */
 	private SortedSet<Distance> distances
 
 	/** the resulting neighbours are stored in here */
@@ -26,9 +28,9 @@ class NeighbourTracker {
 
 	/** redetrimens which neigbours are where and stores that result into the neighbuffer */
 	void reset(){
-		distances.each{
-			it.isUsed = false
-		}
+        distances.each{
+            it.isUsed = false
+        }
 		
 		// clear the buffer
 		neighbuffer = new HashMap<>()
@@ -41,6 +43,7 @@ class NeighbourTracker {
                     return
                 }
 
+				// TODO: compare big then smaller and break so smallest does not get processed
 				distances.each{ Distance dist ->
 					
                     addToKey(against, to, dist.distance)
@@ -82,17 +85,8 @@ class NeighbourTracker {
 		distances.add(new Distance(which))
 	}
 
-	/**
-	 * find stuff in this world
-	 * @param to: where to start measuring from
-	 * @param distance: the minimum distance to consider somthing a neighbour
-	 * @param test: an extra filter
-	 * @return
-	 */
-	List<IWorldItem> findNeighbours(IWorldItem to, float distance, Closure test = null){
-		List<IWorldItem> result = new ArrayList<>()
-		
-		
-		return result
+	@Override
+	public void update(float tpf) {
+		reset()
 	}
 }

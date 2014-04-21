@@ -10,11 +10,7 @@ class Alignment extends ANeighbourAware{
 
 	@Override
 	public void steer() {
-		List<IWorldItem> neighbours = world.findNeighbours(entity, neighbourRadius,{
-			IWorldItem item ->
-			// gaurantee only movingentities are returned
-			item instanceof MovingEntity
-		})
+		List<IWorldItem> neighbours = tracker.getNeighbours(entity, neighbourRadius)
 		
 		// prevent eventual division by zero
 		if(neighbours.size() == 0){
@@ -22,16 +18,19 @@ class Alignment extends ANeighbourAware{
 		}
 		
 		Vector3 averageHeading = new Vector3()
+		int size = neighbours.size()
 		neighbours.each{
+			if(!it instanceof MovingEntity){
+				size--
+				return
+			}
 			
 			// because of previous gaurantee I can now safely cast
 			MovingEntity current = (MovingEntity) it
 			averageHeading += current.heading
 		}
 		
-		entity.force += (averageHeading / new Vector3(neighbours.size())) * power
-
-
+		entity.force += (averageHeading / new Vector3(size)) * power
 	}
 
 }

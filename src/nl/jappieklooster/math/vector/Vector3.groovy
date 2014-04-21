@@ -177,13 +177,13 @@ class Vector3 implements IVector3{
 	/** note this equals does a straight and cross comparison, either X and X and Y and Y or X and Y and Y and X, because the way the compareto is handled*/
 	@Override
 	boolean equals(Object to){
-		if(!to instanceof Vector3){
+		if(to.is(this)){
+			return true
+		}
+		if(!(to instanceof Vector3)){
 			return false
 		}
 		Vector3 target = (Vector3) to
-		if(target.is(this)){
-			return true
-		}
 
 		return compareStrategy.compare(this, target) == 0
 		

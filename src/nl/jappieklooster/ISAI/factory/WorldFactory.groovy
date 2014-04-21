@@ -4,6 +4,7 @@ import com.jme3.asset.AssetManager
 
 import nl.jappieklooster.ISAI.World
 import nl.jappieklooster.ISAI.entity.impl.Vehicle
+import nl.jappieklooster.ISAI.entity.tracking.NeighbourTracker
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
@@ -11,13 +12,19 @@ import com.jme3.scene.Node
 import com.jme3.scene.Spatial;
 
 class WorldFactory extends SpatialFactory{
-	World world
+
 	AssetManager assetManager
 	WorldFactory(AssetManager manager){
+		super(new World(), new NeighbourTracker())
 		assetManager = manager
-		world = new World()
+
 		world.node = new Node("rootnode of world: " + System.identityHashCode(world))
 		world.entities = new LinkedList<>()
+		world.listeners = new LinkedList<>()
+		
+		world.listeners.add(neighTracker)
+
+		neighTracker.world = world
 	}
 	
 	World make(Closure commands){
@@ -27,7 +34,7 @@ class WorldFactory extends SpatialFactory{
 	
 	/** create a new vehicle */
 	Vehicle vehicle(Closure commands){
-		VehicleFactory factory = new VehicleFactory(world, assetManager)
+		VehicleFactory factory = new VehicleFactory(world, assetManager, neighTracker)
 
 		new DelegateClosure(to:factory).call(commands)
 		world.entities.add(factory.vehicle)

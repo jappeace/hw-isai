@@ -11,6 +11,7 @@ import com.jme3.texture.Texture
 
 import nl.jappieklooster.ISAI.World
 import nl.jappieklooster.ISAI.entity.impl.Vehicle
+import nl.jappieklooster.ISAI.entity.tracking.NeighbourTracker
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
@@ -19,9 +20,9 @@ class VehicleFactory extends SpatialFactory{
 	World world
 	private AssetManager assetManager
 
-	VehicleFactory(World world, AssetManager manager){
+	VehicleFactory(World world, AssetManager manager, NeighbourTracker tracker){
+		super(world, tracker)
 
-		this.world = world
 		vehicle = new Vehicle()
 		assetManager = manager
 		Geometry geometry = new Geometry("Default box", new Box(1,1,1));
@@ -52,7 +53,7 @@ class VehicleFactory extends SpatialFactory{
 		vehicle.position = where
 	}
 	void behaviour(Closure commands){
-		new DelegateClosure(to:new BehaviourFactory(vehicle, world)).call(commands)
+		new DelegateClosure(to:new BehaviourFactory(vehicle, world, neighTracker)).call(commands)
 	}
 
 	@Override

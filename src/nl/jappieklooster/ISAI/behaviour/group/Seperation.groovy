@@ -11,7 +11,7 @@ class Seperation extends ANeighbourAware{
 	public void steer() {
 		Vector3 force = new Vector3()
 
-		world.findNeighbours(entity, neighbourRadius).each{
+		tracker.getNeighbours(entity, neighbourRadius).each{
 
 			Vector3 toAgent = entity.position - it.position
 			force += toAgent.normalized / new Vector3(toAgent.length)

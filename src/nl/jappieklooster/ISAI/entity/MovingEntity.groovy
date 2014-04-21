@@ -36,7 +36,7 @@ abstract class MovingEntity extends Entity{
 		if(obj.is(this)){
 			return true
 		}
-		if(! obj instanceof MovingEntity){
+		if(! (obj instanceof MovingEntity)){
 			return false
 		}
 		MovingEntity entity = (MovingEntity) obj

@@ -18,7 +18,7 @@ abstract class Entity implements IWorldItem{
 		if(obj.is(this)){
 			return true
 		}
-		if(! obj instanceof Entity){
+		if(! (obj instanceof Entity)){
 			return false
 		}
 		Entity entity = (Entity) obj

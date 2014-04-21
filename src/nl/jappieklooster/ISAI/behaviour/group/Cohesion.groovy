@@ -10,7 +10,7 @@ class Cohesion extends ANeighbourAware{
 
 	@Override
 	public void steer() {
-		List<IWorldItem> neighbours = world.findNeighbours(entity, neighbourRadius)
+		List<IWorldItem> neighbours = tracker.getNeighbours(entity, neighbourRadius)
 		
 		// prevent eventual division by zero
 		if(neighbours.size() == 0){

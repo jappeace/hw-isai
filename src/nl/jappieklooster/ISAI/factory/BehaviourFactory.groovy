@@ -11,20 +11,21 @@ import nl.jappieklooster.ISAI.World
 import nl.jappieklooster.ISAI.behaviour.Flee
 import nl.jappieklooster.ISAI.behaviour.ISteerable
 import nl.jappieklooster.ISAI.behaviour.Wander
+import nl.jappieklooster.ISAI.behaviour.group.ANeighbourAware
 import nl.jappieklooster.ISAI.behaviour.group.Alignment
 import nl.jappieklooster.ISAI.behaviour.group.Cohesion
 import nl.jappieklooster.ISAI.behaviour.group.Seperation
 import nl.jappieklooster.ISAI.entity.impl.Vehicle
+import nl.jappieklooster.ISAI.entity.tracking.NeighbourTracker
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
-class BehaviourFactory{
-	World world
+class BehaviourFactory extends AWorldFactory{
 	Vehicle vehicle
 	private static Random random
-	BehaviourFactory(Vehicle vehicle, World world){
+	BehaviourFactory(Vehicle vehicle, World world, NeighbourTracker neigh){
+		super(world, neigh)
 		this.vehicle = vehicle
-		this.world = world
 		random = random ?: new Random()
 	}
 	
@@ -43,24 +44,15 @@ class BehaviourFactory{
 	}
 	
 	ISteerable alignment(float radius = 300){
-		Alignment alignment = new Alignment()
-		alignment.world = world
-		alignment.neighbourRadius = radius
-		bind(alignment)
+        createANeighbourAware(new Alignment(), radius)
 	}
 	
 	ISteerable cohesion(float radius = 140){
-		Cohesion cohesion = new Cohesion()
-		cohesion.world = world
-		cohesion.neighbourRadius = radius
-		bind(cohesion)
+        createANeighbourAware(new Cohesion(), radius)
 	}
 	
 	ISteerable seperate(float radius = 120){
-		Seperation seperation = new Seperation()
-		seperation.world = world
-		seperation.neighbourRadius = radius
-		bind(seperation)
+        createANeighbourAware(new Seperation(), radius)
 	}
 	
 	/** shorthand for flocking like behavior (its a combination) */
@@ -85,7 +77,11 @@ class BehaviourFactory{
 		return what
 	}
 
-	
-	
-	
+	private ISteerable createANeighbourAware(ANeighbourAware what, float radius){
+		what.tracker = neighTracker
+		what.neighbourRadius = radius
+		bind(what)
+		neighTracker.addDistance(radius)
+		return what
+	}
 }
