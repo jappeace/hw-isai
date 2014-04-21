@@ -12,6 +12,7 @@ import com.jme3.scene.shape.StripBox
 import com.jme3.math.ColorRGBA
 import com.jme3.math.Transform
 import com.jme3.math.Vector3f
+import nl.jappieklooster.ISAI.behaviour.ISteerable
 import nl.jappieklooster.ISAI.factory.WorldFactory
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
@@ -31,6 +32,10 @@ class Window extends SimpleApplication {
 			vehicle{
 				mesh new Sphere(5, 5, 1)
 				location new Vector3(-3, 1.1, 0)
+				behaviour{
+					seek { Converter.fromJME(flyCam.cam.location) }
+				}
+				speed 30
 			}
 
 			group{
@@ -62,12 +67,16 @@ class Window extends SimpleApplication {
                         }
 						speed 20
 					}
+					(0..3).each{ int x ->
 					vehicle{
-						location new Vector3(8*number,-10 * number, 7 * number - 30)
+						location new Vector3(8*number * x,-10 * number * x * x, 7 * number - 30 * x * x * x)
 						behaviour{ 
 							flock() 
+							ISteerable attack = seek{Converter.fromJME(flyCam.cam.location)}
+							attack.power = new Vector3(0.01)
                         }
-						speed 10
+						speed 50
+					}
 					}
 				}
 			}

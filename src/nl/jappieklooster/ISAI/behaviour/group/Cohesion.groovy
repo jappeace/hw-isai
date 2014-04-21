@@ -3,11 +3,23 @@ package nl.jappieklooster.ISAI.behaviour.group
 import nl.jappieklooster.ISAI.IWorldItem
 import nl.jappieklooster.ISAI.World
 import nl.jappieklooster.ISAI.behaviour.AbstractSteerable;
+import nl.jappieklooster.ISAI.behaviour.Seek
 import nl.jappieklooster.ISAI.entity.MovingEntity
 import nl.jappieklooster.math.vector.Vector3
 
 class Cohesion extends ANeighbourAware{
 
+	private Seek seek = new Seek()
+	
+	@Override
+	void setEntity(MovingEntity ent){
+		super.setEntity(ent)
+		seek.entity = ent
+	}
+	void setPower(Vector3 to){
+		super.setPower(to)
+		seek.power = to
+	}
 	@Override
 	public void steer() {
 		List<IWorldItem> neighbours = tracker.getNeighbours(entity, neighbourRadius)
@@ -23,14 +35,10 @@ class Cohesion extends ANeighbourAware{
 			
 		}
 		
-		entity.force += 
-		(
-			(
-				(
-					centerOfMass / new Vector3(neighbours.size())) - entity.position
-            ) 
-                * new Vector3(entity.maxSpeed) - entity.velocity
-		) * power
+		seek.getFromCallback = {
+			centerOfMass / new Vector3(neighbours.size())
+		}
+		seek.steer()
 	}
 
 }

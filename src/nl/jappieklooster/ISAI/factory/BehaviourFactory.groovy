@@ -10,6 +10,7 @@ import com.jme3.texture.Texture
 import nl.jappieklooster.ISAI.World
 import nl.jappieklooster.ISAI.behaviour.Flee
 import nl.jappieklooster.ISAI.behaviour.ISteerable
+import nl.jappieklooster.ISAI.behaviour.Seek
 import nl.jappieklooster.ISAI.behaviour.Wander
 import nl.jappieklooster.ISAI.behaviour.group.ANeighbourAware
 import nl.jappieklooster.ISAI.behaviour.group.Alignment
@@ -42,12 +43,17 @@ class BehaviourFactory extends AWorldFactory{
 		flee.getFromCallback = from
 		bind(flee)
 	}
+	ISteerable seek(Closure from){
+		Seek flee = new Seek()
+		flee.getFromCallback = from
+		bind(flee)
+	}
 	
-	ISteerable alignment(float radius = 120){
+	ISteerable alignment(float radius = 90){
         createANeighbourAware(new Alignment(), radius)
 	}
 	
-	ISteerable cohesion(float radius = 90){
+	ISteerable cohesion(float radius = 120){
         createANeighbourAware(new Cohesion(), radius)
 	}
 	
@@ -60,7 +66,7 @@ class BehaviourFactory extends AWorldFactory{
 		ISteerable seperate = seperate()
 		seperate.power = new Vector3(20)
 		ISteerable cohesion = cohesion()
-		cohesion.power = new Vector3(0.1)
+		cohesion.power = new Vector3(2)
 		ISteerable alignment = alignment()
 		alignment.power = new Vector3(50)
 	}
