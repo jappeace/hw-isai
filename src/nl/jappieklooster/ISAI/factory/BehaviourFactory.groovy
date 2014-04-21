@@ -8,6 +8,7 @@ import com.jme3.scene.Mesh
 import com.jme3.scene.shape.Box
 import com.jme3.texture.Texture
 import nl.jappieklooster.ISAI.World
+import nl.jappieklooster.ISAI.behaviour.Explore
 import nl.jappieklooster.ISAI.behaviour.Flee
 import nl.jappieklooster.ISAI.behaviour.ISteerable
 import nl.jappieklooster.ISAI.behaviour.Seek
@@ -45,8 +46,11 @@ class BehaviourFactory extends AWorldFactory{
 	}
 	ISteerable seek(Closure from){
 		Seek flee = new Seek()
-		flee.getFromCallback = from
+		flee.getToCallback = from
 		bind(flee)
+	}
+	ISteerable explore(){
+		bind(new Explore())
 	}
 	
 	ISteerable alignment(float radius = 90){
@@ -88,4 +92,5 @@ class BehaviourFactory extends AWorldFactory{
 		neighTracker.addDistance(radius)
 		return what
 	}
+
 }

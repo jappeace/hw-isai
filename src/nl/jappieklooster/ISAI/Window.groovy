@@ -33,7 +33,7 @@ class Window extends SimpleApplication {
 				mesh new Sphere(5, 5, 1)
 				location new Vector3(-3, 1.1, 0)
 				behaviour{
-					seek { Converter.fromJME(flyCam.cam.location) }
+					explore()
 				}
 				speed 30
 			}
@@ -52,7 +52,7 @@ class Window extends SimpleApplication {
 				}
 			}
 			group{
-				(0..50).each{ int number ->
+				(0..10).each{ int number ->
 					vehicle{
 						location new Vector3(5*number,-7 * number, 6 * number - 50)
 						behaviour{ 

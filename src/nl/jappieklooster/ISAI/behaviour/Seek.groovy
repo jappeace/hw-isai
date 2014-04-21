@@ -6,11 +6,11 @@ import nl.jappieklooster.math.vector.Vector3
 class Seek extends AbstractSteerable{
 
 	/** a closure that provides a vector3 that specifies the location where to run from*/
-	Closure getFromCallback
+	Closure getToCallback
 	
 	@Override
 	public void steer() {
-		Vector3 runTo = getFromCallback()
+		Vector3 runTo = getToCallback()
         entity.force += (((runTo - entity.position).normalized * new Vector3(entity.maxForce)) - entity.velocity) * power
         return
 	}
