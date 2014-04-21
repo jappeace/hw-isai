@@ -192,4 +192,24 @@ class Vector2 implements IVector2{
 		// use the sqrt of one field to differentiate between the two
 		return (this.x * this.y).hashCode()
 	}
+	float getAt(int index){
+		switch(index){
+			case Dimension.x:
+				return x
+			case Dimension.y:
+				return y	
+		}
+		return Float.NaN
+	}
+	
+	void putAt(int index, float value) {
+		switch(index){
+			case Dimension.x:
+				x = value
+				return
+			case Dimension.y:
+				y = value
+				return
+		}
+	}
 }

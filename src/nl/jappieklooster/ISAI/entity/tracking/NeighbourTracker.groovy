@@ -4,6 +4,7 @@ import nl.jappieklooster.ISAI.IUpdatable
 import nl.jappieklooster.ISAI.World;
 import nl.jappieklooster.ISAI.entity.Entity
 import nl.jappieklooster.ISAI.entity.tracking.strategy.BruteForceStrategy
+import nl.jappieklooster.ISAI.entity.tracking.strategy.DivideAndConquer
 import nl.jappieklooster.ISAI.entity.tracking.strategy.IFindStrategy
 import nl.jappieklooster.ISAI.IWorldItem
 
@@ -28,7 +29,7 @@ class NeighbourTracker implements IUpdatable{
 	
 	NeighbourTracker(){
 		distances = new TreeSet<>()
-		strategy = new BruteForceStrategy()
+		strategy = new DivideAndConquer()
 	}
 
 	/** redetrimens which neigbours are where and stores that result into the neighbuffer */

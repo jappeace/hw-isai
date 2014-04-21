@@ -34,7 +34,7 @@ class Window extends SimpleApplication {
 			}
 
 			group{
-				(0..20).each{ int number ->
+				(0..50).each{ int number ->
 					vehicle{
 						location new Vector3(0,0,-20 * number)
 					}
@@ -47,7 +47,7 @@ class Window extends SimpleApplication {
 				}
 			}
 			group{
-				(0..10).each{ int number ->
+				(0..50).each{ int number ->
 					vehicle{
 						location new Vector3(5*number,-7 * number, 6 * number - 50)
 						behaviour{ 

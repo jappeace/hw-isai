@@ -205,4 +205,23 @@ class Vector3 implements IVector3{
 		// use the sqrt of one field to differentiate between the two
 		return (super.hashCode() * this.z).hashCode()
 	}
+	
+	static Vector3 max(){
+		new Vector3(Float.MAX_VALUE)
+	}
+
+	float getAt(int index){
+		if(index == Dimension.z){
+			return z
+		}
+		return base[index]
+	}
+	
+	void putAt(int index, float value) {
+		if(index == Dimension.z){
+			z = value
+			return
+		}
+		base[index] = value
+	}
 }
