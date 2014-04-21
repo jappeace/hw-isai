@@ -17,7 +17,6 @@ import nl.jappieklooster.math.vector.Converter
 
 class VehicleFactory extends SpatialFactory{
 	Vehicle vehicle
-	World world
 	private AssetManager assetManager
 
 	VehicleFactory(World world, AssetManager manager, NeighbourTracker tracker){
@@ -25,7 +24,7 @@ class VehicleFactory extends SpatialFactory{
 
 		vehicle = new Vehicle()
 		assetManager = manager
-		Geometry geometry = new Geometry("Default box", new Box(1,1,1));
+		Geometry geometry = new Geometry("Default box", new Box(1,1,1) );
 		geometry.setLocalTranslation(new Vector3f());
 
 		Material material = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
@@ -53,6 +52,7 @@ class VehicleFactory extends SpatialFactory{
 		vehicle.position = where
 	}
 	void behaviour(Closure commands){
+		world.shouldUpdate = true
 		new DelegateClosure(to:new BehaviourFactory(vehicle, world, neighTracker)).call(commands)
 	}
 

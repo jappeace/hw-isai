@@ -2,6 +2,7 @@ package nl.jappieklooster.ISAI.entity.tracking
 
 /**
  * keeps track of a float and if it has been used
+ * natural ordering is from big to small
  * @author jappie
  *
  */
@@ -21,7 +22,7 @@ class Distance implements Comparable<Distance>{
 
 	@Override
 	int compareTo(Distance rhs) {
-		(int) distance - rhs.distance
+		(int) rhs.distance - distance
 	}
 	
 	@Override

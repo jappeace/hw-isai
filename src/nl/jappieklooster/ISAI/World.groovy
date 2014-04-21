@@ -10,7 +10,11 @@ class World implements IWorldItem{
 	Node node
 	List<IWorldItem> entities
 	List<IUpdatable> listeners
+	boolean shouldUpdate = false
 	void update(float tpf){
+		if(!shouldUpdate){
+			return
+		}
 		listeners.each{
 			it.update(tpf)
 		}

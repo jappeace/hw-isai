@@ -10,8 +10,8 @@ class DelegateClosure{
 			return
 		}
 
-		callable.delegate = to
 		callable.resolveStrategy = Closure.DELEGATE_FIRST
+		callable.delegate = to
 		callable.call()
 	}
 

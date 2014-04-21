@@ -29,7 +29,7 @@ class Window extends SimpleApplication {
 		viewPort.setBackgroundColor(new ColorRGBA(0.5f, 0.3f, 0.2f, 1f));
 		world = new WorldFactory(assetManager).make{
 			vehicle{
-				mesh new Sphere(10, 100, 5)
+				mesh new Sphere(5, 5, 1)
 				location new Vector3(-3, 1.1, 0)
 			}
 
@@ -37,6 +37,12 @@ class Window extends SimpleApplication {
 				(0..20).each{ int number ->
 					vehicle{
 						location new Vector3(0,0,-20 * number)
+					}
+					vehicle{
+						location new Vector3(0,number,-40 * number)
+					}
+					vehicle{
+						location new Vector3(number*number,0,-30 * number)
 					}
 				}
 			}
@@ -50,7 +56,7 @@ class Window extends SimpleApplication {
 						speed 30
 					}
 					vehicle{
-						location new Vector3(8*number,-10 * number, 7 * number - 30)
+						location new Vector3(8*number,-5 * number, 7 * number - 30)
 						behaviour{ 
 							flock() 
                         }
@@ -70,10 +76,14 @@ class Window extends SimpleApplication {
 					vehicle{
 						location new Vector3(0.01 * number, 0, 0)
 					}
+                    vehicle{
+
+                        location new Vector3(number * number *3, number*2, 5*number -30)
+                    }
 				}
 			}
-			rootNode.attachChild(world.node)
 		}
+        rootNode.attachChild(world.node)
 	}
 
 	@Override

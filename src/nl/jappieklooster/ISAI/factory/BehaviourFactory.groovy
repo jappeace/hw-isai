@@ -43,28 +43,26 @@ class BehaviourFactory extends AWorldFactory{
 		bind(flee)
 	}
 	
-	ISteerable alignment(float radius = 300){
+	ISteerable alignment(float radius = 120){
         createANeighbourAware(new Alignment(), radius)
 	}
 	
-	ISteerable cohesion(float radius = 140){
+	ISteerable cohesion(float radius = 90){
         createANeighbourAware(new Cohesion(), radius)
 	}
 	
-	ISteerable seperate(float radius = 120){
+	ISteerable seperate(float radius = 30){
         createANeighbourAware(new Seperation(), radius)
 	}
 	
 	/** shorthand for flocking like behavior (its a combination) */
 	void flock(){
 		ISteerable seperate = seperate()
-		seperate.power = new Vector3(6)
+		seperate.power = new Vector3(20)
 		ISteerable cohesion = cohesion()
-		cohesion.power = new Vector3(0.1)
+		cohesion.power = new Vector3(1)
 		ISteerable alignment = alignment()
-		alignment.power = new Vector3(1)
-		ISteerable wander = wander()
-		wander.power = new Vector3(1)
+		alignment.power = new Vector3(5)
 	}
 	
 	/**

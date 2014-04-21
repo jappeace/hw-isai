@@ -18,7 +18,7 @@ class WorldFactory extends SpatialFactory{
 		super(new World(), new NeighbourTracker())
 		assetManager = manager
 
-		world.node = new Node("rootnode of world: " + System.identityHashCode(world))
+		world.node = new Node("rootnode of world: " + System.identityHashCode(world) + " creation time: " + System.nanoTime())
 		world.entities = new LinkedList<>()
 		world.listeners = new LinkedList<>()
 		
@@ -46,8 +46,21 @@ class WorldFactory extends SpatialFactory{
 	 * It is a bit abstract but fairly clever*/
 	World group(Closure commands){
 		WorldFactory child = new WorldFactory(assetManager)
-		new DelegateClosure(to:child).call(commands)
+		WorldFactory temp = new WorldFactory(assetManager)
+		
+		// I used to do this with delegate closure, But that did not work for some reason
+		temp.world = world
+		temp.neighTracker = neighTracker
+		world = child.world
+		neighTracker = child.neighTracker
 
+        make(commands)
+		
+		world = temp.world
+		neighTracker = temp.neighTracker
+
+		// if the child world updates we also should
+		world.shouldUpdate = world.shouldUpdate ?: child.world.shouldUpdate
 		world.entities.add(child.world)
 		world.node.attachChild(child.world.node)
 

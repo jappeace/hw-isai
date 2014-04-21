@@ -3,6 +3,8 @@ package nl.jappieklooster.ISAI.entity.tracking
 import nl.jappieklooster.ISAI.IUpdatable
 import nl.jappieklooster.ISAI.World;
 import nl.jappieklooster.ISAI.entity.Entity
+import nl.jappieklooster.ISAI.entity.tracking.strategy.BruteForceStrategy
+import nl.jappieklooster.ISAI.entity.tracking.strategy.IFindStrategy
 import nl.jappieklooster.ISAI.IWorldItem
 
 /** this thing is an optimization (ugly code gauranteed) 
@@ -16,6 +18,8 @@ class NeighbourTracker implements IUpdatable{
 	/** the world to read from */
 	World world
 	
+	IFindStrategy strategy
+	
 	/** a set of distances */
 	private SortedSet<Distance> distances
 
@@ -24,6 +28,7 @@ class NeighbourTracker implements IUpdatable{
 	
 	NeighbourTracker(){
 		distances = new TreeSet<>()
+		strategy = new BruteForceStrategy()
 	}
 
 	/** redetrimens which neigbours are where and stores that result into the neighbuffer */
@@ -31,25 +36,11 @@ class NeighbourTracker implements IUpdatable{
         distances.each{
             it.isUsed = false
         }
-		
-		// clear the buffer
-		neighbuffer = new HashMap<>()
-		
-		world.entities.each{ IWorldItem against ->
-			
-			// TODO: divide and conquer
-			world.entities.each{ IWorldItem to ->
-                if(against == to){
-                    return
-                }
+		// tell strategy about the world
+		strategy.targetItems = world.entities
 
-				// TODO: compare big then smaller and break so smallest does not get processed
-				distances.each{ Distance dist ->
-					
-                    addToKey(against, to, dist.distance)
-				}
-			}
-		}
+		// clear the buffer
+		neighbuffer = strategy.find(distances)
 		
 		// cleanup distances
 		Iterator<Distance> iter = distances.iterator()
@@ -60,23 +51,7 @@ class NeighbourTracker implements IUpdatable{
 			}
 		}
 	}
-	
-	// helper method because reset became a mes
-	private void addToKey(IWorldItem against, IWorldItem to, float distance){
 
-        if((against.position - to.position).lengthSq < distance*distance){
-            def key = new WorldItemDistance(to, distance)
-            List<IWorldItem> list
-            if(!neighbuffer.containsKey(key)){
-                list = new LinkedList<>()
-                neighbuffer.put(key, list)
-            }else{
-                list = neighbuffer.get(key)
-            }
-            list.add(against)
-        }
-	}
-	
 	List<IWorldItem> getNeighbours(IWorldItem to, float distance){
 		neighbuffer.get(new WorldItemDistance(to, distance)) ?: new LinkedList<>()
 	}
