@@ -12,4 +12,21 @@ abstract class Entity implements IWorldItem{
 	Vector3 getScale(){
 		Converter.fromJME(geometry.getLocalScale())
 	}
+	
+	@Override
+	boolean equals(Object obj){
+		if(obj.is(this)){
+			return true
+		}
+		if(! obj instanceof Entity){
+			return false
+		}
+		Entity entity = (Entity) obj
+		return entity.geometry == geometry && entity.position == position
+	}
+	
+	@Override
+	int hashCode(){
+		(geometry.hashCode() + position.hashCode() * 5).hashCode()
+	}
 }

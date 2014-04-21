@@ -1,4 +1,6 @@
-package nl.jappieklooster.ISAI
+package nl.jappieklooster.ISAI.behaviour.group
+
+import nl.jappieklooster.ISAI.Window;
 
 
 class Starter {

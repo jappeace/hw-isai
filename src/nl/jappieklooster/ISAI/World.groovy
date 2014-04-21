@@ -19,31 +19,21 @@ class World implements IWorldItem{
 		return Converter.fromJME(node.localTranslation)
 	}
 	
-	/**
-	 * find stuff in this world
-	 * @param to: where to start measuring from
-	 * @param distance: the minimum distance to consider somthing a neighbour
-	 * @param test: an extra filter
-	 * @return
-	 */
-	List<IWorldItem> findNeighbours(IWorldItem to, float distance, Closure test = null){
-		List<IWorldItem> result = new ArrayList<>()
-		
-		entities.each{
-			if(it == to){
-				return
-			}
-			if(test){
-				if(!test(it)){
-					return
-				}
-			}
-			if((it.position - to.position).lengthSq < distance*distance){
-				result.add(it)
-			}
+	@Override
+	boolean equals(Object obj){
+		if(obj.is(this)){
+			return true
 		}
-		
-		return result
+		if(! obj instanceof World){
+			return false
+		}
+		World world = (World) obj
+		return world.node == node && world.entities == entities
+	}
+	
+	@Override
+	int hashCode(){
+		(node.hashCode() + entities.hashCode() * 3).hashCode()
 	}
 
 }

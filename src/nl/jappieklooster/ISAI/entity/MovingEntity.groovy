@@ -31,5 +31,55 @@ abstract class MovingEntity extends Entity{
 	Vector3 toWorldSpace(Vector3 input){
 		return Converter.fromJME(geometry.localToWorld(Converter.toJME(input), null))
 	}
+	@Override
+	boolean equals(Object obj){
+		if(obj.is(this)){
+			return true
+		}
+		if(! obj instanceof MovingEntity){
+			return false
+		}
+		MovingEntity entity = (MovingEntity) obj
+		
+		// first compare primitives because they are lightweight
+		if(!(
+			entity.mass == mass && 
+			entity.maxSpeed == maxSpeed && 
+			entity.maxForce == maxForce && 
+			entity.maxRotation == maxRotation && 
+			entity.friction == friction
+        )){
+			return false
+		}
+
+		// now compare vectors (less lightwight)
+		if(!(
+			entity.velocity == velocity &&
+			entity.force == force &&
+			entity.heading == heading
+        )){
+            return false
+		}
+		if(!super.equals(entity)){
+			return false
+		}
+		return true
+	}
+	
+	@Override
+	int hashCode(){
+        (
+			super.hashCode() * 3 + 
+			velocity.hashCode() * 5 + 
+			force.hashCode() * 7 + 
+			heading.hashCode() * 9 +
+            mass * 5+ 
+			maxSpeed * 3 + 
+			maxForce + 
+			maxRotation + 
+			friction
+		).hashCode() 
+	}
 }
+
 
