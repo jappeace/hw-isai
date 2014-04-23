@@ -27,61 +27,29 @@ class Window extends SimpleApplication {
 	public void simpleInitApp() {
 		flyCam.setMoveSpeed(100)
 		setUpLight()
+		Random random = new Random()
 		viewPort.setBackgroundColor(new ColorRGBA(0.5f, 0.3f, 0.2f, 1f));
 		world = new WorldFactory(assetManager).make{
-			vehicle{
-				mesh new Sphere(5, 5, 1)
-				location new Vector3(-3, 1.1, 0)
-				behaviour{
-					explore()
-				}
-				speed 30
-			}
+			name "rootnode (sortof)"
 
 			group{
+
+				name "standing still node"
+				location new Vector3(-300, -300, -300)
+
+				(0..600).each{ int number ->
+					vehicle{
+						location new Vector3(0,0,number * 2)
+					}
+					vehicle{
+						location new Vector3(0,number * 2, 0)
+					}
+					vehicle{
+						location new Vector3(number * 2,0, 0)
+					}
+				}
+
 				(0..50).each{ int number ->
-					vehicle{
-						location new Vector3(0,0,-20 * number)
-					}
-					vehicle{
-						location new Vector3(0,number,-40 * number)
-					}
-					vehicle{
-						location new Vector3(number*number,0,-30 * number)
-					}
-				}
-			}
-			group{
-				(0..10).each{ int number ->
-					vehicle{
-						location new Vector3(5*number,-7 * number, 6 * number - 50)
-						behaviour{ 
-							flock() 
-                        }
-						speed 30
-					}
-					vehicle{
-						location new Vector3(8*number,-5 * number, 7 * number - 30)
-						behaviour{ 
-							flock() 
-                        }
-						speed 20
-					}
-					(0..3).each{ int x ->
-					vehicle{
-						location new Vector3(8*number * x,-10 * number * x * x, 7 * number - 30 * x * x * x)
-						behaviour{ 
-							flock() 
-							ISteerable attack = seek{Converter.fromJME(flyCam.cam.location)}
-							attack.power = new Vector3(0.01)
-                        }
-						speed 50
-					}
-					}
-				}
-			}
-			group{
-				(0..20).each{ int number ->
 					vehicle{
 						location new Vector3(0.01 * number, 0, 0)
 					}
@@ -90,6 +58,51 @@ class Window extends SimpleApplication {
                         location new Vector3(number * number *3, number*2, 5*number -30)
                     }
 				}
+			}
+			group{
+				name "moving stuffNode"
+
+                vehicle{
+					name "explorer"
+                    mesh new Sphere(5, 5, 1)
+                    location new Vector3(0, -300, 0)
+                    behaviour{
+                        explore()
+                    }
+                }
+
+				group{
+					name "flocking group"
+
+
+                    (0..30).each{ int number ->
+                        vehicle{
+                            location new Vector3(number * 8 - 20, random.nextDouble() * 10 - 20, random.nextDouble() * 10)
+                            behaviour{ 
+                                flock() 
+                            }
+                            mass 0.01
+							friction 0
+                        }
+                        vehicle{
+                            location new Vector3(number * 8, random.nextDouble() * 10, random.nextDouble() * 10)
+                            behaviour{ 
+                                flock() 
+                            }
+                            mass 1
+							friction 0
+                        }
+                        vehicle{
+                            location new Vector3(number * 8 + 20, random.nextDouble() * 10 + 20, random.nextDouble() * 10)
+                            behaviour{ 
+                                flock() 
+                            }
+                            mass 2
+							friction 0
+                        }
+                    }
+				}
+				
 			}
 		}
         rootNode.attachChild(world.node)

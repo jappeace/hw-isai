@@ -7,7 +7,6 @@ abstract class MovingEntity extends Entity{
 	Vector3 force
 	Vector3 heading
 	float mass
-	float maxSpeed
 	float maxForce
 	float maxRotation
 	float friction
@@ -17,7 +16,6 @@ abstract class MovingEntity extends Entity{
 		force = new Vector3()
 		heading = new Vector3()
 		mass = 1
-		maxSpeed = 5
 		maxForce = 10
 		maxRotation = 10
 		friction = 0.05
@@ -44,7 +42,6 @@ abstract class MovingEntity extends Entity{
 		// first compare primitives because they are lightweight
 		if(!(
 			entity.mass == mass && 
-			entity.maxSpeed == maxSpeed && 
 			entity.maxForce == maxForce && 
 			entity.maxRotation == maxRotation && 
 			entity.friction == friction
@@ -74,7 +71,6 @@ abstract class MovingEntity extends Entity{
 			force.hashCode() * 7 + 
 			heading.hashCode() * 9 +
             mass * 5+ 
-			maxSpeed * 3 + 
 			maxForce + 
 			maxRotation + 
 			friction

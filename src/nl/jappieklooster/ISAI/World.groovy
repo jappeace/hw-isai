@@ -26,7 +26,6 @@ class World implements IWorldItem{
 	public Vector3 getPosition() {
 		return Converter.fromJME(node.localTranslation)
 	}
-	
 	@Override
 	boolean equals(Object obj){
 		if(obj.is(this)){

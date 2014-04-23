@@ -61,8 +61,12 @@ class VehicleFactory extends SpatialFactory{
 		return vehicle.geometry
 	}
 	
-	void speed(float to){
-		vehicle.maxSpeed = to
+	void friction(float to){
+		vehicle.friction = to
+	}
+	
+	void mass(float mass){
+		vehicle.mass = mass
 	}
 	
 }

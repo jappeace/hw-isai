@@ -23,5 +23,11 @@ abstract class SpatialFactory extends AWorldFactory{
 		getSpatial().setLocalScale(Converter.toJME(to))
 	}
 
+	/**
+	 * set a name for the spatial for debugging or to organise init code
+	 */
+	void name(String name){
+		getSpatial().setName(name)
+	}
 	
 }

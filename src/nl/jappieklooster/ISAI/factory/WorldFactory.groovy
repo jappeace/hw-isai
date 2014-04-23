@@ -68,7 +68,8 @@ class WorldFactory extends SpatialFactory{
 	}
 
 	@Override
-	public Spatial getSpatial() {
+	Spatial getSpatial() {
 		world.node
 	}
+
 }

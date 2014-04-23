@@ -18,9 +18,8 @@ class Vehicle extends MovingEntity {
 		steeringBehaviours.each{
 			it.steer()
 		}
-		force -= new Vector3(friction) * force // friction, always slow stuff down, because air does the same
 		velocity += (force / new Vector3(mass))  * new Vector3(tpf) // calculate speed
-		velocity.truncate(maxSpeed)
+		velocity -= new Vector3(friction) * velocity
 		Vector3 movement = velocity * new Vector3(tpf) // calculate movement
 		
 		// keep track of the world location
