@@ -18,7 +18,7 @@ abstract class MovingEntity extends Entity{
 		mass = 1
 		maxForce = 10
 		maxRotation = 10
-		friction = 0.05
+		friction = 0.01
 	}
 	
 	void setHeading(Vector3 to){

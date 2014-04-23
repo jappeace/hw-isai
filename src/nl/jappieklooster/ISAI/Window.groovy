@@ -26,6 +26,7 @@ class Window extends SimpleApplication {
 	@Override
 	public void simpleInitApp() {
 		flyCam.setMoveSpeed(100)
+		flyCam.cam.setFrustumFar(9000)
 		setUpLight()
 		Random random = new Random()
 		viewPort.setBackgroundColor(new ColorRGBA(0.5f, 0.3f, 0.2f, 1f));
@@ -36,6 +37,13 @@ class Window extends SimpleApplication {
 
 				name "standing still node"
 				location new Vector3(-300, -300, -300)
+				
+				vehicle{
+					name "wall"
+					mesh new Box(1, 1080, 1920)
+					location new Vector3(-20,300,300)
+					texture "Textures/demon.jpg"
+				}
 
 				(0..600).each{ int number ->
 					vehicle{
@@ -81,7 +89,7 @@ class Window extends SimpleApplication {
                             behaviour{ 
                                 flock() 
                             }
-                            mass 0.01
+                            mass 0.5
 							friction 0
                         }
                         vehicle{
@@ -101,6 +109,21 @@ class Window extends SimpleApplication {
 							friction 0
                         }
                     }
+				}
+				
+				group{
+					name "wanderers"
+					location new Vector3(-50,0,0)
+                    (0..40).each{ int number ->
+
+						vehicle{
+							location new Vector3(random.nextDouble() * number, random.nextDouble() *number, random.nextDouble() * number)
+							behaviour{
+								wander()
+							}
+						}
+
+					}
 				}
 				
 			}
