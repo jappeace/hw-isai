@@ -1,7 +1,6 @@
-package nl.jappieklooster.ISAI.entity.impl
+package nl.jappieklooster.ISAI.entity
 
 import nl.jappieklooster.ISAI.behaviour.ISteerable
-import nl.jappieklooster.ISAI.entity.MovingEntity
 import nl.jappieklooster.math.vector.Converter;
 import nl.jappieklooster.math.vector.Vector3
 
