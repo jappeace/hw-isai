@@ -9,28 +9,14 @@ abstract class AbstractSteerable implements ISteerable{
 	/**
 	 * private to force apply force
 	 */
-	private MovingEntity entity
+	MovingEntity entity
 	/**
 	 *  the power of the behavior
 	 *  */
 	float chance
 	
-	/** 
-	 * saves object creation for everey apply force
-	 */
-	private Vector3 chanceForce
-	
-	void setChance(float to){
-		chance = to
-		chanceForce = new Vector3(to)
-	}
-
 	public void setEntity(MovingEntity to) {
 		entity = to
 		chance = 1
-	}
-	protected void applyForce(Vector3 force){
-		// correct for not being executed enough
-		entity.force /= chanceForce
 	}
 }

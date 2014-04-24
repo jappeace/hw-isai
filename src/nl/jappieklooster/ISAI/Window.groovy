@@ -94,7 +94,7 @@ class Window extends SimpleApplication {
 					name "flocking group"
 
 
-                    (0..100).each{ int number ->
+                    (0..30).each{ int number ->
                         vehicle{
                             location new Vector3(number * 8 - 20, random.nextDouble() * 10 - 20, random.nextDouble() * 10)
                             behaviour{ 
