@@ -69,10 +69,10 @@ class Window extends SimpleApplication {
                             float radius = 8
                             float height = 5
                             vehicle{
-                                location new Vector3(Math.sin(number)*radius, number*height, Math.cos(number)*radius)
+                                location new Vector3(Math.sin(number/2)*radius, number*height, Math.cos(number/2)*radius)
                             }
                             vehicle{
-                                location new Vector3(Math.sin(number + 180)*radius, number*height, Math.cos(number+ 180)*radius)
+                                location new Vector3(Math.sin(number/2 + Math.PI)*radius, number*height, Math.cos(number/2+ Math.PI)*radius)
                             }
                         
                         }
