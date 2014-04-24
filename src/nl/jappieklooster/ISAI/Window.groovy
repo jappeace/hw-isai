@@ -30,7 +30,7 @@ class Window extends SimpleApplication {
 		setUpLight()
 		Random random = new Random()
 		viewPort.setBackgroundColor(new ColorRGBA(0.5f, 0.3f, 0.2f, 1f));
-		world = new WorldFactory(assetManager).make{
+		world = new WorldFactory(assetManager, random).make{
 			name "rootnode (sortof)"
 
 			group{
@@ -47,13 +47,25 @@ class Window extends SimpleApplication {
 
 				(0..600).each{ int number ->
 					vehicle{
+						name "z"
 						location new Vector3(0,0,number * 2)
 					}
 					vehicle{
+						name "y"
 						location new Vector3(0,number * 2, 0)
 					}
 					vehicle{
+						name "x"
 						location new Vector3(number * 2,0, 0)
+					}
+					group{
+						location new Vector3(100, 0, 100)
+						name "helix"
+						vehicle{
+							location new Vector3(Math.sin(number)*4, number*4, Math.sin(number)*4)
+						
+						}
+					
 					}
 				}
 
@@ -65,8 +77,7 @@ class Window extends SimpleApplication {
 
                         location new Vector3(number * number *3, number*2, 5*number -30)
                     }
-				}
-			}
+				} }
 			group{
 				name "moving stuffNode"
 
@@ -83,7 +94,7 @@ class Window extends SimpleApplication {
 					name "flocking group"
 
 
-                    (0..30).each{ int number ->
+                    (0..100).each{ int number ->
                         vehicle{
                             location new Vector3(number * 8 - 20, random.nextDouble() * 10 - 20, random.nextDouble() * 10)
                             behaviour{ 
@@ -113,14 +124,11 @@ class Window extends SimpleApplication {
 				
 				group{
 					name "wanderers"
-					location new Vector3(-50,0,0)
+					location new Vector3(-500,0,0)
                     (0..40).each{ int number ->
 
 						vehicle{
 							location new Vector3(random.nextDouble() * number, random.nextDouble() *number, random.nextDouble() * number)
-							behaviour{
-								wander()
-							}
 						}
 
 					}

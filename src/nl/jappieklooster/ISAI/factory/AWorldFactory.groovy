@@ -14,8 +14,10 @@ import com.jme3.scene.Spatial;
 abstract class AWorldFactory{
 	World world
 	NeighbourTracker neighTracker
-	AWorldFactory(World world, NeighbourTracker tracker){
+	Random random
+	AWorldFactory(World world, NeighbourTracker tracker, Random random){
         neighTracker = tracker
 		this.world = world
+		this.random = random
 	}
 }

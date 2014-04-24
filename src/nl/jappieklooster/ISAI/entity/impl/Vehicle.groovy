@@ -16,7 +16,9 @@ class Vehicle extends MovingEntity {
 	void update(float tpf){
 		force = new Vector3(0) // reset the forces, to put more accent on steering
 		steeringBehaviours.each{
-			it.steer()
+			if(it.chance > random.nextDouble()){
+                it.steer()
+			}
 		}
 		velocity += (force / new Vector3(mass))  * new Vector3(tpf) // calculate speed
 		velocity -= new Vector3(friction) * velocity

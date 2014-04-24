@@ -7,6 +7,7 @@ import nl.jappieklooster.math.vector.*
 abstract class Entity implements IWorldItem{
 
 	protected Geometry geometry
+	Random random
 	/** world position */
 	Vector3 position
 	Vector3 getScale(){

@@ -11,7 +11,7 @@ class Seek extends AbstractSteerable{
 	@Override
 	public void steer() {
 		Vector3 runTo = getToCallback()
-        entity.force += (((runTo - entity.position).normalized * new Vector3(entity.maxForce)) - entity.velocity) * power
+        entity.force += (((runTo - entity.position).normalized * new Vector3(entity.maxForce)) - entity.velocity)
         return
 	}
 

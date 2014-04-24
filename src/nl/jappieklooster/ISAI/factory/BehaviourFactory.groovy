@@ -24,11 +24,9 @@ import nl.jappieklooster.math.vector.Converter
 
 class BehaviourFactory extends AWorldFactory{
 	Vehicle vehicle
-	private static Random random
-	BehaviourFactory(Vehicle vehicle, World world, NeighbourTracker neigh){
-		super(world, neigh)
+	BehaviourFactory(Vehicle vehicle, World world, NeighbourTracker neigh, Random random){
+		super(world, neigh, random)
 		this.vehicle = vehicle
-		random = random ?: new Random()
 	}
 	
 	ISteerable wander(float constraintRadius = 3, float circleDistance = 2, float jitter = 1){
@@ -68,11 +66,11 @@ class BehaviourFactory extends AWorldFactory{
 	/** shorthand for flocking like behavior (its a combination) */
 	void flock(){
 		ISteerable seperate = seperate()
-		seperate.power = new Vector3(0.2)
+		seperate.chance = 0.5
 		ISteerable alignment = alignment()
-		alignment.power = new Vector3(0.09)
+		alignment.chance = 0.3
 		ISteerable cohesion = cohesion()
-		cohesion.power = new Vector3(0.07)
+		cohesion.chance = 0.2
 	}
 	
 	/**

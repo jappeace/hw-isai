@@ -18,7 +18,7 @@ class Seperation extends ANeighbourAware{
 
 		}
 
-		entity.force += force * power
+		entity.force += force
 	}
 
 }

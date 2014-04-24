@@ -19,10 +19,11 @@ class VehicleFactory extends SpatialFactory{
 	Vehicle vehicle
 	private AssetManager assetManager
 
-	VehicleFactory(World world, AssetManager manager, NeighbourTracker tracker){
-		super(world, tracker)
+	VehicleFactory(World world, AssetManager manager, NeighbourTracker tracker, Random random){
+		super(world, tracker, random)
 
 		vehicle = new Vehicle()
+		vehicle.random = random
 		assetManager = manager
 		Geometry geometry = new Geometry("Default box", new Box(1,1,1) );
 		geometry.setLocalTranslation(new Vector3f());
@@ -53,7 +54,7 @@ class VehicleFactory extends SpatialFactory{
 	}
 	void behaviour(Closure commands){
 		world.shouldUpdate = true
-		new DelegateClosure(to:new BehaviourFactory(vehicle, world, neighTracker)).call(commands)
+		new DelegateClosure(to:new BehaviourFactory(vehicle, world, neighTracker, random)).call(commands)
 	}
 
 	@Override

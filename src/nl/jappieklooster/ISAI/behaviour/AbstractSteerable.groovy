@@ -6,14 +6,31 @@ import nl.jappieklooster.math.vector.Vector3
 /** classes that require acces to the entity should extend from this one, adds a default impl for set entity and stores it in to a varialbe named entity*/
 abstract class AbstractSteerable implements ISteerable{
 
-	MovingEntity entity
+	/**
+	 * private to force apply force
+	 */
+	private MovingEntity entity
 	/**
 	 *  the power of the behavior
 	 *  */
-	Vector3 power
+	float chance
+	
+	/** 
+	 * saves object creation for everey apply force
+	 */
+	private Vector3 chanceForce
+	
+	void setChance(float to){
+		chance = to
+		chanceForce = new Vector3(to)
+	}
 
 	public void setEntity(MovingEntity to) {
 		entity = to
-		power = new Vector3(1)
+		chance = 1
+	}
+	protected void applyForce(Vector3 force){
+		// correct for not being executed enough
+		entity.force /= chanceForce
 	}
 }

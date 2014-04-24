@@ -16,11 +16,6 @@ class Cohesion extends ANeighbourAware{
 		super.setEntity(ent)
 		seek.entity = ent
 	}
-	void setPower(Vector3 to){
-		super.setPower(to)
-		seek.power = to
-	}
-	@Override
 	public void steer() {
 		List<IWorldItem> neighbours = tracker.getNeighbours(entity, neighbourRadius)
 		
