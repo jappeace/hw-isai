@@ -56,7 +56,7 @@ class BehaviourFactory extends AWorldFactory{
         createANeighbourAware(new Alignment(), radius)
 	}
 	
-	ISteerable cohesion(float radius = 30){
+	ISteerable cohesion(float radius = 60){
         createANeighbourAware(new Cohesion(), radius)
 	}
 	
@@ -69,9 +69,9 @@ class BehaviourFactory extends AWorldFactory{
 		ISteerable seperate = seperate()
 		seperate.chance = 0.5
 		ISteerable alignment = alignment()
-		alignment.chance = 0.3
+		alignment.chance = 0.25
 		ISteerable cohesion = cohesion()
-		cohesion.chance = 0.2
+		cohesion.chance = 0.24
 		ISteerable wander = wander()
 		wander.chance = 0.01
 	}
