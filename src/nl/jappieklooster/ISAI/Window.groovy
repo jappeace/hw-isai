@@ -141,6 +141,9 @@ class Window extends SimpleApplication {
 
 	@Override
 	public void simpleUpdate(float tpf) {
+		if(tpf > 1){ // prevent a first huge tick or any other
+			return
+		}
 		world.update(tpf);
 	}
 	private void setUpLight() {
