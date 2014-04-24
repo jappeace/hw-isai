@@ -100,7 +100,7 @@ class Window extends SimpleApplication {
                             behaviour{ 
                                 flock() 
                             }
-                            mass 0.5
+                            mass 1
 							friction 0
                         }
                         vehicle{
@@ -108,7 +108,7 @@ class Window extends SimpleApplication {
                             behaviour{ 
                                 flock() 
                             }
-                            mass 1
+                            mass 1.5
 							friction 0
                         }
                         vehicle{
