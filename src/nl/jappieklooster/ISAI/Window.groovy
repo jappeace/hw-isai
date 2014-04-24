@@ -58,17 +58,26 @@ class Window extends SimpleApplication {
 						name "x"
 						location new Vector3(number * 2,0, 0)
 					}
-					group{
-						location new Vector3(100, 0, 100)
-						name "helix"
-						vehicle{
-							location new Vector3(Math.sin(number)*4, number*4, Math.sin(number)*4)
-						
-						}
-					
-					}
+
 				}
 
+				(1..5).each{ int outer ->
+                    (0..600).each{int number ->
+                        group{
+                            location new Vector3(100 * outer, 0, 100)
+                            name "helix"
+                            float radius = 8
+                            float height = 5
+                            vehicle{
+                                location new Vector3(Math.sin(number)*radius, number*height, Math.cos(number)*radius)
+                            }
+                            vehicle{
+                                location new Vector3(Math.sin(number + 180)*radius, number*height, Math.cos(number+ 180)*radius)
+                            }
+                        
+                        }
+                    }
+				}
 				(0..50).each{ int number ->
 					vehicle{
 						location new Vector3(0.01 * number, 0, 0)
