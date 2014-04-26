@@ -15,9 +15,7 @@ abstract class AWorldFactory{
 	World world
 	NeighbourTracker neighTracker
 	Random random
-	AWorldFactory(World world, NeighbourTracker tracker, Random random){
+	AWorldFactory(NeighbourTracker tracker){
         neighTracker = tracker
-		this.world = world
-		this.random = random
 	}
 }

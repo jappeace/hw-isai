@@ -17,10 +17,9 @@ import com.jme3.scene.Spatial;
 class WorldFactory extends SpatialFactory{
 
 	AssetManager assetManager
-	WorldFactory(AssetManager manager, Random random){
-		super(new World(), new NeighbourTracker(), random)
-
-		assetManager = manager
+	WorldFactory(){
+		super(new NeighbourTracker())
+		world = new World()
 
 		world.node = new Node("rootnode of world: " + System.identityHashCode(world) + " creation time: " + System.nanoTime())
 		world.entities = new LinkedList<>()
@@ -38,7 +37,10 @@ class WorldFactory extends SpatialFactory{
 	
 	/** create a new vehicle */
 	Vehicle vehicle(Closure commands){
-		VehicleFactory factory = new VehicleFactory(world, assetManager, neighTracker, random)
+		VehicleFactory factory = new VehicleFactory(neighTracker)
+		factory.world = world
+		factory.assetManager = assetManager
+		factory.random = random
 
 		new DelegateClosure(to:factory).call(commands)
 		world.entities.add(factory.vehicle)
@@ -49,8 +51,8 @@ class WorldFactory extends SpatialFactory{
 	/** create a new vehicle  group (World) to allow group behaviours, allows diferentation between groups and a peformance gain at the same time.
 	 * It is a bit abstract but fairly clever*/
 	World group(Closure commands){
-		WorldFactory child = new WorldFactory(assetManager, random)
-		WorldFactory temp = new WorldFactory(assetManager, random)
+		WorldFactory child = new WorldFactory(assetManager: assetManager, random: random)
+		WorldFactory temp = new WorldFactory(assetManager: assetManager, random: random)
 		
 		// I used to do this with delegate closure, But that did not work for some reason
 		temp.world = world
