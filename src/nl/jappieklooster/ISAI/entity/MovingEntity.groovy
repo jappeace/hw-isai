@@ -1,8 +1,9 @@
 package nl.jappieklooster.ISAI.entity
 
+import nl.jappieklooster.ISAI.IWorldItem
 import nl.jappieklooster.math.vector.*
 
-abstract class MovingEntity extends Entity{
+abstract class MovingEntity extends Entity implements IWorldItem{
 	protected Vector3 velocity
 	Vector3 force
 	Vector3 heading

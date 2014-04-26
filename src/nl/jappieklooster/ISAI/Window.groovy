@@ -12,6 +12,7 @@ import com.jme3.scene.shape.StripBox
 import com.jme3.math.ColorRGBA
 import com.jme3.math.Transform
 import com.jme3.math.Vector3f
+import java.util.concurrent.ScheduledThreadPoolExecutor
 import nl.jappieklooster.ISAI.behaviour.ISteerable
 import nl.jappieklooster.ISAI.factory.WorldFactory
 import nl.jappieklooster.math.vector.Vector3
@@ -20,7 +21,6 @@ import nl.jappieklooster.math.vector.Converter
 class Window extends SimpleApplication {
 
 	World world
-
 	Window(){
 	}
 	@Override
@@ -86,7 +86,8 @@ class Window extends SimpleApplication {
 
                         location new Vector3(number * number *3, number*2, 5*number -30)
                     }
-				} }
+				}
+            }
 			group{
 				name "moving stuffNode"
 
@@ -109,7 +110,7 @@ class Window extends SimpleApplication {
                             behaviour{ 
                                 flock() 
                             }
-                            mass 1
+                            mass 0.3
 							friction 0
                         }
                         vehicle{
@@ -117,7 +118,7 @@ class Window extends SimpleApplication {
                             behaviour{ 
                                 flock() 
                             }
-                            mass 1.5
+                            mass 0.5
 							friction 0
                         }
                         vehicle{
@@ -125,7 +126,7 @@ class Window extends SimpleApplication {
                             behaviour{ 
                                 flock() 
                             }
-                            mass 2
+                            mass 0.7
 							friction 0
                         }
                     }

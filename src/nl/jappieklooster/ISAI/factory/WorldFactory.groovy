@@ -2,6 +2,7 @@ package nl.jappieklooster.ISAI.factory
 
 import com.jme3.asset.AssetManager
 
+import java.util.concurrent.ScheduledThreadPoolExecutor
 import nl.jappieklooster.ISAI.World
 import nl.jappieklooster.ISAI.entity.Vehicle;
 import nl.jappieklooster.ISAI.entity.tracking.NeighbourTracker
@@ -16,6 +17,7 @@ class WorldFactory extends SpatialFactory{
 	AssetManager assetManager
 	WorldFactory(AssetManager manager, Random random){
 		super(new World(), new NeighbourTracker(), random)
+
 		assetManager = manager
 
 		world.node = new Node("rootnode of world: " + System.identityHashCode(world) + " creation time: " + System.nanoTime())

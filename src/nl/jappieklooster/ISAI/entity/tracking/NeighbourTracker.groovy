@@ -1,11 +1,15 @@
 package nl.jappieklooster.ISAI.entity.tracking
 
+import java.util.concurrent.Future
+import java.util.concurrent.ScheduledThreadPoolExecutor
 import nl.jappieklooster.ISAI.IUpdatable
 import nl.jappieklooster.ISAI.World;
 import nl.jappieklooster.ISAI.entity.Entity
 import nl.jappieklooster.ISAI.entity.tracking.strategy.BruteForceStrategy
 import nl.jappieklooster.ISAI.entity.tracking.strategy.DivideAndConquer
 import nl.jappieklooster.ISAI.entity.tracking.strategy.IFindStrategy
+import nl.jappieklooster.ISAI.entity.tracking.threading.ThreadResult
+import nl.jappieklooster.ISAI.entity.tracking.threading.TrackingThread
 import nl.jappieklooster.ISAI.IWorldItem
 
 /** this thing is an optimization (ugly code gauranteed) 
@@ -27,31 +31,23 @@ class NeighbourTracker implements IUpdatable{
 	/** the resulting neighbours are stored in here */
 	private Map<WorldItemDistance, List<IWorldItem>> neighbuffer
 	
+	/** I should put this in a central place, this class is central for each world and no other class needs actualy acces to threads */
+	private ScheduledThreadPoolExecutor threadPoolExecuter
+	private TrackingThread threadLogic
+	private static final int threadCount = 1
+	private Future future
+	
+	
+	
 	NeighbourTracker(){
 		distances = new TreeSet<>()
+        threadPoolExecuter = new ScheduledThreadPoolExecutor(threadCount) // curently only neighbourtracker uses it
 		strategy = new DivideAndConquer()
-	}
-
-	/** redetrimens which neigbours are where and stores that result into the neighbuffer */
-	void reset(){
-        distances.each{
-            it.isUsed = false
-        }
-		// tell strategy about the world
-		strategy.targetItems = world.entities
-
-		// clear the buffer
-		neighbuffer = strategy.find(distances)
+		neighbuffer = new HashMap<WorldItemDistance, List<IWorldItem>>()
 		
-		// cleanup distances
-		Iterator<Distance> iter = distances.iterator()
-		while(iter.hasNext()){
-			Distance d = iter.next()
-			if(!d.isUsed){
-				iter.remove()
-			}
-		}
+		threadLogic = new TrackingThread()
 	}
+
 
 	List<IWorldItem> getNeighbours(IWorldItem to, float distance){
 		neighbuffer.get(new WorldItemDistance(to, distance)) ?: new LinkedList<>()
@@ -61,8 +57,27 @@ class NeighbourTracker implements IUpdatable{
 		distances.add(new Distance(which))
 	}
 
+	/** redetrimens which neigbours are where and stores that result into the neighbuffer */
 	@Override
 	public void update(float tpf) {
-		reset()
+		
+		if(future == null){
+			threadLogic.distances = distances.clone()
+			threadLogic.strategy = strategy
+			threadLogic.world = world
+			future = threadPoolExecuter.submit(threadLogic)
+		}
+		// thread might be done already
+		if(future.isDone()){
+			ThreadResult result = future.get()
+			neighbuffer = result.neighbuffer
+			distances.retainAll(result.distances)
+			future = null
+			return
+		}
+		if(future.isCancelled()){
+			future = null
+		}
+
 	}
 }

@@ -1,10 +1,10 @@
 package nl.jappieklooster.ISAI.entity
 
 import com.jme3.scene.Geometry
-import nl.jappieklooster.ISAI.IWorldItem
+import nl.jappieklooster.ISAI.IPositionable
 import nl.jappieklooster.math.vector.*
 
-abstract class Entity implements IWorldItem{
+abstract class Entity implements IPositionable{
 
 	protected Geometry geometry
 	Random random

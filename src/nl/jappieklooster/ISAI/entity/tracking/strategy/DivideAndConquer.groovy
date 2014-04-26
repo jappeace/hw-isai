@@ -33,7 +33,7 @@ class DivideAndConquer implements IFindStrategy{
 		targetItems = new LinkedList<>()
 	}
 
-	/** redetrimens which neigbours are where and stores that result into the neighbuffer */
+	/** redetermens which neighbours are where and stores that result into the result */
 	Map<WorldItemDistance, List<IWorldItem>> find(SortedSet<Distance> tresholds){
 		this.tresholds = tresholds
 		// clear the buffer
@@ -107,13 +107,14 @@ class DivideAndConquer implements IFindStrategy{
 	private void addToListValue(IWorldItem keyOne, float keyTwo, IWorldItem value){
 
         def key = new WorldItemDistance(keyOne, keyTwo)
-        List<IWorldItem> list
-        if(!result.containsKey(key)){
+        List<IWorldItem> list = result[key]
+
+		if(list == null){
             list = new LinkedList<>()
-            result.put(key, list)
-        }else{
-            list = result.get(key)
-        }
+			result[key] = list
+		}
+
+		// in both cases add the value to the list
         list.add(value)
 	}
 }

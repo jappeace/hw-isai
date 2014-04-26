@@ -56,7 +56,7 @@ class BehaviourFactory extends AWorldFactory{
         createANeighbourAware(new Alignment(), radius)
 	}
 	
-	ISteerable cohesion(float radius = 60){
+	ISteerable cohesion(float radius = 40){
         createANeighbourAware(new Cohesion(), radius)
 	}
 	
