@@ -11,7 +11,7 @@ class Flee extends AbstractSteerable{
 	@Override
 	public void steer() {
 		Vector3 runFrom = getFromCallback()
-        entity.force += ((entity.position - runFrom).normalized * new Vector3(entity.maxForce))
+        entity.force += (entity.position - runFrom).normalized * new Vector3(entity.maxForce)
         return
 	}
 

@@ -70,4 +70,8 @@ class VehicleFactory extends SpatialFactory{
 		vehicle.mass = mass
 	}
 	
+	void heading(Vector3 to){
+		vehicle.heading = to.normalized
+	}
+	
 }

@@ -10,6 +10,7 @@ abstract class Entity implements IPositionable{
 	Random random
 	/** world position */
 	Vector3 position
+	
 	Vector3 getScale(){
 		Converter.fromJME(geometry.getLocalScale())
 	}

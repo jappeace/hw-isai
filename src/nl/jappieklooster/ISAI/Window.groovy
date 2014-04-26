@@ -110,7 +110,7 @@ class Window extends SimpleApplication {
                             behaviour{ 
                                 flock() 
                             }
-                            mass 0.3
+                            mass 0.03
 							friction 0
                         }
                         vehicle{
@@ -118,7 +118,7 @@ class Window extends SimpleApplication {
                             behaviour{ 
                                 flock() 
                             }
-                            mass 0.5
+                            mass 0.05
 							friction 0
                         }
                         vehicle{
@@ -126,7 +126,7 @@ class Window extends SimpleApplication {
                             behaviour{ 
                                 flock() 
                             }
-                            mass 0.7
+                            mass 0.07
 							friction 0
                         }
                     }
@@ -134,11 +134,15 @@ class Window extends SimpleApplication {
 				
 				group{
 					name "wanderers"
-					location new Vector3(-500,0,0)
+					location new Vector3(-600,0,0)
                     (0..40).each{ int number ->
 
 						vehicle{
 							location new Vector3(random.nextDouble() * number, random.nextDouble() *number, random.nextDouble() * number)
+							mass 1
+							behaviour{
+                                wander()
+							}
 						}
 
 					}
@@ -166,5 +170,10 @@ class Window extends SimpleApplication {
 		dl.setColor(ColorRGBA.White);
 		dl.setDirection(new Vector3f(2.8f, -2.8f, -2.8f).normalizeLocal());
 		rootNode.addLight(dl);
-	}
+	} 
+	@Override
+	void destroy() {
+        super.destroy();
+        //executor.shutdown();
+    }
 }

@@ -60,20 +60,18 @@ class BehaviourFactory extends AWorldFactory{
         createANeighbourAware(new Cohesion(), radius)
 	}
 	
-	ISteerable seperate(float radius = 12){
+	ISteerable seperate(float radius = 8){
         createANeighbourAware(new Seperation(), radius)
 	}
 	
 	/** shorthand for flocking like behavior (its a combination) */
 	void flock(){
 		ISteerable seperate = seperate()
-		seperate.chance = 0.5
+		seperate.chance = 0.1
 		ISteerable alignment = alignment()
-		alignment.chance = 0.25
+		alignment.chance = 0.05
 		ISteerable cohesion = cohesion()
-		cohesion.chance = 0.24
-		ISteerable wander = wander()
-		wander.chance = 0.01
+		cohesion.chance = 0.3
 	}
 	
 	/**

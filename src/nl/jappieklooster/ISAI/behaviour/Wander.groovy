@@ -20,7 +20,7 @@ class Wander extends AbstractSteerable{
 		wanderTarget += new Vector3(randomClamped()*jitter, randomClamped()*jitter, randomClamped()*jitter).normalized
 		wanderTarget = wanderTarget.normalized
 		wanderTarget *= new Vector3(constraintRadius)
-		entity.force += (entity.toWorldSpace(wanderTarget + new Vector3(circleDistance)) - entity.position)
+		entity.force += entity.toWorldSpace(wanderTarget + new Vector3(circleDistance)) - entity.position
 	}
 	private float randomClamped(){
 		random.nextFloat()*2-1

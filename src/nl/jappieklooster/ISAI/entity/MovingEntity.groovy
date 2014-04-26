@@ -28,7 +28,11 @@ abstract class MovingEntity extends Entity implements IWorldItem{
 	}
 	
 	Vector3 toWorldSpace(Vector3 input){
-		return Converter.fromJME(geometry.localToWorld(Converter.toJME(input), null))
+		
+		// fixes the fact that a spatial can be moved by chancing a parent node, however my position tracking does
+		// not know of this, so force calculation would result in huge numbers
+		Vector3 difference = Converter.fromJME(geometry.worldTranslation) - position
+		return Converter.fromJME(geometry.localToWorld(Converter.toJME(input), null)) - difference
 	}
 	@Override
 	boolean equals(Object obj){

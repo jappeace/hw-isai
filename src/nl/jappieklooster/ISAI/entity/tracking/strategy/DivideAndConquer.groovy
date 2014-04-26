@@ -18,18 +18,16 @@ import nl.jappieklooster.math.vector.Dimension
  * 
  * This will only work with proper initilization
  * */
-class DivideAndConquer implements IFindStrategy{
-	private static final int bruteTreshold = 5
-	/** the world to read from */
-	List<IWorldItem> targetItems
+class DivideAndConquer extends AbstractStrategy{
+	private static final int bruteTreshold = 8
 	private Comparator<IWorldItem>[] comparators = [
 		new ComparatorIWorldItemX(), 
 		new ComparatorIWorldItemY(), 
 		new ComparatorIWorldItemZ()
     ]
 	private SortedSet<Distance> tresholds
-	private Map<WorldItemDistance, List<IWorldItem>> result
 	DivideAndConquer(){
+		super()
 		targetItems = new LinkedList<>()
 	}
 
@@ -102,19 +100,5 @@ class DivideAndConquer implements IFindStrategy{
             addToListValue(one, dist.distance, two)
             addToListValue(two, dist.distance, one)
         }
-	}
-	
-	private void addToListValue(IWorldItem keyOne, float keyTwo, IWorldItem value){
-
-        def key = new WorldItemDistance(keyOne, keyTwo)
-        List<IWorldItem> list = result[key]
-
-		if(list == null){
-            list = new LinkedList<>()
-			result[key] = list
-		}
-
-		// in both cases add the value to the list
-        list.add(value)
 	}
 }

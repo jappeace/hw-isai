@@ -13,12 +13,10 @@ import nl.jappieklooster.ISAI.IWorldItem
  * 
  * This will only work with proper initilization
  * */
-class BruteForceStrategy implements IFindStrategy{
+class BruteForceStrategy extends AbstractStrategy{
 
-	/** the world to read from */
-	List<IWorldItem> targetItems
-	private Map<WorldItemDistance, List<IWorldItem>> result
 	BruteForceStrategy(){
+		super()
 		targetItems = new LinkedList<>()
 	}
 
@@ -44,17 +42,5 @@ class BruteForceStrategy implements IFindStrategy{
 			}
 		}
 		return result
-	}
-	private void addToListValue(IWorldItem keyOne, float keyTwo, IWorldItem value){
-
-        def key = new WorldItemDistance(keyOne, keyTwo)
-        List<IWorldItem> list
-        if(!result.containsKey(key)){
-            list = new LinkedList<>()
-            result.put(key, list)
-        }else{
-            list = result.get(key)
-        }
-        list.add(value)
 	}
 }
