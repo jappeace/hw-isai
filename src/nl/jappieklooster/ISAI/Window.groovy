@@ -12,9 +12,11 @@ import com.jme3.scene.shape.StripBox
 import com.jme3.math.ColorRGBA
 import com.jme3.math.Transform
 import com.jme3.math.Vector3f
+
 import java.util.concurrent.ScheduledThreadPoolExecutor
+
 import nl.jappieklooster.ISAI.behaviour.ISteerable
-import nl.jappieklooster.ISAI.factory.WorldFactory
+import nl.jappieklooster.ISAI.init.factory.WorldFactory;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
@@ -30,6 +32,7 @@ class Window extends SimpleApplication {
 		setUpLight()
 		Random random = new Random()
 		viewPort.setBackgroundColor(new ColorRGBA(0.5f, 0.3f, 0.2f, 1f));
+
 		world = new WorldFactory(assetManager, random).make{
 			name "rootnode (sortof)"
 

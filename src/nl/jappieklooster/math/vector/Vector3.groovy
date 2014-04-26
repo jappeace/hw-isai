@@ -59,7 +59,6 @@ class Vector3 implements IVector3{
 		return "(" + x + "," + y + "," + z +")"
 	}
 	///////// aritmatics
-	@Override
 	Vector3 plus(Vector3 rhs){
 		new Vector3(
 			this.x + rhs.x,
@@ -67,7 +66,6 @@ class Vector3 implements IVector3{
 			this.z + rhs.z
 		)
 	}
-	@Override
 	Vector3 minus(Vector3 rhs){
 		new Vector3(
 			this.x - rhs.x,
@@ -75,7 +73,6 @@ class Vector3 implements IVector3{
 			this.z - rhs.z
 		)
 	}
-	@Override
 	Vector3 multiply(Vector3 rhs){
 		new Vector3(
 			this.x * rhs.x,
@@ -83,7 +80,6 @@ class Vector3 implements IVector3{
 			this.z * rhs.z
 		)
 	}
-	@Override
 	Vector3 power(Vector3 rhs){
 		new Vector3(
 			this.x ** rhs.x,
@@ -91,7 +87,6 @@ class Vector3 implements IVector3{
 			this.z ** rhs.z
 		)
 	}
-	@Override
 	Vector3 div(Vector3 rhs){
 		new Vector3(
 			this.x / rhs.x,
@@ -99,7 +94,6 @@ class Vector3 implements IVector3{
 			this.z / rhs.z
 		)
 	}
-	@Override
 	Vector3 mod(Vector3 rhs){
 		new Vector3(
 			this.x % rhs.x,
@@ -108,14 +102,12 @@ class Vector3 implements IVector3{
 		)
 	}
 
-	@Override
 	Vector3 next(){
 		this.x++
 		this.y++
 		this.z++
 		return this
 	}
-	@Override
 	Vector3 previous(){
 		this.x--
 		this.y--
@@ -123,7 +115,6 @@ class Vector3 implements IVector3{
 		return this
 	}
 
-	@Override
 	Vector3 negative(){
 		new Vector3(
 			-this.x, 
@@ -132,7 +123,6 @@ class Vector3 implements IVector3{
 		)
 	}
 	
-	@Override
 	Vector3 positive(){
 		new Vector3(
 			+this.x, 
@@ -148,7 +138,6 @@ class Vector3 implements IVector3{
 		float xy = base.length
 		xy*xy + z*z
 	}
-	@Override
 	Vector3 getNormalized(){
 		float magnitude = getLength();
 		new Vector3 (
@@ -157,7 +146,6 @@ class Vector3 implements IVector3{
 			this.z / magnitude
 		)
 	}
-	@Override
 	float dotProduct(Vector3 from){
 		from = from.normalized
 		Math.acos(this.x * from.x + this.y * from.y + this.z * from.z)
@@ -193,7 +181,6 @@ class Vector3 implements IVector3{
 		return compareStrategy.compare(this, to);
 	}
 
-	@Override
 	boolean isCase(Vector3 lhs){
 		return lhs == this
 	}

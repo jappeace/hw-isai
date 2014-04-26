@@ -1,4 +1,4 @@
-package nl.jappieklooster.ISAI.factory
+package nl.jappieklooster.ISAI.init.factory
 
 import com.jme3.asset.AssetManager
 import com.jme3.material.Material

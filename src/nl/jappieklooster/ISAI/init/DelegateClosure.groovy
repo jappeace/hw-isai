@@ -1,4 +1,4 @@
-package nl.jappieklooster.ISAI.factory
+package nl.jappieklooster.ISAI.init
 
 /** lets a closure be executed as if it where a member method of the given object */
 class DelegateClosure{

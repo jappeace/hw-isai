@@ -52,42 +52,36 @@ class Vector2 implements IVector2{
 		return "(" + x + "," + y + ")"
 	}
 	///////// aritmatics
-	@Override
 	Vector2 plus(Vector2 rhs){
 		new Vector2(
 			this.x + rhs.x,
 			this.y + rhs.y
 		)
 	}
-	@Override
 	Vector2 minus(Vector2 rhs){
 		new Vector2(
 			this.x - rhs.x,
 			this.y - rhs.y
 		)
 	}
-	@Override
 	Vector2 multiply(Vector2 rhs){
 		new Vector2(
 			this.x * rhs.x,
 			this.y * rhs.y
 		)
 	}
-	@Override
 	Vector2 power(Vector2 rhs){
 		new Vector2(
 			this.x ** rhs.x,
 			this.y ** rhs.y
 		)
 	}
-	@Override
 	Vector2 div(Vector2 rhs){
 		new Vector2(
 			this.x / rhs.x,
 			this.y / rhs.y
 		)
 	}
-	@Override
 	Vector2 mod(Vector2 rhs){
 		new Vector2(
 			this.x % rhs.x,
@@ -95,20 +89,18 @@ class Vector2 implements IVector2{
 		)
 	}
 
-	@Override
 	Vector2 next(){
 		this.x++
 		this.y++
 		return this
 	}
-	@Override
+	
 	Vector2 previous(){
 		this.x--
 		this.y--
 		return this
 	}
 
-	@Override
 	Vector2 negative(){
 		new Vector2(
 			-this.x, 
@@ -116,7 +108,6 @@ class Vector2 implements IVector2{
 		)
 	}
 	
-	@Override
 	Vector2 positive(){
 		new Vector2(
 			+this.x, 
@@ -180,7 +171,6 @@ class Vector2 implements IVector2{
 		return compareStrategy.compare(this, to);
 	}
 
-	@Override
 	boolean isCase(Vector2 lhs){
 		return lhs == this
 	}

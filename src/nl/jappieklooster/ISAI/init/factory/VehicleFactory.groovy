@@ -1,4 +1,4 @@
-package nl.jappieklooster.ISAI.factory
+package nl.jappieklooster.ISAI.init.factory
 
 import com.jme3.asset.AssetManager
 import com.jme3.material.Material
@@ -12,6 +12,7 @@ import com.jme3.texture.Texture
 import nl.jappieklooster.ISAI.World
 import nl.jappieklooster.ISAI.entity.Vehicle;
 import nl.jappieklooster.ISAI.entity.tracking.NeighbourTracker
+import nl.jappieklooster.ISAI.init.DelegateClosure;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
