@@ -26,3 +26,6 @@ bin
 
 #do not commit other projects
 vendor/*
+
+#logs
+*.log
