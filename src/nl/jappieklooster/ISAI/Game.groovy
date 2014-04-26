@@ -20,10 +20,10 @@ import nl.jappieklooster.ISAI.init.factory.WorldFactory;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
-class Window extends SimpleApplication {
+class Game extends SimpleApplication {
 
 	World world
-	Window(){
+	Game(){
 	}
 	@Override
 	public void simpleInitApp() {

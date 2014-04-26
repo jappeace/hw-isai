@@ -32,16 +32,14 @@ class NeighbourTracker implements IUpdatable{
 	private Map<WorldItemDistance, List<IWorldItem>> neighbuffer
 	
 	/** I should put this in a central place, this class is central for each world and no other class needs actualy acces to threads */
-	private ScheduledThreadPoolExecutor threadPoolExecuter
 	private TrackingThread threadLogic
-	private static final int threadCount = 1
 	private Future future
 	
+	ScheduledThreadPoolExecutor threadPoolExecuter
 	
 	
 	NeighbourTracker(){
 		distances = new TreeSet<>()
-        threadPoolExecuter = new ScheduledThreadPoolExecutor(threadCount) // curently only neighbourtracker uses it
 		strategy = new DivideAndConquer()
 		neighbuffer = new HashMap<WorldItemDistance, List<IWorldItem>>()
 		
