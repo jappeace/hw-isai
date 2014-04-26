@@ -12,24 +12,21 @@ import com.jme3.scene.shape.StripBox
 import com.jme3.math.ColorRGBA
 import com.jme3.math.Transform
 import com.jme3.math.Vector3f
-
-import java.util.concurrent.ScheduledThreadPoolExecutor
+import nl.jappieklooster.math.vector.Converter
 
 import nl.jappieklooster.ISAI.behaviour.ISteerable
 import nl.jappieklooster.ISAI.init.LevelLoader
 import nl.jappieklooster.ISAI.init.factory.WorldFactory;
-import nl.jappieklooster.math.vector.Vector3
-import nl.jappieklooster.math.vector.Converter
 
 class Game extends SimpleApplication {
 
 	World world
 	LevelLoader loader
 	Game(){
-		loader = new LevelLoader()
 	}
 	@Override
 	public void simpleInitApp() {
+		loader = new LevelLoader(assetManager)
 		flyCam.setMoveSpeed(100)
 		flyCam.cam.setFrustumFar(9000)
 		setUpLight()
@@ -61,6 +58,7 @@ class Game extends SimpleApplication {
 	@Override
 	void destroy() {
         super.destroy();
+		loader.releaseThreadPool()
         //executor.shutdown();
     }
 }

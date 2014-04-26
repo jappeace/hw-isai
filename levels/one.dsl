@@ -1,3 +1,5 @@
+import nl.jappieklooster.math.vector.Vector3
+import com.jme3.scene.shape.*
 make{
 
     name "rootnode (sortof)"

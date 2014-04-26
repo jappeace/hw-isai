@@ -18,26 +18,28 @@ import nl.jappieklooster.math.vector.Converter
 
 class VehicleFactory extends SpatialFactory{
 	Vehicle vehicle
-	private AssetManager assetManager
+	AssetManager assetManager
 
-	VehicleFactory(World world, AssetManager manager, NeighbourTracker tracker, Random random){
-		super(world, tracker, random)
+	VehicleFactory(NeighbourTracker tracker){
+		super(tracker)
 
 		vehicle = new Vehicle()
-		vehicle.random = random
-		assetManager = manager
+		vehicle.velocity = new Vector3()
+		vehicle.position = new Vector3()
+	}
+	void setToDefault(){
 		Geometry geometry = new Geometry("Default box", new Box(1,1,1) );
 		geometry.setLocalTranslation(new Vector3f());
 
 		Material material = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-
 		material.setTexture("ColorMap", assetManager.loadTexture("Textures/smile.png"));
 
 		geometry.setMaterial(material);
-		world.node.attachChild(geometry);
+
 		vehicle.geometry = geometry
-		vehicle.velocity = new Vector3()
-		vehicle.position = new Vector3()
+		vehicle.random = random
+
+		world.node.attachChild(geometry);
 	}
 	
 	void texture(String path){
@@ -55,7 +57,11 @@ class VehicleFactory extends SpatialFactory{
 	}
 	void behaviour(Closure commands){
 		world.shouldUpdate = true
-		new DelegateClosure(to:new BehaviourFactory(vehicle, world, neighTracker, random)).call(commands)
+		BehaviourFactory factory = new BehaviourFactory(neighTracker)
+		factory.random = random
+		factory.vehicle = vehicle
+		factory.world = world
+		new DelegateClosure(to:factory).call(commands)
 	}
 
 	@Override

@@ -11,24 +11,25 @@ class LevelLoader {
 	private Random random // store the randomness
 	private ScheduledThreadPoolExecutor threadPoolExecuter
 	private static final int threadCount = 1
-	AssetManager manager
+	AssetManager assetManager
 
 	LevelLoader(AssetManager manager){
 		
-		this.manager = manager
+		assetManager = manager
 		random = new Random()
         threadPoolExecuter = new ScheduledThreadPoolExecutor(threadCount) // curently only neighbourtracker uses it
 
         CompilerConfiguration compilerConfig = new CompilerConfiguration();
-        compilerConfig.setScriptBaseClass(DelegatingScript.class);
-        GroovyShell shell = new GroovyShell(new Binding(),compilerConfig);
+        compilerConfig.setScriptBaseClass(DelegatingScript.class.name);
+        shell = new GroovyShell(new Binding(),compilerConfig);
 	}
 	
 	World loadFile(String path){
 		// load the new world
 		DelegatingScript script = (DelegatingScript)shell.parse(new File(path+".dsl"))
-		WorldFactory factory = new WorldFactory()
-		factory.neighTracker.threadPoolExecuter = threadPoolExecuter
+		WorldFactory factory = new WorldFactory(threadPoolExecuter)
+		factory.assetManager = assetManager
+		factory.random = random
 		script.setDelegate(factory)
 		script.run()
 

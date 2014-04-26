@@ -35,10 +35,11 @@ class NeighbourTracker implements IUpdatable{
 	private TrackingThread threadLogic
 	private Future future
 	
-	ScheduledThreadPoolExecutor threadPoolExecuter
+	private ScheduledThreadPoolExecutor threadPoolExecuter
 	
 	
-	NeighbourTracker(){
+	NeighbourTracker(ScheduledThreadPoolExecutor threadPool){
+		threadPoolExecuter = threadPool
 		distances = new TreeSet<>()
 		strategy = new DivideAndConquer()
 		neighbuffer = new HashMap<WorldItemDistance, List<IWorldItem>>()

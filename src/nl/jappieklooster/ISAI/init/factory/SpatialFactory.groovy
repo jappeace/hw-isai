@@ -8,8 +8,8 @@ import nl.jappieklooster.math.vector.Converter
 
 /** abstracts away the jme api calls, with jme abstraction */
 abstract class SpatialFactory extends AWorldFactory{
-	SpatialFactory(World world, NeighbourTracker tracker, Random random){
-		super(world, tracker, random)
+	SpatialFactory(NeighbourTracker tracker){
+		super(tracker)
 	}
 	abstract Spatial getSpatial()
 	void location(Vector3 where){

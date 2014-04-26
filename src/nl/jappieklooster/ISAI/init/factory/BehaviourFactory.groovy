@@ -25,8 +25,8 @@ import nl.jappieklooster.math.vector.Converter
 
 class BehaviourFactory extends AWorldFactory{
 	Vehicle vehicle
-	BehaviourFactory(Vehicle vehicle, World world, NeighbourTracker neigh, Random random){
-		super(world, neigh, random)
+	BehaviourFactory(NeighbourTracker neigh){
+		super(neigh)
 		this.vehicle = vehicle
 	}
 	
