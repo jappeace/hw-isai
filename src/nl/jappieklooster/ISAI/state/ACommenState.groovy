@@ -8,6 +8,7 @@ import com.jme3.asset.AssetManager
 import com.jme3.input.InputManager
 import com.jme3.renderer.ViewPort
 import com.jme3.scene.Node
+import nl.jappieklooster.ISAI.Game
 
 /**
  * set the stuff most states need on init
@@ -24,7 +25,7 @@ abstract class ACommenState extends AbstractAppState{
 	@Override
 	public void initialize(AppStateManager stateManager, Application givenApp) {
 		super.initialize(stateManager, givenApp)
-		SimpleApplication app = (SimpleApplication) givenApp;
+		Game app = (Game) givenApp;
 		rootNode     = app.getRootNode();
 		assetManager = app.getAssetManager();
 		inputManager = app.getInputManager();
@@ -33,6 +34,6 @@ abstract class ACommenState extends AbstractAppState{
 		init(app)
 	}
 	
-	abstract void init(SimpleApplication app);
+	abstract void init(Game app);
 
 }

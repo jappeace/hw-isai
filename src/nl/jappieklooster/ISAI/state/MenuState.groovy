@@ -1,7 +1,5 @@
 package nl.jappieklooster.ISAI.state
 
-import com.jme3.app.Application
-import com.jme3.app.SimpleApplication
 import com.jme3.app.state.AbstractAppState
 import com.jme3.app.state.AppStateManager
 import com.jme3.material.Material
@@ -11,27 +9,29 @@ import com.jme3.scene.shape.Box
 import de.lessvoid.nifty.Nifty
 import de.lessvoid.nifty.screen.Screen
 import de.lessvoid.nifty.screen.ScreenController
+import nl.jappieklooster.ISAI.Game
+import nl.jappieklooster.ISAI.world.World
 import com.jme3.math.Vector3f
+import com.jme3.input.FlyByCamera;
 
 class MenuState extends ACommenState implements ScreenController{
 
+	World world
     private Nifty nifty;
+	private FlyByCamera cam
 	@Override
-	void init(SimpleApplication app) {
+	void init(Game app) {
 
-        NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(app.assetManager,
-                                                          app.inputManager,
-                                                          app.audioRenderer,
-                                                          app.guiViewPort);
-        nifty = niftyDisplay.getNifty();
+		if(world){
+			rootNode.attachChild(world.node)
+		}
+		nifty = app.nifty
         nifty.fromXml("Interface/Menu.xml", "start", this);
 
-        // attach the nifty display to the gui view port as a processor
-        app.guiViewPort.addProcessor(niftyDisplay);
 
+		cam = app.flyCam
         // disable the fly cam
-//        flyCam.setEnabled(false);
-//        flyCam.setDragToRotate(true);
+		cam.setDragToRotate(true);
         inputManager.setCursorVisible(true);
 	}
 
@@ -51,9 +51,10 @@ class MenuState extends ACommenState implements ScreenController{
     }
 
     void onEndScreen() {
-        System.out.println("onEndScreen");
+
+		cam.setDragToRotate(false);
         inputManager.setCursorVisible(false);
-		stateManager.attach(new PlayingState())
+		stateManager.attach(new PlayingState(world:world))
 		stateManager.detach(this)
     }
 
@@ -73,4 +74,10 @@ class MenuState extends ACommenState implements ScreenController{
 	int hashCode(){
 		return this.class.hashCode()
 	}
+	@Override
+	void cleanup() {
+		super.cleanup()
+		nifty.exit()
+	}
 }
+

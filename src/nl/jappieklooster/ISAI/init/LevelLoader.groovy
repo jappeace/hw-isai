@@ -17,9 +17,8 @@ class LevelLoader {
 	private static final int threadCount = 1
 	AssetManager assetManager
 
-	LevelLoader(AssetManager manager){
+	LevelLoader(){
 		
-		assetManager = manager
 		random = new Random()
         threadPoolExecuter = new ScheduledThreadPoolExecutor(threadCount) // curently only neighbourtracker uses it
 
@@ -36,11 +35,11 @@ class LevelLoader {
 		factory.random = random
 		script.setDelegate(factory)
 		script.run()
-
+		factory.world.name = path
 		return factory.world
 	}
 	
-	void releaseThreadPool(){
+	void shutdownThreadPool(){
 		threadPoolExecuter.shutdown()
 	}
 }
