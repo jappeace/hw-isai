@@ -40,15 +40,15 @@ class PlayingState extends ACommenState{
 		
 		level = "one"
 		
-		InputDirector director = new InputDirector(app.inputManager)
+		InputDirector director = new InputDirector(inputManager)
 		director.addHandler(
 			new InputHandler(
 				triggers:[
-					new KeyTrigger(KeyInput.KEY_P)
+					new KeyTrigger(KeyInput.KEY_X)
 				],
 				handler:{float value, float tpf, String name ->
 					stateManager.attach(new MenuState())
-					stateManager.detach(delagate)
+					stateManager.detach(delegate)
 				}
 			)
 		)

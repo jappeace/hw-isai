@@ -18,12 +18,15 @@ class InputDirector {
 
 	void addHandler(InputHandler handler){
 		handler.triggers.eachWithIndex { Trigger trigger, int index ->
-			if(index < handler.names.size()){
+			if(index <= handler.names.size()){
 				handler.names[index] = trigger.name
 			}
 			inputManager.addMapping(handler.names[index], trigger)
 		}
-		inputManager.addListener(handler, (String[])handler.names.toArray())
+		String[] names = (String[])handler.names.toArray()
+		inputManager.addListener(handler, names)
+		int x = 3
+		x--
 	}
 	void removeHandler(InputHandler handler){
 		inputManager.removeListener(handler)

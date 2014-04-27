@@ -10,9 +10,10 @@ import com.jme3.scene.Geometry
 import com.jme3.scene.shape.Box
 import de.lessvoid.nifty.Nifty
 import de.lessvoid.nifty.screen.Screen
+import de.lessvoid.nifty.screen.ScreenController
 import com.jme3.math.Vector3f
 
-class MenuState extends ACommenState{
+class MenuState extends ACommenState implements ScreenController{
 
     private Nifty nifty;
 	@Override
@@ -30,7 +31,7 @@ class MenuState extends ACommenState{
                                                           app.audioRenderer,
                                                           app.guiViewPort);
         nifty = niftyDisplay.getNifty();
-        nifty.fromXml("Interface/Nifty/HelloJme.xml", "start", this);
+        nifty.fromXml("Interface/Menu.xml", "start", this);
 
         // attach the nifty display to the gui view port as a processor
         app.guiViewPort.addProcessor(niftyDisplay);
@@ -41,6 +42,12 @@ class MenuState extends ACommenState{
         inputManager.setCursorVisible(true);
 	}
 
+	
+	@Override
+	void update(float tpf){
+		int x = 3;	
+		x++
+	}
 
     public void bind(Nifty nifty, Screen screen) {
         System.out.println("bind( " + screen.getScreenId() + ")");
