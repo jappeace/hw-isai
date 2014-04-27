@@ -4,10 +4,10 @@ import com.jme3.asset.AssetManager
 
 import java.util.concurrent.ScheduledThreadPoolExecutor
 
-import nl.jappieklooster.ISAI.World
-import nl.jappieklooster.ISAI.entity.Vehicle;
-import nl.jappieklooster.ISAI.entity.tracking.NeighbourTracker
 import nl.jappieklooster.ISAI.init.DelegateClosure;
+import nl.jappieklooster.ISAI.world.World;
+import nl.jappieklooster.ISAI.world.entity.Vehicle;
+import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 

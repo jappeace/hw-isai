@@ -1,7 +1,8 @@
-package nl.jappieklooster.ISAI.entity
+package nl.jappieklooster.ISAI.world.entity
 
 import com.jme3.scene.Geometry
-import nl.jappieklooster.ISAI.IPositionable
+
+import nl.jappieklooster.ISAI.world.IPositionable;
 import nl.jappieklooster.math.vector.*
 
 abstract class Entity implements IPositionable{

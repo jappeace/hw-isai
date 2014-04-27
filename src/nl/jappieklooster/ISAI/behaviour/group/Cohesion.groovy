@@ -1,10 +1,10 @@
 package nl.jappieklooster.ISAI.behaviour.group
 
-import nl.jappieklooster.ISAI.IWorldItem
-import nl.jappieklooster.ISAI.World
 import nl.jappieklooster.ISAI.behaviour.AbstractSteerable;
 import nl.jappieklooster.ISAI.behaviour.Seek
-import nl.jappieklooster.ISAI.entity.MovingEntity
+import nl.jappieklooster.ISAI.world.IWorldItem;
+import nl.jappieklooster.ISAI.world.World;
+import nl.jappieklooster.ISAI.world.entity.MovingEntity;
 import nl.jappieklooster.math.vector.Vector3
 
 class Cohesion extends ANeighbourAware{

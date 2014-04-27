@@ -11,8 +11,8 @@ import com.jme3.light.DirectionalLight
 import com.jme3.math.ColorRGBA
 import com.jme3.math.Vector3f
 
-import nl.jappieklooster.ISAI.World
 import nl.jappieklooster.ISAI.init.LevelLoader
+import nl.jappieklooster.ISAI.world.World;
 
 import com.jme3.app.SimpleApplication
 import com.jme3.scene.Node

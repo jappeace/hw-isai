@@ -8,7 +8,6 @@ import com.jme3.scene.Mesh
 import com.jme3.scene.shape.Box
 import com.jme3.texture.Texture
 
-import nl.jappieklooster.ISAI.World
 import nl.jappieklooster.ISAI.behaviour.Explore
 import nl.jappieklooster.ISAI.behaviour.Flee
 import nl.jappieklooster.ISAI.behaviour.ISteerable
@@ -18,8 +17,9 @@ import nl.jappieklooster.ISAI.behaviour.group.ANeighbourAware
 import nl.jappieklooster.ISAI.behaviour.group.Alignment
 import nl.jappieklooster.ISAI.behaviour.group.Cohesion
 import nl.jappieklooster.ISAI.behaviour.group.Seperation
-import nl.jappieklooster.ISAI.entity.Vehicle;
-import nl.jappieklooster.ISAI.entity.tracking.NeighbourTracker
+import nl.jappieklooster.ISAI.world.World;
+import nl.jappieklooster.ISAI.world.entity.Vehicle;
+import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 

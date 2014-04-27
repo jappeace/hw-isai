@@ -1,6 +1,6 @@
-package nl.jappieklooster.ISAI.entity.compare
+package nl.jappieklooster.ISAI.world.entity.compare
 
-import nl.jappieklooster.ISAI.IWorldItem
+import nl.jappieklooster.ISAI.world.IWorldItem;
 import nl.jappieklooster.math.vector.IVector2
 import nl.jappieklooster.math.vector.compareStrategies.ZComparator
 

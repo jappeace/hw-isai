@@ -1,7 +1,7 @@
 package nl.jappieklooster.ISAI.tests;
 
 import static org.junit.Assert.*;
-import nl.jappieklooster.ISAI.entity.Vehicle;
+import nl.jappieklooster.ISAI.world.entity.Vehicle;
 import nl.jappieklooster.math.vector.Vector3
 
 import org.junit.Before;

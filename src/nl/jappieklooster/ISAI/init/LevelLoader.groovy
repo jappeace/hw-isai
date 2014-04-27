@@ -1,10 +1,14 @@
 package nl.jappieklooster.ISAI.init
 
 import com.jme3.asset.AssetManager
-import nl.jappieklooster.ISAI.World
+
 import nl.jappieklooster.ISAI.init.factory.WorldFactory
+import nl.jappieklooster.ISAI.world.World;
+
 import org.codehaus.groovy.control.CompilerConfiguration
+
 import groovy.util.DelegatingScript
+
 import java.util.concurrent.ScheduledThreadPoolExecutor
 class LevelLoader {
 	private GroovyShell shell

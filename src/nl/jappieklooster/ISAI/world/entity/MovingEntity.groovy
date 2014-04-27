@@ -1,6 +1,6 @@
-package nl.jappieklooster.ISAI.entity
+package nl.jappieklooster.ISAI.world.entity
 
-import nl.jappieklooster.ISAI.IWorldItem
+import nl.jappieklooster.ISAI.world.IWorldItem;
 import nl.jappieklooster.math.vector.*
 
 abstract class MovingEntity extends Entity implements IWorldItem{

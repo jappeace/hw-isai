@@ -1,16 +1,17 @@
-package nl.jappieklooster.ISAI.entity.tracking
+package nl.jappieklooster.ISAI.world.entity.tracking
 
 import java.util.concurrent.Future
 import java.util.concurrent.ScheduledThreadPoolExecutor
-import nl.jappieklooster.ISAI.IUpdatable
-import nl.jappieklooster.ISAI.World;
-import nl.jappieklooster.ISAI.entity.Entity
-import nl.jappieklooster.ISAI.entity.tracking.strategy.BruteForceStrategy
-import nl.jappieklooster.ISAI.entity.tracking.strategy.DivideAndConquer
-import nl.jappieklooster.ISAI.entity.tracking.strategy.IFindStrategy
-import nl.jappieklooster.ISAI.entity.tracking.threading.ThreadResult
-import nl.jappieklooster.ISAI.entity.tracking.threading.TrackingThread
-import nl.jappieklooster.ISAI.IWorldItem
+
+import nl.jappieklooster.ISAI.world.IUpdatable;
+import nl.jappieklooster.ISAI.world.IWorldItem;
+import nl.jappieklooster.ISAI.world.World;
+import nl.jappieklooster.ISAI.world.entity.Entity;
+import nl.jappieklooster.ISAI.world.entity.tracking.strategy.BruteForceStrategy;
+import nl.jappieklooster.ISAI.world.entity.tracking.strategy.DivideAndConquer;
+import nl.jappieklooster.ISAI.world.entity.tracking.strategy.IFindStrategy;
+import nl.jappieklooster.ISAI.world.entity.tracking.threading.ThreadResult;
+import nl.jappieklooster.ISAI.world.entity.tracking.threading.TrackingThread;
 
 /** this thing is an optimization (ugly code gauranteed) 
  * the intial implementation did a lot of dubble work per tick, this

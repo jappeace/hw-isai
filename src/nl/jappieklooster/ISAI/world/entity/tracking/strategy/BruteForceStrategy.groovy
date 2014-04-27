@@ -1,11 +1,11 @@
-package nl.jappieklooster.ISAI.entity.tracking.strategy
+package nl.jappieklooster.ISAI.world.entity.tracking.strategy
 
-import nl.jappieklooster.ISAI.IUpdatable
-import nl.jappieklooster.ISAI.World;
-import nl.jappieklooster.ISAI.entity.Entity
-import nl.jappieklooster.ISAI.entity.tracking.Distance
-import nl.jappieklooster.ISAI.entity.tracking.WorldItemDistance
-import nl.jappieklooster.ISAI.IWorldItem
+import nl.jappieklooster.ISAI.world.IUpdatable;
+import nl.jappieklooster.ISAI.world.IWorldItem;
+import nl.jappieklooster.ISAI.world.World;
+import nl.jappieklooster.ISAI.world.entity.Entity;
+import nl.jappieklooster.ISAI.world.entity.tracking.Distance;
+import nl.jappieklooster.ISAI.world.entity.tracking.WorldItemDistance;
 
 /** this thing is an optimization (ugly code gauranteed) 
  * the intial implementation did a lot of dubble work per tick, this

@@ -1,6 +1,6 @@
-package nl.jappieklooster.ISAI.entity.tracking
+package nl.jappieklooster.ISAI.world.entity.tracking
 
-import nl.jappieklooster.ISAI.IWorldItem
+import nl.jappieklooster.ISAI.world.IWorldItem;
 
 /** keeps track of a entity and a distance */
 class WorldItemDistance {

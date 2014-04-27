@@ -1,4 +1,4 @@
-package nl.jappieklooster.ISAI.entity.tracking
+package nl.jappieklooster.ISAI.world.entity.tracking
 
 /**
  * keeps track of a float and if it has been used
