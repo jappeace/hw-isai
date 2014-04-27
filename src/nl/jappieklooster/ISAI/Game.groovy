@@ -3,20 +3,10 @@ package nl.jappieklooster.ISAI
 import com.jme3.app.SimpleApplication
 import com.jme3.light.AmbientLight
 import com.jme3.light.DirectionalLight
-import com.jme3.material.Material
-import com.jme3.scene.Geometry
-import com.jme3.scene.shape.Box
-import com.jme3.scene.shape.Dome
-import com.jme3.scene.shape.Sphere
-import com.jme3.scene.shape.StripBox
 import com.jme3.math.ColorRGBA
-import com.jme3.math.Transform
 import com.jme3.math.Vector3f
-import nl.jappieklooster.math.vector.Converter
-
-import nl.jappieklooster.ISAI.behaviour.ISteerable
 import nl.jappieklooster.ISAI.init.LevelLoader
-import nl.jappieklooster.ISAI.init.factory.WorldFactory;
+
 
 class Game extends SimpleApplication {
 
