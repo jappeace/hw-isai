@@ -1,20 +1,37 @@
 package nl.jappieklooster.ISAI
 
+import com.jme3.app.DebugKeysAppState
+import com.jme3.app.FlyCamAppState
 import com.jme3.app.SimpleApplication
+import com.jme3.app.StatsAppState
 import com.jme3.app.state.AppStateManager;
 import com.jme3.light.AmbientLight
 import com.jme3.light.DirectionalLight
 import com.jme3.math.ColorRGBA
 import com.jme3.math.Vector3f
+import com.jme3.system.AppSettings
 
+import java.awt.Dimension
 import nl.jappieklooster.ISAI.init.LevelLoader
 import nl.jappieklooster.ISAI.state.PlayingState
-
+import java.awt.Toolkit
 
 class Game extends SimpleApplication {
+	
+	static final String gameName = "Of gods &"
 
+	Game(){
+		super()
+		showSettings = false
+        settings = new AppSettings(true);
+        settings.setTitle(gameName);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+        settings.setWidth((int)(screenSize.getWidth() / 2));
+        settings.setHeight((int)(screenSize.getHeight() - 10));
+	}
 	@Override
-	public void simpleInitApp() {
+	void simpleInitApp() {
 		PlayingState state = new PlayingState()
 		stateManager.attach(state)
 	}

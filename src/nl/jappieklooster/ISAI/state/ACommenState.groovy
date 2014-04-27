@@ -15,10 +15,11 @@ import com.jme3.scene.Node
  *
  */
 abstract class ACommenState extends AbstractAppState{
-	protected Node              rootNode;
-	protected AssetManager      assetManager;
-	protected InputManager      inputManager;
-	protected ViewPort          viewPort;
+	protected Node              rootNode
+	protected AssetManager      assetManager
+	protected InputManager      inputManager
+	protected ViewPort          viewPort
+	protected AppStateManager   stateManager
 
 	@Override
 	public void initialize(AppStateManager stateManager, Application givenApp) {
@@ -28,9 +29,10 @@ abstract class ACommenState extends AbstractAppState{
 		assetManager = app.getAssetManager();
 		inputManager = app.getInputManager();
 		viewPort     = app.getViewPort();
-		init(stateManager, app)
+		this.stateManager = stateManager
+		init(app)
 	}
 	
-	abstract void init(AppStateManager manager, SimpleApplication app);
+	abstract void init(SimpleApplication app);
 
 }

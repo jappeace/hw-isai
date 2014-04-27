@@ -28,12 +28,12 @@ class PlayingState extends ACommenState{
 	
 
 	@Override
-	void init(AppStateManager stateManager, SimpleApplication app) {
+	void init(SimpleApplication app) {
 		loader = new LevelLoader(app.assetManager)
 
 		app.viewPort.setBackgroundColor(new ColorRGBA(0.5f, 0.3f, 0.2f, 1f));
 
-		FlyByCamera flyCam = ((SimpleApplication)app).flyByCamera
+		FlyByCamera flyCam = app.flyByCamera
 		flyCam.setMoveSpeed(100)
 		flyCam.cam.setFrustumFar(9000)
 
@@ -112,6 +112,7 @@ class PlayingState extends ACommenState{
 	@Override
 	void cleanup() {
         super.cleanup();
+		enabled = false
 		loader.releaseThreadPool()
 		loader = null // threads can also be quite big, so mark it for gc
         //executor.shutdown();

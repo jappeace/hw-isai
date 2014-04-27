@@ -17,7 +17,7 @@ class MenuState extends ACommenState implements ScreenController{
 
     private Nifty nifty;
 	@Override
-	void init(AppStateManager stateManager, SimpleApplication app) {
+	void init(SimpleApplication app) {
 
         NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(app.assetManager,
                                                           app.inputManager,
@@ -52,6 +52,9 @@ class MenuState extends ACommenState implements ScreenController{
 
     void onEndScreen() {
         System.out.println("onEndScreen");
+        inputManager.setCursorVisible(false);
+		stateManager.attach(new PlayingState())
+		stateManager.detach(this)
     }
 
     void quit(){
