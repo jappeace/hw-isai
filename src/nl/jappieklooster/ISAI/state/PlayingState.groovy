@@ -5,29 +5,29 @@ import com.jme3.app.state.AbstractAppState
 import com.jme3.app.state.AppStateManager
 import com.jme3.input.FlyByCamera
 import com.jme3.input.InputManager;
+import com.jme3.input.controls.KeyTrigger
 import com.jme3.input.controls.Trigger;
 import com.jme3.light.AmbientLight
 import com.jme3.light.DirectionalLight
 import com.jme3.math.ColorRGBA
 import com.jme3.math.Vector3f
+import com.jme3.input.KeyInput
 
 import nl.jappieklooster.ISAI.init.LevelLoader
+import nl.jappieklooster.ISAI.input.InputDirector
+import nl.jappieklooster.ISAI.input.InputHandler
 import nl.jappieklooster.ISAI.world.World;
 
 import com.jme3.app.SimpleApplication
-import com.jme3.scene.Node
 
-class PlayingState extends AbstractAppState{
+class PlayingState extends ACommenState{
 
 	private World world
 	private LevelLoader loader
-	private Node rootNode
 	String level
 
 	@Override
-	void initialize(AppStateManager stateManager, Application app) {
-		super.initialize(null, null)
-
+	void init(AppStateManager stateManager, SimpleApplication app) {
 		loader = new LevelLoader(app.assetManager)
 
 		app.viewPort.setBackgroundColor(new ColorRGBA(0.5f, 0.3f, 0.2f, 1f));
@@ -39,6 +39,21 @@ class PlayingState extends AbstractAppState{
 		Random random = new Random()
 		
 		level = "one"
+		
+		InputDirector director = new InputDirector(app.inputManager)
+		director.addHandler(
+			new InputHandler(
+				triggers:[
+					new KeyTrigger(KeyInput.KEY_P)
+				],
+				handler:{float value, float tpf, String name ->
+					stateManager.attach(new MenuState())
+					stateManager.detach(delagate)
+				}
+			)
+		)
+		
+		load()
 	}
 	@Override
     void setEnabled(boolean enabled) {

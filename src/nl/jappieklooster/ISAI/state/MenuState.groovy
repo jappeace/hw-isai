@@ -12,18 +12,18 @@ import de.lessvoid.nifty.Nifty
 import de.lessvoid.nifty.screen.Screen
 import com.jme3.math.Vector3f
 
-class MenuState extends AbstractAppState{
+class MenuState extends ACommenState{
 
     private Nifty nifty;
 	@Override
-	void initialize(AppStateManager stateManager, Application app) {
+	void init(AppStateManager stateManager, SimpleApplication app) {
 
         Box b = new Box(Vector3f.ZERO, 1, 1, 1);
         Geometry geom = new Geometry("Box", b);
         Material mat = new Material(app.assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
         mat.setTexture("ColorMap", app.assetManager.loadTexture("Interface/Logo/Monkey.jpg"));
         geom.setMaterial(mat);
-        ((SimpleApplication)app).rootNode.attachChild(geom);
+        rootNode.attachChild(geom);
 
         NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(app.assetManager,
                                                           app.inputManager,
@@ -38,7 +38,7 @@ class MenuState extends AbstractAppState{
         // disable the fly cam
 //        flyCam.setEnabled(false);
 //        flyCam.setDragToRotate(true);
-        app.inputManager.setCursorVisible(true);
+        inputManager.setCursorVisible(true);
 	}
 
 
