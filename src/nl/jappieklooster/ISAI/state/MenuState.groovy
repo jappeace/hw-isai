@@ -20,8 +20,10 @@ class MenuState extends ACommenState implements ScreenController{
 	World world
     private Nifty nifty;
 	private FlyByCamera cam
+	private Game game
 	@Override
 	void init(Game app) {
+		game = app
 
 		if(world){
 			rootNode.attachChild(world.node)
@@ -37,28 +39,24 @@ class MenuState extends ACommenState implements ScreenController{
 	}
 
 	
-	@Override
-	void update(float tpf){
-		int x = 3;	
-		x++
-	}
 
     void bind(Nifty nifty, Screen screen) {
         System.out.println("bind( " + screen.getScreenId() + ")");
     }
 
     void onStartScreen() {
-        System.out.println("onStartScreen");
-		Screen screen = nifty.getCurrentScreen();
-		TextField txt = screen.findNiftyControl("path", TextField.class);
-		txt.setText("HELLOO..");
+		getTextField().setText(world.name);
     }
 
+	private TextField getTextField(){
+		nifty.getCurrentScreen().findNiftyControl("path", TextField.class)
+	}
     void onEndScreen() {
+
 
 		cam.setDragToRotate(false);
         inputManager.setCursorVisible(false);
-		stateManager.attach(new PlayingState(world:world))
+		stateManager.attach(game.loadLevel(getTextField().getRealText()))
 		stateManager.detach(this)
     }
 

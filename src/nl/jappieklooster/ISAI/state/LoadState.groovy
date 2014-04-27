@@ -22,11 +22,13 @@ import nl.jappieklooster.ISAI.world.World;
 import com.jme3.app.SimpleApplication
 
 class LoadState extends ACommenState{
+	static final String firstLevel = "one"
 
 	World world
 	LevelLoader loader
 	String level
 	private boolean loaded
+
 
 	@Override
 	void init(Game app) {
@@ -61,13 +63,14 @@ class LoadState extends ACommenState{
 		rootNode.addLight(dl);
 
 		// if no level is set goto level one
-		level = level ?: "levels/one"
+		level = level ?: "levels/"+ firstLevel
 		
 		if(world){
 			if(world.name == level){
 				loadLevel()
 				return
 			}
+			rootNode.detachChild(world.node)
 		}
 		world = loader.loadFromFile(level)
 		loadLevel()
@@ -87,4 +90,5 @@ class LoadState extends ACommenState{
 	public void destroy() {
 		loader.shutdownThreadPool()
 	}
+	
 }

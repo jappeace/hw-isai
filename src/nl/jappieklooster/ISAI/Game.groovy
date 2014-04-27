@@ -47,8 +47,9 @@ class Game extends SimpleApplication {
         guiViewPort.addProcessor(niftyDisplay);
 	}
 	
-	void loadLevel(String path){
+	LoadState loadLevel(String path){
 		loader.level = path
+		return loader
 	}
 	
 	@Override
