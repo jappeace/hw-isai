@@ -19,13 +19,6 @@ class MenuState extends ACommenState implements ScreenController{
 	@Override
 	void init(AppStateManager stateManager, SimpleApplication app) {
 
-        Box b = new Box(Vector3f.ZERO, 1, 1, 1);
-        Geometry geom = new Geometry("Box", b);
-        Material mat = new Material(app.assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat.setTexture("ColorMap", app.assetManager.loadTexture("Interface/Logo/Monkey.jpg"));
-        geom.setMaterial(mat);
-        rootNode.attachChild(geom);
-
         NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(app.assetManager,
                                                           app.inputManager,
                                                           app.audioRenderer,
@@ -49,19 +42,32 @@ class MenuState extends ACommenState implements ScreenController{
 		x++
 	}
 
-    public void bind(Nifty nifty, Screen screen) {
+    void bind(Nifty nifty, Screen screen) {
         System.out.println("bind( " + screen.getScreenId() + ")");
     }
 
-    public void onStartScreen() {
+    void onStartScreen() {
         System.out.println("onStartScreen");
     }
 
-    public void onEndScreen() {
+    void onEndScreen() {
         System.out.println("onEndScreen");
     }
 
-    public void quit(){
+    void quit(){
         nifty.gotoScreen("end");
     }
+
+	/** 
+	 * this state object does not consider itself to have state,
+	 * so all objects of this class are considerd equal
+	 * */
+	@Override
+	boolean equals(Object to){
+		return to instanceof MenuState
+	}
+	@Override
+	int hashCode(){
+		return this.class.hashCode()
+	}
 }

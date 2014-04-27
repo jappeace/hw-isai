@@ -25,6 +25,7 @@ class PlayingState extends ACommenState{
 	private World world
 	private LevelLoader loader
 	String level
+	
 
 	@Override
 	void init(AppStateManager stateManager, SimpleApplication app) {
@@ -47,7 +48,13 @@ class PlayingState extends ACommenState{
 					new KeyTrigger(KeyInput.KEY_X)
 				],
 				handler:{float value, float tpf, String name ->
-					stateManager.attach(new MenuState())
+					
+					MenuState menu = new MenuState()
+                    if(stateManager.hasState(menu)){
+						// the button is pressed so long that this action is executed twice or more
+						return
+					}
+					stateManager.attach(menu)
 					stateManager.detach(delegate)
 				}
 			)
