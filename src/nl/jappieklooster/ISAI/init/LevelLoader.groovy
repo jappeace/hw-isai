@@ -24,7 +24,7 @@ class LevelLoader {
         shell = new GroovyShell(new Binding(),compilerConfig);
 	}
 	
-	World loadFile(String path){
+	World loadFromFile(String path){
 		// load the new world
 		DelegatingScript script = (DelegatingScript)shell.parse(new File(path+".dsl"))
 		WorldFactory factory = new WorldFactory(threadPoolExecuter)
