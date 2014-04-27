@@ -7,6 +7,7 @@ import com.jme3.niftygui.NiftyJmeDisplay
 import com.jme3.scene.Geometry
 import com.jme3.scene.shape.Box
 import de.lessvoid.nifty.Nifty
+import de.lessvoid.nifty.controls.TextField
 import de.lessvoid.nifty.screen.Screen
 import de.lessvoid.nifty.screen.ScreenController
 import nl.jappieklooster.ISAI.Game
@@ -48,6 +49,9 @@ class MenuState extends ACommenState implements ScreenController{
 
     void onStartScreen() {
         System.out.println("onStartScreen");
+		Screen screen = nifty.getCurrentScreen();
+		TextField txt = screen.findNiftyControl("path", TextField.class);
+		txt.setText("HELLOO..");
     }
 
     void onEndScreen() {
@@ -64,7 +68,7 @@ class MenuState extends ACommenState implements ScreenController{
 
 	/** 
 	 * this state object does not consider itself to have state,
-	 * so all objects of this class are considerd equal
+	 * so all objects of this class are considered equal
 	 * */
 	@Override
 	boolean equals(Object to){
