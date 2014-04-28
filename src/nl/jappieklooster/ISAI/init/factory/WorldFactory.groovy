@@ -14,7 +14,7 @@ import nl.jappieklooster.math.vector.Converter
 import com.jme3.scene.Node
 import com.jme3.scene.Spatial;
 
-class WorldFactory extends SpatialFactory{
+class WorldFactory extends ASpatialFactory{
 
 	AssetManager assetManager
     private ScheduledThreadPoolExecutor threadPool

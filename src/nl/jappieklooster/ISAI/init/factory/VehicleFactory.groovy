@@ -16,9 +16,8 @@ import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
-class VehicleFactory extends SpatialFactory{
+class VehicleFactory extends AMaterialFactory{
 	Vehicle vehicle
-	AssetManager assetManager
 
 	VehicleFactory(NeighbourTracker tracker){
 		super(tracker)
@@ -42,9 +41,6 @@ class VehicleFactory extends SpatialFactory{
 		world.node.attachChild(geometry);
 	}
 	
-	void texture(String path){
-		vehicle.geometry.material.setTexture("ColorMap", assetManager.loadTexture(path))
-	}
 	
 	void mesh(Mesh shape){
 		vehicle.geometry.mesh = shape
@@ -79,6 +75,10 @@ class VehicleFactory extends SpatialFactory{
 	
 	void heading(Vector3 to){
 		vehicle.heading = to.normalized
+	}
+	@Override
+	public Material getMaterial() {
+		vehicle.geometry.material
 	}
 	
 }
