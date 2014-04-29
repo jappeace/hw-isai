@@ -69,9 +69,10 @@ class NeighbourTracker implements IUpdatable{
 		}
 		// thread might be done already
 		if(future.isDone()){
-			ThreadResult result = future.get()
-			neighbuffer = result.neighbuffer
-			distances.retainAll(result.distances)
+
+            ThreadResult result = (ThreadResult)future.get()
+            neighbuffer = result.neighbuffer
+            distances.retainAll(result.distances)
 			future = null
 			return
 		}

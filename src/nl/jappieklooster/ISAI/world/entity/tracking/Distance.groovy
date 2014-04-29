@@ -22,7 +22,13 @@ class Distance implements Comparable<Distance>{
 
 	@Override
 	int compareTo(Distance rhs) {
-		(int) rhs.distance - distance
+		if(distance > rhs.distance){
+			return -1
+		}
+		if(distance < rhs.distance){
+			return 1
+		}
+		return 0
 	}
 	
 	@Override
@@ -34,7 +40,7 @@ class Distance implements Comparable<Distance>{
 			return false
 		}
 		Distance dist = (Distance) to
-		return dist.distance == distance && dist.isUsed == isUsed
+		return dist.distance == distance
 	}
 	
 

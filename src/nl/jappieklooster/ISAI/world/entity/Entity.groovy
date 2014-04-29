@@ -12,6 +12,10 @@ abstract class Entity implements IPositionable{
 	/** world position */
 	Vector3 position
 	
+	Entity(){
+		position = new Vector3()
+	}
+	
 	Vector3 getScale(){
 		Converter.fromJME(geometry.getLocalScale())
 	}

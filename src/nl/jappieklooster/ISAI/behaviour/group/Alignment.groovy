@@ -20,7 +20,7 @@ class Alignment extends ANeighbourAware{
 		Vector3 averageHeading = new Vector3()
 		int size = neighbours.size()
 		neighbours.each{
-			if(!it instanceof MovingEntity){
+			if(!(it instanceof MovingEntity)){
 				size--
 				return
 			}

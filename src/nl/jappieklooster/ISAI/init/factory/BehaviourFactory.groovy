@@ -67,9 +67,9 @@ class BehaviourFactory extends AWorldFactory{
 	/** shorthand for flocking like behavior (its a combination) */
 	void flock(){
 		ISteerable seperate = seperate()
-		seperate.chance = 0.1
+		seperate.chance = 0.3
 		ISteerable alignment = alignment()
-		alignment.chance = 0.05
+		alignment.chance = 0.1
 		ISteerable cohesion = cohesion()
 		cohesion.chance = 0.3
 	}

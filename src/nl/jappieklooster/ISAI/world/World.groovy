@@ -37,6 +37,15 @@ class World implements IWorldItem{
 	 */
 	String name = ""
 
+	World(){
+		node = new Node("rootnode of  " + System.identityHashCode() + " creation time: " + System.nanoTime())
+		
+		// linked lists are more memory effiecient than arraylists, and since I am not planning using indexcis
+		// they are the better choice for storing stuff
+		entities = new LinkedList<>()
+		listeners = new LinkedList<>()
+		obstacles = new LinkedList<>()
+	}
 	void update(float tpf){
 		if(!shouldUpdate){
 			return

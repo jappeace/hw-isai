@@ -9,7 +9,7 @@ class Vehicle extends MovingEntity {
 
 	Vehicle(){
 		super()
-		steeringBehaviours = new ArrayList<>()
+		steeringBehaviours = new LinkedList<>()
 	}
 	@Override
 	void update(float tpf){

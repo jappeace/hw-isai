@@ -12,12 +12,15 @@ import nl.jappieklooster.ISAI.world.entity.tracking.WorldItemDistance;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Dimension
 
+import groovy.util.logging.*
 /** this thing is an optimization (ugly code gauranteed) 
- * the intial implementation did a lot of dubble work per tick, this
- * class centralises that work in the hope it will be done ones per tick.
+ * this uses spatial partitioning too optimize finding neighbours
+ * the brutethreshold indicates when bruteforce method is initilized, the heigher the number
+ * the more precise the result, but it also means more time is used
  * 
  * This will only work with proper initilization
  * */
+@Log
 class DivideAndConquer extends AbstractStrategy{
 	private static final int bruteTreshold = 8
 	private Comparator<IWorldItem>[] comparators = [
@@ -62,7 +65,24 @@ class DivideAndConquer extends AbstractStrategy{
 		}
 		
 		xyz = (xyz + 1) % 3 // three dimensions
-		Collections.sort(items, comparators[xyz])
+		
+		try{
+            Collections.sort(items, comparators[xyz])
+		}catch(java.lang.IllegalArgumentException exeption){
+		
+			/**
+			 * because i'm only comparing one part of the vector3 class
+			 * the collections framework of java might trow an exception
+			 * 
+			 * I think this only happens when a comparator return 0, and java
+			 * calls the equals method to verify, it would also return true
+			 * if they would insert the right comparator, but they don't
+			 * 
+			 * my solution is just to ignore this part, it almost never happens
+			 */
+			log.info "ignoring illegal argument exception "
+			return // java did not like this
+		}
 		
 		List<List<IWorldItem>> fracturedItems = items.toList().collate((int) ((items.size() / 2)))
 		Vector3 one = recursiveSolve(fracturedItems[0], xyz) ?: Vector3.max()

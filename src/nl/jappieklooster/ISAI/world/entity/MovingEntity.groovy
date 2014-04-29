@@ -13,6 +13,7 @@ abstract class MovingEntity extends Entity implements IWorldItem{
 	float friction
 	
 	MovingEntity(){
+		super()
 		velocity = new Vector3()
 		force = new Vector3()
 		heading = new Vector3()

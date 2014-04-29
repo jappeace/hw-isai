@@ -42,10 +42,6 @@ class WorldFactory extends ASpatialFactory{
 		threadPool = exec
 		world = new World()
 
-		world.node = new Node("rootnode of world: " + System.identityHashCode(world) + " creation time: " + System.nanoTime())
-		world.entities = new LinkedList<>()
-		world.listeners = new LinkedList<>()
-		
 		world.listeners.add(neighTracker)
 
 		neighTracker.world = world
@@ -69,24 +65,11 @@ class WorldFactory extends ASpatialFactory{
 	 * It is a bit abstract but fairly clever*/
 	World group(Closure commands){
 		WorldFactory child = new WorldFactory(threadPool)
-		WorldFactory temp = new WorldFactory(threadPool)
 		
 		child.game = game
-		temp.game  = game
 		child.random = random
-		temp.random  = random
+		new DelegateClosure(to: child).call(commands)
 		
-		// I used to do this with delegate closure, But that did not work for some reason
-		temp.world = world
-		temp.neighTracker = neighTracker
-		world = child.world
-		neighTracker = child.neighTracker
-
-		new DelegateClosure(to: this).call(commands)
-		
-		world = temp.world
-		neighTracker = temp.neighTracker
-
 		// if the child world updates we also should
 		world.shouldUpdate = world.shouldUpdate ?: child.world.shouldUpdate
 		world.entities.add(child.world)
