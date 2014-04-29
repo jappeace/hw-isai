@@ -15,13 +15,14 @@ import de.lessvoid.nifty.Nifty
 
 import java.awt.Dimension
 import nl.jappieklooster.ISAI.init.LevelLoader
+import nl.jappieklooster.ISAI.init.factory.WireFrameFactory
 import nl.jappieklooster.ISAI.state.LoadState
 import nl.jappieklooster.ISAI.state.PlayingState
 import java.awt.Toolkit
 
 class Game extends SimpleApplication {
 	
-	static final String gameName = "Of gods &"
+	static final String gameName = "Religion Simulator 2000"
 	private LoadState loader
 	private Nifty nifty
 	Game(){
@@ -44,6 +45,12 @@ class Game extends SimpleApplication {
 
         // attach the nifty display to the gui view port as a processor
         guiViewPort.addProcessor(niftyDisplay);
+		
+		
+		// give wireframefactory acces to the assetmanager
+		WireFrameFactory factory = WireFrameFactory.getInstance()
+		factory.random = new Random()
+		factory.setAssetManager(assetManager)
 	}
 	
 	LoadState loadLevel(String path){
