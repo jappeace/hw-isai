@@ -27,7 +27,7 @@ class Game extends SimpleApplication {
 	Game(){
 
 		super()
-		loader = new LoadState(loader:new LevelLoader())
+		loader = new LoadState(loader:new LevelLoader(this))
 		showSettings = false
         settings = new AppSettings(true);
         settings.setTitle(gameName);
@@ -38,7 +38,6 @@ class Game extends SimpleApplication {
 	}
 	@Override
 	void simpleInitApp() {
-		loader.loader.assetManager = assetManager
 		stateManager.attach(loader)
         NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort)
         nifty = niftyDisplay.getNifty();

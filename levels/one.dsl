@@ -3,6 +3,7 @@ import com.jme3.scene.shape.*
 make{
 
     name "rootnode (sortof)"
+    terrain{}
     group{
 
         name "standing still node"

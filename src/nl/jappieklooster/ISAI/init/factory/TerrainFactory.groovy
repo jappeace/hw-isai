@@ -1,8 +1,9 @@
 package nl.jappieklooster.ISAI.init.factory
 
 import com.jme3.asset.AssetManager
+import com.jme3.input.FlyByCamera
 import com.jme3.material.Material
-import com.jme3.scene.Node
+import com.jme3.renderer.Camera
 import com.jme3.scene.Spatial;
 import com.jme3.terrain.geomipmap.TerrainLodControl
 import com.jme3.terrain.geomipmap.TerrainQuad
@@ -10,6 +11,7 @@ import com.jme3.terrain.heightmap.AbstractHeightMap
 import com.jme3.terrain.heightmap.ImageBasedHeightMap
 import com.jme3.texture.Texture
 import com.jme3.texture.Texture.WrapMode
+import com.jme3.scene.Node
 
 class TerrainFactory extends AMaterialFactory{
 
@@ -17,7 +19,6 @@ class TerrainFactory extends AMaterialFactory{
 	 * allows changing of the terrain material
 	 */
 	private Material material
-	
 	/**
 	 * terrain does not allow editing of the height map
 	 * because of this the terrain needs to be created at the last moment
@@ -29,12 +30,12 @@ class TerrainFactory extends AMaterialFactory{
 	float[] heightMap
 
     int patchSize = 65;
-	TerrainFactory(){
+	TerrainFactory(AssetManager assetManager){
+		this.assetManager = assetManager
 		spatialContainer = new Node("terrain container")
 
         /** 1. Create terrain material and load four textures into it. */
-        material = new Material(assetManager, 
-                "Common/MatDefs/Terrain/Terrain.j3md");
+        material = new Material(assetManager, "Common/MatDefs/Terrain/Terrain.j3md");
      	heightMap = new float[0]
 	}
 	
@@ -78,7 +79,7 @@ class TerrainFactory extends AMaterialFactory{
         heightmap.load();
 		heightMap = heightmap.getHeightMap()
 	}
-	TerrainQuad create(){
+	TerrainQuad create(Camera camera){
 		
 		// if no user defined heightmap was found do the defualt (quite heavy call)
 		if(heightMap == new float[0]){
@@ -92,13 +93,13 @@ class TerrainFactory extends AMaterialFactory{
          * 3.4) As LOD step scale we supply Vector3f(1,1,1).
          * 3.5) We supply the prepared heightmap itself.
          */
-		TerrainQuad terrain = new TerrainQuad("terrain", patchSize, Math.sqrt(heightMap.length) + 1, heightMap);
+		TerrainQuad terrain = new TerrainQuad("terrain", patchSize, (int)(Math.sqrt(heightMap.length) + 1), heightMap);
 		
         /** 4. We give the terrain its material, position & scale it, and attach it. */
         terrain.setMaterial(material);
      
         /** 5. The LOD (level of detail) depends on were the camera is: */
-        TerrainLodControl control = new TerrainLodControl(terrain, getCamera());
+        TerrainLodControl control = new TerrainLodControl(terrain, camera);
         terrain.addControl(control);
 		spatialContainer.attachChild(terrain)
 		return terrain

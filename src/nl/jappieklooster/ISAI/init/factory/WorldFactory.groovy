@@ -4,6 +4,7 @@ import com.jme3.asset.AssetManager
 
 import java.util.concurrent.ScheduledThreadPoolExecutor
 
+import nl.jappieklooster.ISAI.Game
 import nl.jappieklooster.ISAI.init.DelegateClosure;
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.Vehicle;
@@ -13,10 +14,20 @@ import nl.jappieklooster.math.vector.Converter
 
 import com.jme3.scene.Node
 import com.jme3.scene.Spatial;
+import com.jme3.terrain.geomipmap.TerrainQuad
 
+/**
+ * 
+ * @author jappie
+ *
+ */
 class WorldFactory extends ASpatialFactory{
 
-	AssetManager assetManager
+	private Game game
+	AssetManager getAssetManager(){ game.assetManager }
+	void setGame(Game to){
+		game = to
+	}
     private ScheduledThreadPoolExecutor threadPool
 	WorldFactory(ScheduledThreadPoolExecutor exec){
 		super(new NeighbourTracker(exec))
@@ -57,8 +68,8 @@ class WorldFactory extends ASpatialFactory{
 		WorldFactory child = new WorldFactory(threadPool)
 		WorldFactory temp = new WorldFactory(threadPool)
 		
-		child.assetManager = assetManager
-		temp.assetManager  = assetManager
+		child.game = game
+		temp.game  = game
 		child.random = random
 		temp.random  = random
 		
@@ -84,6 +95,14 @@ class WorldFactory extends ASpatialFactory{
 	@Override
 	Spatial getSpatial() {
 		world.node
+	}
+	
+	TerrainQuad terrain(Closure commands){
+		TerrainFactory factory = new TerrainFactory(assetManager)
+		factory.world = world
+		factory.setToDefault()
+		new DelegateClosure(to:factory).call(commands)
+		factory.create(game.camera)
 	}
 
 }

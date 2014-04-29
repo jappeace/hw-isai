@@ -2,6 +2,7 @@ package nl.jappieklooster.ISAI.init
 
 import com.jme3.asset.AssetManager
 
+import nl.jappieklooster.ISAI.Game
 import nl.jappieklooster.ISAI.init.factory.WorldFactory
 import nl.jappieklooster.ISAI.world.World;
 
@@ -15,10 +16,12 @@ class LevelLoader {
 	private Random random // store the randomness
 	private ScheduledThreadPoolExecutor threadPoolExecuter
 	private static final int threadCount = 1
-	AssetManager assetManager
+	Game game
 
-	LevelLoader(){
+	LevelLoader(Game game){
 		
+		this.game = game
+
 		random = new Random()
         threadPoolExecuter = new ScheduledThreadPoolExecutor(threadCount) // curently only neighbourtracker uses it
 
@@ -31,7 +34,7 @@ class LevelLoader {
 		// load the new world
 		DelegatingScript script = (DelegatingScript)shell.parse(new File(path+".dsl"))
 		WorldFactory factory = new WorldFactory(threadPoolExecuter)
-		factory.assetManager = assetManager
+		factory.game = game
 		factory.random = random
 		script.setDelegate(factory)
 		script.run()
