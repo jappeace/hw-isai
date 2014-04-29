@@ -70,7 +70,7 @@ class DivideAndConquer extends AbstractStrategy{
             Collections.sort(items, comparators[xyz])
 		}catch(java.lang.IllegalArgumentException exeption){
 		
-			/**
+			/*
 			 * because i'm only comparing one part of the vector3 class
 			 * the collections framework of java might trow an exception
 			 * 

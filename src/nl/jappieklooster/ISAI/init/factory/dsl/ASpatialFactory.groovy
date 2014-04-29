@@ -1,4 +1,4 @@
-package nl.jappieklooster.ISAI.init.factory
+package nl.jappieklooster.ISAI.init.factory.dsl
 
 import com.jme3.scene.Spatial
 

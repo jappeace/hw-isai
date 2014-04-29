@@ -14,6 +14,7 @@ abstract class Entity implements IPositionable{
 	
 	Entity(){
 		position = new Vector3()
+		random = null
 	}
 	
 	Vector3 getScale(){

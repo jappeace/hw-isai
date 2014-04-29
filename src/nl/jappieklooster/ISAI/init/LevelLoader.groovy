@@ -3,7 +3,7 @@ package nl.jappieklooster.ISAI.init
 import com.jme3.asset.AssetManager
 
 import nl.jappieklooster.ISAI.Game
-import nl.jappieklooster.ISAI.init.factory.WorldFactory
+import nl.jappieklooster.ISAI.init.factory.dsl.WorldFactory;
 import nl.jappieklooster.ISAI.world.World;
 
 import org.codehaus.groovy.control.CompilerConfiguration
