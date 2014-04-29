@@ -32,4 +32,14 @@ abstract class Entity implements IPositionable{
 	int hashCode(){
 		(geometry.hashCode() + position.hashCode() * 5).hashCode()
 	}
+	
+	/**
+	 * returns the difference between my position tracking and that of jme
+	 * the geometry can be moved by changing parrent nodes local translation, it
+	 * is impossible to catch this change so instead I created this method to account for it
+	 * @return
+	 */
+	Vector3 getDifference(){
+		Converter.fromJME(geometry.worldTranslation) - position
+	}
 }

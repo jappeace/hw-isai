@@ -14,6 +14,11 @@ class World implements IWorldItem{
 	Node node
 	
 	/**
+	 * a list of stuff that is there just to be there
+	 */
+	List<IPositionable> obstacles
+	
+	/**
 	 * stuff in the world
 	 */
 	List<IWorldItem> entities
