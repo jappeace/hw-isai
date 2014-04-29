@@ -17,17 +17,25 @@ import com.jme3.scene.Spatial;
 import com.jme3.terrain.geomipmap.TerrainQuad
 
 /**
- * 
+ * primary factory that delegates tasks to all other factory,
+ * it is also a big encapsulation unit since it knows game but lets it little worker factories only know what they need
+ * (usaly those things are 
  * @author jappie
  *
  */
 class WorldFactory extends ASpatialFactory{
 
 	private Game game
-	AssetManager getAssetManager(){ game.assetManager }
+	
+	/**
+	 * is used so much
+	 * @return
+	 */
+	private AssetManager getAssetManager(){ game.assetManager }
 	void setGame(Game to){
 		game = to
 	}
+
     private ScheduledThreadPoolExecutor threadPool
 	WorldFactory(ScheduledThreadPoolExecutor exec){
 		super(new NeighbourTracker(exec))
@@ -41,11 +49,6 @@ class WorldFactory extends ASpatialFactory{
 		world.listeners.add(neighTracker)
 
 		neighTracker.world = world
-	}
-	
-	World make(Closure commands){
-		new DelegateClosure(to: this).call(commands)
-		return world
 	}
 	
 	/** create a new vehicle */
@@ -79,7 +82,7 @@ class WorldFactory extends ASpatialFactory{
 		world = child.world
 		neighTracker = child.neighTracker
 
-        make(commands)
+		new DelegateClosure(to: this).call(commands)
 		
 		world = temp.world
 		neighTracker = temp.neighTracker
@@ -104,5 +107,13 @@ class WorldFactory extends ASpatialFactory{
 		new DelegateClosure(to:factory).call(commands)
 		factory.create(game.camera)
 	}
+
+	Spatial sky(Closure commands){
+		SkyFactory factory = new SkyFactory(world)
+		factory.assetManager = assetManager
+		new DelegateClosure(to:factory).call(commands)
+		factory.create()
+	}
+	
 
 }
