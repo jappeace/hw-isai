@@ -18,6 +18,9 @@ import nl.jappieklooster.ISAI.init.LevelLoader
 import nl.jappieklooster.ISAI.input.InputDirector
 import nl.jappieklooster.ISAI.input.InputHandler
 import nl.jappieklooster.ISAI.world.World;
+import nl.jappieklooster.ISAI.world.entity.graph.Graph
+import nl.jappieklooster.ISAI.world.entity.graph.Vertex
+import nl.jappieklooster.math.vector.Vector3
 
 import com.jme3.app.SimpleApplication
 
@@ -25,11 +28,13 @@ class PlayingState extends ACommenState{
 
 	World world
 	
+	InputDirector director
 
+    private Graph graph = null
 	@Override
 	void init(Game app) {
 
-		InputDirector director = new InputDirector(inputManager)
+		director = new InputDirector(inputManager)
 		director.addHandler(
 			new InputHandler(
 				triggers:[
@@ -44,6 +49,35 @@ class PlayingState extends ACommenState{
 					}
 					stateManager.attach(menu)
 					stateManager.detach(delegate)
+				}
+			)
+		)
+		director.addHandler(
+			new InputHandler(
+				triggers:[
+					new KeyTrigger(KeyInput.KEY_F)
+				],
+				handler:{float value, float tpf, String name ->
+					if(!graph){
+                        graph = new Graph()
+                        Vertex one = new Vertex(new Vector3(0, 0, 0))
+
+                        Vertex two = new Vertex(new Vector3(10, 10, 10))
+                        Vertex three = new Vertex(new Vector3(0, -40, -40))
+                        graph.connect(one, two)
+                        graph.connect(two, three)
+					}
+					world.node.attachChild(graph.node)
+				}
+			)
+		)
+		director.addHandler(
+			new InputHandler(
+				triggers:[
+					new KeyTrigger(KeyInput.KEY_G)
+				],
+				handler:{float value, float tpf, String name ->
+                    world.node.detachChild(graph.node)
 				}
 			)
 		)
@@ -64,6 +98,7 @@ class PlayingState extends ACommenState{
 	void cleanup() {
         super.cleanup();
         rootNode.detachChild(world.node)
+		director.removeMyHandlers()
         world = null // can be quite big, so mark it for gc
     }
 }

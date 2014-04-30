@@ -6,7 +6,7 @@ class ZComparator extends BaseComparator implements Comparator<IVector3>{
 
 	@Override
 	public int compare(IVector3 one, IVector3 two) {
-		return finalStep(one.z - two.z)
+		return safeFinalStep(one.z - two.z, one, two)
 		
 	}
 }

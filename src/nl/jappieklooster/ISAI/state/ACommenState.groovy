@@ -34,6 +34,6 @@ abstract class ACommenState extends AbstractAppState{
 		init(app)
 	}
 	
-	abstract void init(Game app);
+	void init(Game app){}
 
 }

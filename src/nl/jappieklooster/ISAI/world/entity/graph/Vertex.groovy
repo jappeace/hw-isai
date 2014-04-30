@@ -22,11 +22,11 @@ class Vertex extends Entity{
 
 	Vertex(Vector3 pos){
 		super()
+		node = new Node("vertex node")
+		geometry = WireFrameFactory.getInstance().createSphere(1)
+		node.attachChild(geometry)
 		position = pos
 		connections = new LinkedList<>() // memory effiecient and index acces not required
-		node = new Node("vertex node")
-		geometry = WireFrameFactory.getInstance().createSphere()
-		node.attachChild(geometry)
 	}
 	
 	void setPosition(Vector3 to){
@@ -38,18 +38,18 @@ class Vertex extends Entity{
 		Edge edge = new Edge(to: to)
 		connections.add(edge)
 
-		Vector3 distance = this.position - to.position
-		Vector3 conpos = distance / new Vector3(2) + this.position
+		Vector3 difference =  this.position - to.position
+		Vector3 conpos = difference / new Vector3(2)
 
-		Geometry edgeConnection = WireFrameFactory.getInstance().createCube(new Vector3(distance, 1,1))
+		Geometry edgeConnection = WireFrameFactory.getInstance().createCube(new Vector3(difference.length/2, 1,1))
 
 		edgeConnection.setLocalTranslation(Converter.toJME(conpos))
 		
 		// i have no idea, it has to do with the molecules, nobody knows what the sine function does, just go with it
 		edgeConnection.rotate(
-			0, 
-			Math.asin((position.z - to.position.z) / distance.length), 
-			Math.asin((position.y - to.position.y) / distance.length)
+			(float)0, 
+			(float)Math.atan(difference.x / difference.z), 
+			(float)Math.atan(difference.x / difference.y)
         )
 		
 		node.attachChild(edgeConnection)
