@@ -39,18 +39,14 @@ class Vertex extends Entity{
 		connections.add(edge)
 
 		Vector3 difference =  this.position - to.position
-		Vector3 conpos = difference / new Vector3(2)
+		Vector3 conpos = to.position / new Vector3(2)
 
-		Geometry edgeConnection = WireFrameFactory.getInstance().createCube(new Vector3(difference.length/2, 1,1))
+		Geometry edgeConnection = WireFrameFactory.getInstance().createCube(new Vector3(1, difference.length/2,1))
 
 		edgeConnection.setLocalTranslation(Converter.toJME(conpos))
 		
 		// i have no idea, it has to do with the molecules, nobody knows what the sine function does, just go with it
-		edgeConnection.rotate(
-			(float)0, 
-			(float)Math.atan(difference.x / difference.z), 
-			(float)Math.atan(difference.x / difference.y)
-        )
+		edgeConnection.rotateUpTo(Converter.toJME((difference - this.position).normalized))
 		
 		node.attachChild(edgeConnection)
 	}
