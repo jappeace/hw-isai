@@ -1,7 +1,7 @@
 package nl.jappieklooster.ISAI.behaviour.group
 
 import nl.jappieklooster.ISAI.behaviour.AbstractSteerable;
-import nl.jappieklooster.ISAI.world.IWorldItem;
+import nl.jappieklooster.ISAI.world.IGroupItem;
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.MovingEntity;
 import nl.jappieklooster.math.vector.Vector3
@@ -10,7 +10,7 @@ class Alignment extends ANeighbourAware{
 
 	@Override
 	public void steer() {
-		List<IWorldItem> neighbours = tracker.getNeighbours(entity, neighbourRadius)
+		List<IGroupItem> neighbours = tracker.getNeighbours(entity, neighbourRadius)
 		
 		// prevent eventual division by zero
 		if(neighbours.size() == 0){

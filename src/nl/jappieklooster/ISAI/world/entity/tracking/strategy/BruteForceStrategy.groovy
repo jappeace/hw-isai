@@ -1,7 +1,7 @@
 package nl.jappieklooster.ISAI.world.entity.tracking.strategy
 
 import nl.jappieklooster.ISAI.world.IUpdatable;
-import nl.jappieklooster.ISAI.world.IWorldItem;
+import nl.jappieklooster.ISAI.world.IGroupItem;
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.Entity;
 import nl.jappieklooster.ISAI.world.entity.tracking.Distance;
@@ -21,14 +21,14 @@ class BruteForceStrategy extends AbstractStrategy{
 	}
 
 	/** redetrimens which neigbours are where and stores that result into the neighbuffer */
-	Map<WorldItemDistance, List<IWorldItem>> find(SortedSet<Distance> tresholds){
+	Map<WorldItemDistance, List<IGroupItem>> find(SortedSet<Distance> tresholds){
 		
 		// clear the buffer
 		result = new HashMap<>()
 		
-		targetItems.each{ IWorldItem first ->
+		targetItems.each{ IGroupItem first ->
 			
-			targetItems.each{ IWorldItem second ->
+			targetItems.each{ IGroupItem second ->
                 if(first == second){
                     return
                 }

@@ -1,14 +1,14 @@
 package nl.jappieklooster.ISAI.world.entity.tracking
 
-import nl.jappieklooster.ISAI.world.IWorldItem;
+import nl.jappieklooster.ISAI.world.IGroupItem;
 
 /** keeps track of a entity and a distance */
 class WorldItemDistance {
 
 	float distance
-	IWorldItem item
+	IGroupItem item
 	
-	WorldItemDistance(IWorldItem item, float dist){
+	WorldItemDistance(IGroupItem item, float dist){
 		this.item = item
 		distance = dist
 	}

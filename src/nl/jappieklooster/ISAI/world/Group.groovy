@@ -6,7 +6,7 @@ import com.jme3.scene.shape.Sphere;
 import nl.jappieklooster.ISAI.world.entity.Entity;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
-class World implements IGroupItem{
+class Group implements IGroupItem{
 	
 	/**
 	 * the view of this world, this is how jme3 decides what to render
@@ -32,7 +32,7 @@ class World implements IGroupItem{
 	 */
 	String name = ""
 
-	World(){
+	Group(){
 		node = new Node("rootnode of  " + System.identityHashCode() + " creation time: " + System.nanoTime())
 		
 		// linked lists are more memory effiecient than arraylists, and since I am not planning using indexcis
@@ -60,10 +60,10 @@ class World implements IGroupItem{
 		if(obj.is(this)){
 			return true
 		}
-		if(!(obj instanceof World)){
+		if(!(obj instanceof Group)){
 			return false
 		}
-		World world = (World) obj
+		Group world = (Group) obj
 		return world.node == node && world.entities == entities && world.name == name
 	}
 	

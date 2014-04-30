@@ -1,7 +1,7 @@
 package nl.jappieklooster.ISAI.world.entity.tracking.strategy
 
 import nl.jappieklooster.ISAI.world.IUpdatable;
-import nl.jappieklooster.ISAI.world.IWorldItem;
+import nl.jappieklooster.ISAI.world.IGroupItem;
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.Entity;
 import nl.jappieklooster.ISAI.world.entity.compare.ComparatorIWorldItemX;
@@ -16,17 +16,17 @@ import nl.jappieklooster.math.vector.Dimension
  * */
 abstract class AbstractStrategy implements IFindStrategy{
 	/** the world to read from */
-	List<IWorldItem> targetItems
-	protected Map<WorldItemDistance, List<IWorldItem>> result
+	List<IGroupItem> targetItems
+	protected Map<WorldItemDistance, List<IGroupItem>> result
 
 	AbstractStrategy(){
 		targetItems = new LinkedList<>()
 	}
 
-	protected void addToListValue(IWorldItem keyOne, float keyTwo, IWorldItem value){
+	protected void addToListValue(IGroupItem keyOne, float keyTwo, IGroupItem value){
 
         def key = new WorldItemDistance(keyOne, keyTwo)
-        List<IWorldItem> list = result[key]
+        List<IGroupItem> list = result[key]
 
 		if(list == null){
             list = new LinkedList<>()

@@ -1,7 +1,7 @@
 package nl.jappieklooster.ISAI.behaviour.group
 
 import nl.jappieklooster.ISAI.behaviour.AbstractSteerable;
-import nl.jappieklooster.ISAI.world.IWorldItem;
+import nl.jappieklooster.ISAI.world.IGroupItem;
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.math.vector.Vector3
 

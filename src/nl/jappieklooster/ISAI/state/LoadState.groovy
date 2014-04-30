@@ -47,7 +47,6 @@ class LoadState extends ACommenState{
 			stateManager.attach(new PlayingState(world: world))
 			stateManager.detach(this)
 		}
-		// TODO: move cam and backcolor to the dsl
 		viewPort.setBackgroundColor(new ColorRGBA(0.5f, 0.3f, 0.2f, 1f));
 
 

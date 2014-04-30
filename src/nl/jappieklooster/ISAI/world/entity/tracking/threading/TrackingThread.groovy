@@ -7,7 +7,7 @@ import java.util.concurrent.Future
 import java.util.concurrent.ScheduledThreadPoolExecutor
 
 import nl.jappieklooster.ISAI.world.IUpdatable;
-import nl.jappieklooster.ISAI.world.IWorldItem;
+import nl.jappieklooster.ISAI.world.IGroupItem;
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.Entity;
 import nl.jappieklooster.ISAI.world.entity.tracking.Distance;
