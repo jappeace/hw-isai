@@ -6,7 +6,9 @@ import java.util.concurrent.ScheduledThreadPoolExecutor
 
 import nl.jappieklooster.ISAI.Game
 import nl.jappieklooster.ISAI.init.DelegateClosure;
+import nl.jappieklooster.ISAI.init.factory.dsl.AHasNodeFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.ASpatialFactory;
+import nl.jappieklooster.ISAI.world.AHasNode;
 import nl.jappieklooster.ISAI.world.Environment
 import nl.jappieklooster.ISAI.world.Group
 import nl.jappieklooster.ISAI.world.World;
@@ -26,28 +28,14 @@ import com.jme3.terrain.geomipmap.TerrainQuad
  * @author jappie
  *
  */
-class EnvironmentFactory extends ASpatialFactory{
+class EnvironmentFactory extends AHasNodeFactory{
 
 	Environment environment
 
-	private Game game
-	/**
-	 * is used so much
-	 * @return
-	 */
-	private AssetManager getAssetManager(){ game.assetManager }
-
 	EnvironmentFactory(){
+
 		super()
 		environment = new Environment()
-	}
-	
-	void setGame(Game to){
-		game = to
-	}
-	@Override
-	Spatial getSpatial() {
-		environment.node
 	}
 	
 	TerrainQuad terrain(Closure commands){
@@ -62,5 +50,10 @@ class EnvironmentFactory extends ASpatialFactory{
 		factory.assetManager = assetManager
 		new DelegateClosure(to:factory).call(commands)
 		factory.create()
+	}
+
+	@Override
+	public AHasNode getAHasNode() {
+		return environment
 	}
 }

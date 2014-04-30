@@ -12,6 +12,7 @@ abstract class MovingEntity extends Entity implements IGroupItem{
 	float maxRotation
 	float friction
 	
+	Random random
 	MovingEntity(){
 		super()
 		velocity = new Vector3()

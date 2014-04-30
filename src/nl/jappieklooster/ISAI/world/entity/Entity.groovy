@@ -8,13 +8,11 @@ import nl.jappieklooster.math.vector.*
 abstract class Entity implements IPositionable{
 
 	protected Geometry geometry
-	Random random
 	/** world position */
 	Vector3 position
 	
 	Entity(){
 		position = new Vector3()
-		random = null
 	}
 	
 	Vector3 getScale(){

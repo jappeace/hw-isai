@@ -6,7 +6,9 @@ import java.util.concurrent.ScheduledThreadPoolExecutor
 
 import nl.jappieklooster.ISAI.Game
 import nl.jappieklooster.ISAI.init.DelegateClosure;
+import nl.jappieklooster.ISAI.init.factory.dsl.AHasNodeFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.ASpatialFactory;
+import nl.jappieklooster.ISAI.world.AHasNode;
 import nl.jappieklooster.ISAI.world.Group
 import nl.jappieklooster.ISAI.world.entity.Vehicle;
 import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
@@ -24,18 +26,11 @@ import com.jme3.terrain.geomipmap.TerrainQuad
  * @author jappie
  *
  */
-class GroupFactory extends ASpatialFactory{
+class GroupFactory extends AHasNodeFactory{
 
 	Group group
 	NeighbourTracker neighTracker
 	Random random
-	private Game game
-	
-	/**
-	 * is used so much
-	 * @return
-	 */
-	private AssetManager getAssetManager(){ game.assetManager }
 
     private ScheduledThreadPoolExecutor threadPool
 	GroupFactory(ScheduledThreadPoolExecutor exec){
@@ -49,10 +44,6 @@ class GroupFactory extends ASpatialFactory{
 		neighTracker.group = group
 	}
 
-	void setGame(Game to){
-		game = to
-	}
-	
 	/** create a new vehicle */
 	Vehicle vehicle(Closure commands){
 		VehicleFactory factory = new VehicleFactory(neighTracker)
@@ -86,7 +77,8 @@ class GroupFactory extends ASpatialFactory{
 	}
 
 	@Override
-	Spatial getSpatial() {
-		group.node
+	public AHasNode getAHasNode() {
+		return group
 	}
+
 }

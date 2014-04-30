@@ -10,15 +10,18 @@ import com.jme3.scene.shape.Box
 import com.jme3.texture.Texture
 
 import nl.jappieklooster.ISAI.init.DelegateClosure;
+import nl.jappieklooster.ISAI.init.factory.dsl.AEntityFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.AMaterialFactory;
+import nl.jappieklooster.ISAI.world.AHasNode;
 import nl.jappieklooster.ISAI.world.Group
 import nl.jappieklooster.ISAI.world.World;
+import nl.jappieklooster.ISAI.world.entity.Entity;
 import nl.jappieklooster.ISAI.world.entity.Vehicle;
 import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
-class VehicleFactory extends AMaterialFactory{
+class VehicleFactory extends AEntityFactory{
 	Vehicle vehicle
 
 	Group group
@@ -31,30 +34,11 @@ class VehicleFactory extends AMaterialFactory{
 		vehicle.velocity = new Vector3()
 		vehicle.position = new Vector3()
 	}
-	void setToDefault(){
-		Geometry geometry = new Geometry("Default box", new Box(1,1,1) );
-		geometry.setLocalTranslation(new Vector3f());
 
-		Material material = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-		material.setTexture("ColorMap", assetManager.loadTexture("Textures/smile.png"));
-
-		geometry.setMaterial(material);
-
-		vehicle.geometry = geometry
-		vehicle.random = random
-
-		group.node.attachChild(geometry);
-	}
-	
-	
-	void mesh(Mesh shape){
-		vehicle.geometry.mesh = shape
-	} 
-	
 	@Override
-	void location(Vector3 where){
-		super.location(where)
-		vehicle.position = where
+	void setToDefault(){
+		super.setToDefault()
+		vehicle.random = random
 	}
 	void behaviour(Closure commands){
 		group.shouldUpdate = true
@@ -62,11 +46,6 @@ class VehicleFactory extends AMaterialFactory{
 		factory.random = random
 		factory.vehicle = vehicle
 		new DelegateClosure(to:factory).call(commands)
-	}
-
-	@Override
-	public Spatial getSpatial() {
-		return vehicle.geometry
 	}
 	
 	void friction(float to){
@@ -81,8 +60,11 @@ class VehicleFactory extends AMaterialFactory{
 		vehicle.heading = to.normalized
 	}
 	@Override
-	public Material getMaterial() {
-		vehicle.geometry.material
+	public Entity getEntity() {
+		return vehicle;
 	}
-	
+	@Override
+	public AHasNode getNodeContainer() {
+		return group;
+	}
 }
