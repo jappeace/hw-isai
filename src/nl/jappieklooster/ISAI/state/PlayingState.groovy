@@ -64,8 +64,10 @@ class PlayingState extends ACommenState{
 
                         Vertex two = new Vertex(new Vector3(10, 10, 10))
                         Vertex three = new Vertex(new Vector3(0, -40, -40))
+                        Vertex four = new Vertex(new Vector3(40, -400, -40))
                         graph.connect(one, two)
                         graph.connect(two, three)
+                        graph.connect(two, four)
 					}
 					world.node.attachChild(graph.node)
 				}
