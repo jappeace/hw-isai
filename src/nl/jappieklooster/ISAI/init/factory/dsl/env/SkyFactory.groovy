@@ -6,6 +6,7 @@ import com.jme3.scene.Spatial
 import com.jme3.scene.Node
 
 import nl.jappieklooster.ISAI.init.factory.dsl.ASpatialFactory;
+import nl.jappieklooster.ISAI.world.AHasNode
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
 import nl.jappieklooster.math.vector.Vector3
@@ -13,18 +14,16 @@ import nl.jappieklooster.math.vector.Converter
 
 /** an instance of thiss class has a spatial and material for that spatial, meaning it can edit it */
 class SkyFactory extends ASpatialFactory{
-	World world
 	AssetManager assetManager
 	private Node node
 	boolean isSphere
 	String texture
-	SkyFactory(World world){
-		super(null)
+	SkyFactory(AHasNode nodeContainer){
+		super()
 		node = new Node("sky-contiainer")
 		texture = "Textures/Sky/Bright/BrightSky.dds"
 		isSphere = false
-		this.world = world
-		world.node.attachChild(node)
+		nodeContainer.node.attachChild(node)
 	}
 	
 	Spatial create(){

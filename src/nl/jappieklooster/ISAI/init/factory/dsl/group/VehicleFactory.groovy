@@ -25,7 +25,7 @@ class VehicleFactory extends AMaterialFactory{
 	NeighbourTracker neighTracker
 	Random random
 	VehicleFactory(NeighbourTracker tracker){
-		super(tracker)
+		neighTracker = tracker
 
 		vehicle = new Vehicle()
 		vehicle.velocity = new Vector3()

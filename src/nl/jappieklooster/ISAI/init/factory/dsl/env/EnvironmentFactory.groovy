@@ -38,6 +38,7 @@ class EnvironmentFactory extends ASpatialFactory{
 	private AssetManager getAssetManager(){ game.assetManager }
 
 	EnvironmentFactory(){
+		super()
 		environment = new Environment()
 	}
 	
@@ -57,7 +58,7 @@ class EnvironmentFactory extends ASpatialFactory{
 		factory.create(game.camera)
 	}
 	Spatial sky(Closure commands){
-		SkyFactory factory = new SkyFactory(world)
+		SkyFactory factory = new SkyFactory(environment)
 		factory.assetManager = assetManager
 		new DelegateClosure(to:factory).call(commands)
 		factory.create()

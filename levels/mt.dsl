@@ -3,17 +3,19 @@ import com.jme3.scene.shape.*
 
 name "rootnode (sortof)"
 
-sky{
+environment{
+    sky{
+    }
+    terrain{
+        scale new Vector3(5, 1, 4)
+        location new Vector3(0, 0, 0)
+    }
 }
 group{
 
     name "standing still node"
     location new Vector3(-300, -300, -300)
     
-    terrain{
-        scale new Vector3(5, 1, 4)
-        location new Vector3(0, 0, 0)
-    }
     vehicle{
         name "wall"
         mesh new Box(1, 1080, 1920)

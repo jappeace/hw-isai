@@ -15,10 +15,7 @@ abstract class AMaterialFactory extends ASpatialFactory{
 	AssetManager assetManager
 
 	AMaterialFactory(){
-		super(null)
-	}
-	AMaterialFactory(NeighbourTracker tracker){
-		super(tracker)
+		super()
 	}
 	abstract Material getMaterial()
 

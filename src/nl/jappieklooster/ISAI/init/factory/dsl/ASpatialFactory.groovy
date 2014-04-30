@@ -9,8 +9,8 @@ import nl.jappieklooster.math.vector.Converter
 
 /** abstracts away the jme api calls, with jme abstraction */
 abstract class ASpatialFactory{
-	ASpatialFactory(NeighbourTracker tracker){
-		super(tracker)
+	ASpatialFactory(){
+		super()
 	}
 	abstract Spatial getSpatial()
 	void location(Vector3 where){
