@@ -6,6 +6,10 @@ import java.util.concurrent.ScheduledThreadPoolExecutor
 
 import nl.jappieklooster.ISAI.Game
 import nl.jappieklooster.ISAI.init.DelegateClosure;
+import nl.jappieklooster.ISAI.init.factory.dsl.env.EnvironmentFactory
+import nl.jappieklooster.ISAI.init.factory.dsl.group.GroupFactory;
+import nl.jappieklooster.ISAI.world.Environment
+import nl.jappieklooster.ISAI.world.Group
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.Vehicle;
 import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
@@ -25,57 +29,49 @@ import com.jme3.terrain.geomipmap.TerrainQuad
  */
 class WorldFactory extends ASpatialFactory{
 
+	World world
+
 	private Game game
-	
 	/**
 	 * is used so much
 	 * @return
 	 */
 	private AssetManager getAssetManager(){ game.assetManager }
+    private ScheduledThreadPoolExecutor threadPool
+
+	WorldFactory(ScheduledThreadPoolExecutor exec){
+		threadPool = exec
+		world = new World()
+	}
+	
 	void setGame(Game to){
 		game = to
 	}
-
-    private ScheduledThreadPoolExecutor threadPool
-	WorldFactory(ScheduledThreadPoolExecutor exec){
-		super(new NeighbourTracker(exec))
-		threadPool = exec
-		world = new World()
-
-		world.listeners.add(neighTracker)
-
-		neighTracker.world = world
-	}
-	
-	/** create a new vehicle */
-	Vehicle vehicle(Closure commands){
-		VehicleFactory factory = new VehicleFactory(neighTracker)
-		factory.world = world
-		factory.assetManager = assetManager
-		factory.random = random
-		factory.setToDefault()
-
-		new DelegateClosure(to:factory).call(commands)
-		world.entities.add(factory.vehicle)
-		return factory.vehicle
-	}
-
-	
 	/** create a new vehicle  group (World) to allow group behaviours, allows diferentation between groups and a peformance gain at the same time.
 	 * It is a bit abstract but fairly clever*/
-	World group(Closure commands){
-		WorldFactory child = new WorldFactory(threadPool)
+	Group group(Closure commands){
+		GroupFactory factory = new GroupFactory(threadPool)
 		
-		child.game = game
-		child.random = random
-		new DelegateClosure(to: child).call(commands)
+		factory.game = game
+		factory.random = new Random()
+		new DelegateClosure(to: factory).call(commands)
 		
 		// if the child world updates we also should
-		world.shouldUpdate = world.shouldUpdate ?: child.world.shouldUpdate
-		world.entities.add(child.world)
-		world.node.attachChild(child.world.node)
+		world.actors.add(factory.group)
+		world.node.attachChild(factory.group.node)
 
-		return child.world
+		return factory.group
+	}
+	
+	Environment environment(Closure commands){
+		EnvironmentFactory factory = new EnvironmentFactory()
+		factory.game = game
+		
+		new DelegateClosure(to: factory).call(commands)
+		
+		world.environment = factory.environment
+		world.node.attachChild(factory.environment.node)
+		return factory.environment
 	}
 
 	@Override
@@ -83,20 +79,6 @@ class WorldFactory extends ASpatialFactory{
 		world.node
 	}
 	
-	TerrainQuad terrain(Closure commands){
-		TerrainFactory factory = new TerrainFactory(assetManager)
-		factory.world = world
-		factory.setToDefault()
-		new DelegateClosure(to:factory).call(commands)
-		factory.create(game.camera)
-	}
-
-	Spatial sky(Closure commands){
-		SkyFactory factory = new SkyFactory(world)
-		factory.assetManager = assetManager
-		new DelegateClosure(to:factory).call(commands)
-		factory.create()
-	}
 	
 
 }

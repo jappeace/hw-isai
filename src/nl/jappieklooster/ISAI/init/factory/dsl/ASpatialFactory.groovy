@@ -8,7 +8,7 @@ import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
 /** abstracts away the jme api calls, with jme abstraction */
-abstract class ASpatialFactory extends AWorldFactory{
+abstract class ASpatialFactory{
 	ASpatialFactory(NeighbourTracker tracker){
 		super(tracker)
 	}

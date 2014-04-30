@@ -3,6 +3,7 @@ package nl.jappieklooster.ISAI.world.entity.tracking
 import java.util.concurrent.Future
 import java.util.concurrent.ScheduledThreadPoolExecutor
 
+import nl.jappieklooster.ISAI.world.Group
 import nl.jappieklooster.ISAI.world.IUpdatable;
 import nl.jappieklooster.ISAI.world.IGroupItem;
 import nl.jappieklooster.ISAI.world.World;
@@ -17,12 +18,14 @@ import nl.jappieklooster.ISAI.world.entity.tracking.threading.TrackingThread;
  * the intial implementation did a lot of dubble work per tick, this
  * class centralises that work in the hope it will be done ones per tick.
  * 
- * This will only work with proper initilization
+ * it also puts the logic on a thread, so this thing does not slow down gameplay
+ * it will cash then the results and start another thread
+ * 
  * */
 class NeighbourTracker implements IUpdatable{
 
 	/** the world to read from */
-	World world
+	Group group
 	
 	IFindStrategy strategy
 	
@@ -64,7 +67,7 @@ class NeighbourTracker implements IUpdatable{
 		if(future == null){
 			threadLogic.distances = distances.clone()
 			threadLogic.strategy = strategy
-			threadLogic.world = world
+			threadLogic.group = group
 			future = threadPoolExecuter.submit(threadLogic)
 		}
 		// thread might be done already

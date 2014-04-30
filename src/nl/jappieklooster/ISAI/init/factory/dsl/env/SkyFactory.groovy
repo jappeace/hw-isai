@@ -1,10 +1,11 @@
-package nl.jappieklooster.ISAI.init.factory.dsl
+package nl.jappieklooster.ISAI.init.factory.dsl.env
 
 import com.jme3.asset.AssetManager
 import com.jme3.material.Material
 import com.jme3.scene.Spatial
 import com.jme3.scene.Node
 
+import nl.jappieklooster.ISAI.init.factory.dsl.ASpatialFactory;
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
 import nl.jappieklooster.math.vector.Vector3

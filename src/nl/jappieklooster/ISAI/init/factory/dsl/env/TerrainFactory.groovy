@@ -1,4 +1,7 @@
-package nl.jappieklooster.ISAI.init.factory.dsl
+package nl.jappieklooster.ISAI.init.factory.dsl.env
+
+import nl.jappieklooster.ISAI.init.factory.dsl.AMaterialFactory;
+import nl.jappieklooster.ISAI.world.Environment
 
 import com.jme3.asset.AssetManager
 import com.jme3.input.FlyByCamera
@@ -15,7 +18,9 @@ import com.jme3.scene.Node
 
 class TerrainFactory extends AMaterialFactory{
 
+	Environment environment
 	/**
+	 * 
 	 * allows changing of the terrain material
 	 */
 	private Material material
@@ -68,7 +73,7 @@ class TerrainFactory extends AMaterialFactory{
 
 		
 		// if threre is a world attach the spatialcontainer to it
-		world?.node.attachChild(spatialContainer)
+		environment?.node.attachChild(spatialContainer)
 	}
 	
 	float[] loadHeightMap(String path){
@@ -111,7 +116,7 @@ class TerrainFactory extends AMaterialFactory{
 	}
 
 	@Override
-	public Material getMaterial() {
+	Material getMaterial() {
 		return material
 	}
 

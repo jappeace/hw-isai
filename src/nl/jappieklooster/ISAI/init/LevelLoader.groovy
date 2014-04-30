@@ -13,7 +13,6 @@ import groovy.util.DelegatingScript
 import java.util.concurrent.ScheduledThreadPoolExecutor
 class LevelLoader {
 	private GroovyShell shell
-	private Random random // store the randomness
 	private ScheduledThreadPoolExecutor threadPoolExecuter
 	private static final int threadCount = 1
 	Game game
@@ -22,7 +21,6 @@ class LevelLoader {
 		
 		this.game = game
 
-		random = new Random()
         threadPoolExecuter = new ScheduledThreadPoolExecutor(threadCount) // curently only neighbourtracker uses it
 
         CompilerConfiguration compilerConfig = new CompilerConfiguration();
@@ -35,7 +33,6 @@ class LevelLoader {
 		DelegatingScript script = (DelegatingScript)shell.parse(new File(path+".dsl"))
 		WorldFactory factory = new WorldFactory(threadPoolExecuter)
 		factory.game = game
-		factory.random = random
 		script.setDelegate(factory)
 		script.run()
 		factory.world.name = path

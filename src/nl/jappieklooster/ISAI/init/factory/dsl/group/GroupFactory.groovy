@@ -1,4 +1,4 @@
-package nl.jappieklooster.ISAI.init.factory.dsl
+package nl.jappieklooster.ISAI.init.factory.dsl.group
 
 import com.jme3.asset.AssetManager
 
@@ -6,7 +6,8 @@ import java.util.concurrent.ScheduledThreadPoolExecutor
 
 import nl.jappieklooster.ISAI.Game
 import nl.jappieklooster.ISAI.init.DelegateClosure;
-import nl.jappieklooster.ISAI.world.World;
+import nl.jappieklooster.ISAI.init.factory.dsl.ASpatialFactory;
+import nl.jappieklooster.ISAI.world.Group
 import nl.jappieklooster.ISAI.world.entity.Vehicle;
 import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
 import nl.jappieklooster.math.vector.Vector3
@@ -25,6 +26,9 @@ import com.jme3.terrain.geomipmap.TerrainQuad
  */
 class GroupFactory extends ASpatialFactory{
 
+	Group group
+	NeighbourTracker neighTracker
+	Random random
 	private Game game
 	
 	/**
@@ -32,71 +36,57 @@ class GroupFactory extends ASpatialFactory{
 	 * @return
 	 */
 	private AssetManager getAssetManager(){ game.assetManager }
-	void setGame(Game to){
-		game = to
-	}
 
     private ScheduledThreadPoolExecutor threadPool
 	GroupFactory(ScheduledThreadPoolExecutor exec){
-		super(new NeighbourTracker(exec))
+		exec.setCorePoolSize(exec.corePoolSize + 1)
+		neighTracker = new NeighbourTracker(exec)
 		threadPool = exec
-		world = new World()
+		group = new Group()
 
-		world.listeners.add(neighTracker)
+		group.listeners.add(neighTracker)
 
-		neighTracker.world = world
+		neighTracker.group = group
+	}
+
+	void setGame(Game to){
+		game = to
 	}
 	
 	/** create a new vehicle */
 	Vehicle vehicle(Closure commands){
 		VehicleFactory factory = new VehicleFactory(neighTracker)
-		factory.world = world
+		factory.group = group
 		factory.assetManager = assetManager
 		factory.random = random
 		factory.setToDefault()
 
 		new DelegateClosure(to:factory).call(commands)
-		world.entities.add(factory.vehicle)
+		group.entities.add(factory.vehicle)
 		return factory.vehicle
 	}
 
 	
 	/** create a new vehicle  group (World) to allow group behaviours, allows diferentation between groups and a peformance gain at the same time.
 	 * It is a bit abstract but fairly clever*/
-	World group(Closure commands){
+	Group group(Closure commands){
+
 		GroupFactory child = new GroupFactory(threadPool)
 		
 		child.game = game
 		child.random = random
 		new DelegateClosure(to: child).call(commands)
 		
-		// if the child world updates we also should
-		world.shouldUpdate = world.shouldUpdate ?: child.world.shouldUpdate
-		world.entities.add(child.world)
-		world.node.attachChild(child.world.node)
+		// if the child group updates we also should
+		group.shouldUpdate = group.shouldUpdate ?: child.group.shouldUpdate
+		group.entities.add(child.group)
+		group.node.attachChild(child.group.node)
 
-		return child.world
+		return child.group
 	}
 
 	@Override
 	Spatial getSpatial() {
-		world.node
+		group.node
 	}
-	
-	TerrainQuad terrain(Closure commands){
-		TerrainFactory factory = new TerrainFactory(assetManager)
-		factory.world = world
-		factory.setToDefault()
-		new DelegateClosure(to:factory).call(commands)
-		factory.create(game.camera)
-	}
-
-	Spatial sky(Closure commands){
-		SkyFactory factory = new SkyFactory(world)
-		factory.assetManager = assetManager
-		new DelegateClosure(to:factory).call(commands)
-		factory.create()
-	}
-	
-
 }

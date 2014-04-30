@@ -6,12 +6,18 @@ import com.jme3.scene.shape.Sphere;
 import nl.jappieklooster.ISAI.world.entity.Entity;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
-class Group implements IGroupItem{
+
+/**
+ * the group class has 2 purpouses, the first is pure optimization, when not all items need to be updated
+ * you gain time, so stuff that does need to be updated should be placed in a group
+ * 
+ * the second purpouse is ease of order, you can for example move an entiry group by moving its node,
+ * it also lets the program understand different group, and help ignore them or react to them
+ * @author jappie
+ *
+ */
+class Group extends AHasNode implements IGroupItem{
 	
-	/**
-	 * the view of this world, this is how jme3 decides what to render
-	 */
-	Node node
 	
 	/**
 	 * stuff in the world that receves update notifactions
@@ -27,14 +33,9 @@ class Group implements IGroupItem{
 	 * some worlds only contain bricks, ignore this allows them to be ignored
 	 */
 	boolean shouldUpdate = false
-	/**
-	 * used for identifying levels, the bulk of worlds would not use this
-	 */
-	String name = ""
 
 	Group(){
-		node = new Node("rootnode of  " + System.identityHashCode() + " creation time: " + System.nanoTime())
-		
+		super()
 		// linked lists are more memory effiecient than arraylists, and since I am not planning using indexcis
 		// they are the better choice for storing stuff
 		entities = new LinkedList<>()
@@ -50,10 +51,6 @@ class Group implements IGroupItem{
 		entities.each{
 			it.update(tpf)
 		}
-	}
-	/** local position*/
-	public Vector3 getPosition() {
-		return Converter.fromJME(node.localTranslation)
 	}
 	@Override
 	boolean equals(Object obj){

@@ -1,4 +1,4 @@
-package nl.jappieklooster.ISAI.init.factory.dsl
+package nl.jappieklooster.ISAI.init.factory.dsl.group
 
 import com.jme3.asset.AssetManager
 import com.jme3.material.Material
@@ -23,10 +23,13 @@ import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
-class BehaviourFactory extends AWorldFactory{
+class BehaviourFactory{
 	Vehicle vehicle
+
+	NeighbourTracker neighTracker
+	Random random
 	BehaviourFactory(NeighbourTracker neigh){
-		super(neigh)
+		neighTracker = neigh
 		this.vehicle = vehicle
 	}
 	

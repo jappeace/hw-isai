@@ -6,6 +6,7 @@ import java.util.concurrent.Callable
 import java.util.concurrent.Future
 import java.util.concurrent.ScheduledThreadPoolExecutor
 
+import nl.jappieklooster.ISAI.world.Group
 import nl.jappieklooster.ISAI.world.IUpdatable;
 import nl.jappieklooster.ISAI.world.IGroupItem;
 import nl.jappieklooster.ISAI.world.World;
@@ -25,7 +26,7 @@ import nl.jappieklooster.ISAI.world.entity.tracking.strategy.IFindStrategy;
 class TrackingThread implements Callable<ThreadResult>{
 
 	/** the world to read from, to clone this entirely would be to slow */
-	World world
+	Group group
 	
 	IFindStrategy strategy
 	
@@ -43,7 +44,7 @@ class TrackingThread implements Callable<ThreadResult>{
             it.isUsed = false
         }
 		// tell strategy about the world
-		strategy.targetItems = world.entities
+		strategy.targetItems = group.entities
 
 		// create the result
 		ThreadResult result = new ThreadResult()

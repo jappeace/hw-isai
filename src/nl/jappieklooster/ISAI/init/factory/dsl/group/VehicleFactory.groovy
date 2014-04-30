@@ -1,4 +1,4 @@
-package nl.jappieklooster.ISAI.init.factory.dsl
+package nl.jappieklooster.ISAI.init.factory.dsl.group
 
 import com.jme3.asset.AssetManager
 import com.jme3.material.Material
@@ -10,6 +10,8 @@ import com.jme3.scene.shape.Box
 import com.jme3.texture.Texture
 
 import nl.jappieklooster.ISAI.init.DelegateClosure;
+import nl.jappieklooster.ISAI.init.factory.dsl.AMaterialFactory;
+import nl.jappieklooster.ISAI.world.Group
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.Vehicle;
 import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
@@ -19,6 +21,9 @@ import nl.jappieklooster.math.vector.Converter
 class VehicleFactory extends AMaterialFactory{
 	Vehicle vehicle
 
+	Group group
+	NeighbourTracker neighTracker
+	Random random
 	VehicleFactory(NeighbourTracker tracker){
 		super(tracker)
 
@@ -38,7 +43,7 @@ class VehicleFactory extends AMaterialFactory{
 		vehicle.geometry = geometry
 		vehicle.random = random
 
-		world.node.attachChild(geometry);
+		group.node.attachChild(geometry);
 	}
 	
 	
@@ -52,11 +57,10 @@ class VehicleFactory extends AMaterialFactory{
 		vehicle.position = where
 	}
 	void behaviour(Closure commands){
-		world.shouldUpdate = true
+		group.shouldUpdate = true
 		BehaviourFactory factory = new BehaviourFactory(neighTracker)
 		factory.random = random
 		factory.vehicle = vehicle
-		factory.world = world
 		new DelegateClosure(to:factory).call(commands)
 	}
 
