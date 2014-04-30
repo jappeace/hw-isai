@@ -8,6 +8,7 @@ import nl.jappieklooster.ISAI.Game
 import nl.jappieklooster.ISAI.init.DelegateClosure;
 import nl.jappieklooster.ISAI.init.factory.dsl.env.EnvironmentFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.group.GroupFactory;
+import nl.jappieklooster.ISAI.world.AHasNode;
 import nl.jappieklooster.ISAI.world.Environment
 import nl.jappieklooster.ISAI.world.Group
 import nl.jappieklooster.ISAI.world.World;
@@ -27,40 +28,15 @@ import com.jme3.terrain.geomipmap.TerrainQuad
  * @author jappie
  *
  */
-class WorldFactory extends ASpatialFactory{
+class WorldFactory extends AHasNodeFactory{
 
 	World world
 
-	private Game game
-	/**
-	 * is used so much
-	 * @return
-	 */
-	private AssetManager getAssetManager(){ game.assetManager }
     private ScheduledThreadPoolExecutor threadPool
 
 	WorldFactory(ScheduledThreadPoolExecutor exec){
 		threadPool = exec
 		world = new World()
-	}
-	
-	void setGame(Game to){
-		game = to
-	}
-	/** create a new vehicle  group (World) to allow group behaviours, allows diferentation between groups and a peformance gain at the same time.
-	 * It is a bit abstract but fairly clever*/
-	Group group(Closure commands){
-		GroupFactory factory = new GroupFactory(threadPool)
-		
-		factory.game = game
-		factory.random = new Random()
-		new DelegateClosure(to: factory).call(commands)
-		
-		// if the child world updates we also should
-		world.actors.add(factory.group)
-		world.node.attachChild(factory.group.node)
-
-		return factory.group
 	}
 	
 	Environment environment(Closure commands){
@@ -75,8 +51,22 @@ class WorldFactory extends ASpatialFactory{
 	}
 
 	@Override
-	Spatial getSpatial() {
-		world.node
+	protected AHasNode getAHasNode() {
+		return world
+	}
+
+	@Override
+	protected AHasNodeFactory createChildFactory() {
+		GroupFactory factory = new GroupFactory(threadPool)
+		
+		factory.random = new Random()
+		return factory
+	}
+
+	@Override
+	protected void integrateChildFactory(AHasNodeFactory child) {
+		
+		world.actors.add(((GroupFactory)child).group)
 	}
 	
 	

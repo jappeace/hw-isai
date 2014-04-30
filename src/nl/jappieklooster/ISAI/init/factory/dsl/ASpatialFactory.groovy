@@ -12,7 +12,7 @@ abstract class ASpatialFactory{
 	ASpatialFactory(){
 		super()
 	}
-	abstract Spatial getSpatial()
+	protected abstract Spatial getSpatial()
 	void location(Vector3 where){
 		getSpatial().setLocalTranslation(Converter.toJME(where))	
 	}

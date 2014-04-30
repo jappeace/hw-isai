@@ -17,7 +17,7 @@ abstract class AMaterialFactory extends ASpatialFactory{
 	AMaterialFactory(){
 		super()
 	}
-	abstract Material getMaterial()
+	protected abstract Material getMaterial()
 
 	void texture(String path){
 		getMaterial().setTexture("ColorMap", assetManager.loadTexture(path))

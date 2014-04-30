@@ -52,16 +52,16 @@ abstract class AEntityFactory extends AMaterialFactory{
 		entity.position = where
 	}
 	@Override
-	public Spatial getSpatial() {
+	protected Spatial getSpatial() {
 		return entity.geometry
 	}
 	
 	@Override
-	public Material getMaterial() {
+	protected Material getMaterial() {
 		entity.geometry.material
 	}
 	
-	abstract Entity getEntity()
-	abstract AHasNode getNodeContainer()
+	protected abstract Entity getEntity()
+	protected abstract AHasNode getNodeContainer()
 	
 }

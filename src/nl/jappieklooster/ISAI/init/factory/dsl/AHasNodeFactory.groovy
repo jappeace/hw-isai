@@ -36,13 +36,6 @@ abstract class AHasNodeFactory extends ASpatialFactory{
 		game = to
 	}
 	
-	/**
-	 * in our case the node is meant as spatial
-	 */
-	@Override
-	Spatial getSpatial() {
-		return AHasNode.node
-	}
 
 	Obstacle obstacle(Closure commands){
 		ObstacleFactory factory = new ObstacleFactory()
@@ -53,5 +46,35 @@ abstract class AHasNodeFactory extends ASpatialFactory{
 		return factory.obstacle
 	}
 
-	abstract AHasNode getAHasNode()
+	/**
+	 * groups stuff together by injecting a child factory as delagate for the commands
+	 * after that the child factory's node gets attached to this node
+	 * 
+	 * allows the transformation of things as a whole, because its a group, using native jme3 concepts
+	 * @param commands
+	 * @return
+	 */
+	AHasNode group(Closure commands){
+		AHasNodeFactory factory = createChildFactory()
+		
+		factory.game = game
+		new DelegateClosure(to: factory).call(commands)
+		
+		AHasNode.node.attachChild(factory.AHasNode.node)
+
+		integrateChildFactory(factory)
+		return factory.AHasNode
+	}
+
+	protected abstract AHasNodeFactory createChildFactory()
+	protected abstract void integrateChildFactory(AHasNodeFactory child)
+	protected abstract AHasNode getAHasNode()
+
+	/**
+	 * in our case the node is meant as spatial
+	 */
+	@Override
+	protected Spatial getSpatial() {
+		return AHasNode.node
+	}
 }

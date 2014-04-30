@@ -53,7 +53,16 @@ class EnvironmentFactory extends AHasNodeFactory{
 	}
 
 	@Override
-	public AHasNode getAHasNode() {
+	protected AHasNode getAHasNode() {
 		return environment
+	}
+
+	@Override
+	protected AHasNodeFactory createChildFactory() {
+		return new EnvironmentFactory()
+	}
+
+	@Override
+	protected void integrateChildFactory(AHasNodeFactory child) {
 	}
 }

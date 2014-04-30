@@ -34,7 +34,7 @@ class GroupFactory extends AHasNodeFactory{
 
     private ScheduledThreadPoolExecutor threadPool
 	GroupFactory(ScheduledThreadPoolExecutor exec){
-		exec.setCorePoolSize(exec.corePoolSize + 1)
+		exec.corePoolSize += 1
 		neighTracker = new NeighbourTracker(exec)
 		threadPool = exec
 		group = new Group()
@@ -57,28 +57,23 @@ class GroupFactory extends AHasNodeFactory{
 		return factory.vehicle
 	}
 
-	
-	/** create a new vehicle  group (World) to allow group behaviours, allows diferentation between groups and a peformance gain at the same time.
-	 * It is a bit abstract but fairly clever*/
-	Group group(Closure commands){
-
-		GroupFactory child = new GroupFactory(threadPool)
-		
-		child.game = game
-		child.random = random
-		new DelegateClosure(to: child).call(commands)
-		
-		// if the child group updates we also should
-		group.shouldUpdate = group.shouldUpdate ?: child.group.shouldUpdate
-		group.entities.add(child.group)
-		group.node.attachChild(child.group.node)
-
-		return child.group
+	@Override
+	protected AHasNode getAHasNode() {
+		return group
 	}
 
 	@Override
-	public AHasNode getAHasNode() {
-		return group
+	protected AHasNodeFactory createChildFactory() {
+		GroupFactory child = new GroupFactory(threadPool)
+		child.random = random
+		return child
+	}
+
+	@Override
+	protected void integrateChildFactory(AHasNodeFactory child) {
+		GroupFactory factory = (GroupFactory) child
+		group.shouldUpdate = group.shouldUpdate ?: factory.group.shouldUpdate
+		group.entities.add(factory.group)
 	}
 
 }
