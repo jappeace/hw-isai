@@ -58,18 +58,7 @@ class PlayingState extends ACommenState{
 					new KeyTrigger(KeyInput.KEY_F)
 				],
 				handler:{float value, float tpf, String name ->
-					if(!graph){
-                        graph = new Graph()
-                        Vertex one = new Vertex(new Vector3(0, 0, 0))
-
-                        Vertex two = new Vertex(new Vector3(10, 10, 10))
-                        Vertex three = new Vertex(new Vector3(0, -40, -40))
-                        Vertex four = new Vertex(new Vector3(40, -400, -40))
-                        graph.connect(one, two)
-                        graph.connect(two, three)
-                        graph.connect(two, four)
-					}
-					world.node.attachChild(graph.node)
+					world.node.attachChild(world.environment.navGraph.node)
 				}
 			)
 		)
@@ -79,7 +68,7 @@ class PlayingState extends ACommenState{
 					new KeyTrigger(KeyInput.KEY_G)
 				],
 				handler:{float value, float tpf, String name ->
-                    world.node.detachChild(graph.node)
+                    world.node.detachChild(world.environment.navGraph.node)
 				}
 			)
 		)

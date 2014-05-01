@@ -6,6 +6,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor
 
 import nl.jappieklooster.ISAI.Game
 import nl.jappieklooster.ISAI.init.DelegateClosure;
+import nl.jappieklooster.ISAI.init.factory.TerrainNavGraphFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.AHasNodeFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.ASpatialFactory;
 import nl.jappieklooster.ISAI.world.AHasNode;
@@ -43,7 +44,16 @@ class EnvironmentFactory extends AHasNodeFactory{
 		factory.environment = environment
 		factory.setToDefault()
 		new DelegateClosure(to:factory).call(commands)
-		factory.create(game.camera)
+
+		TerrainQuad result = factory.create(game.camera)
+
+		TerrainNavGraphFactory navfac = new TerrainNavGraphFactory()
+		navfac.terrain = result
+		navfac.addRasterVerteciToGraph(20)
+		
+		environment.navGraph = navfac.graph
+		
+		return result
 	}
 	Spatial sky(Closure commands){
 		SkyFactory factory = new SkyFactory(environment)

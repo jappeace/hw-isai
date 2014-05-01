@@ -6,6 +6,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor
 
 import nl.jappieklooster.ISAI.Game
 import nl.jappieklooster.ISAI.init.DelegateClosure;
+import nl.jappieklooster.ISAI.init.factory.TerrainNavGraphFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.env.EnvironmentFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.group.GroupFactory;
 import nl.jappieklooster.ISAI.world.AHasNode;
@@ -39,6 +40,11 @@ class WorldFactory extends AHasNodeFactory{
 		world = new World()
 	}
 	
+	/**
+	 * creates the enviroinmant, after the commands are executed the navigation graph will be created
+	 * @param commands
+	 * @return
+	 */
 	Environment environment(Closure commands){
 		EnvironmentFactory factory = new EnvironmentFactory()
 		factory.game = game
