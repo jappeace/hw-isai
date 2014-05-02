@@ -1,4 +1,4 @@
-package nl.jappieklooster.ISAI.world.entity.graph
+package nl.jappieklooster.ISAI.collection.graph
 
 import nl.jappieklooster.ISAI.world.entity.Entity
 import com.jme3.math.ColorRGBA

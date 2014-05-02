@@ -1,4 +1,4 @@
-package nl.jappieklooster.ISAI.world.entity.graph
+package nl.jappieklooster.ISAI.collection.graph
 
 import com.jme3.scene.Geometry
 import nl.jappieklooster.ISAI.world.entity.Entity

@@ -7,25 +7,23 @@ environment{
 	location new Vector3(-200,-500,300)
     sky{
     }
-    group{
-        name "standing still node"
-        location new Vector3(-300, -300, -300)
-        
 
-        group{
-            location new Vector3(1000, 0, 0)
-            name "helix"
-            (0..900).each{int number ->
-                    float radius = 8
-                    float height = 5
-                    obstacle{
-                        location new Vector3(Math.sin(number/Math.PI)*radius, number*height, Math.cos(number/Math.PI)*radius)
-                    }
-                    obstacle{
-                        location new Vector3(Math.sin(number/Math.PI + Math.PI)*radius, number*height, Math.cos(number/Math.PI+ Math.PI)*radius)
-                    }
-                
-            }
+	obstacle{
+		scale new Vector3(600,300,1)
+		location new Vector3(0,0,-800)
+	}
+    group{
+        name "helix"
+        (0..900).each{int number ->
+                float radius = 8
+                float height = 5
+                obstacle{
+                    location new Vector3(Math.sin(number/Math.PI)*radius, number*height, Math.cos(number/Math.PI)*radius)
+                }
+                obstacle{
+                    location new Vector3(Math.sin(number/Math.PI + Math.PI)*radius, number*height, Math.cos(number/Math.PI+ Math.PI)*radius)
+                }
+            
         }
     }
     terrain{

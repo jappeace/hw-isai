@@ -2,7 +2,7 @@ package nl.jappieklooster.ISAI.world
 import com.jme3.scene.Node
 import com.jme3.scene.Spatial
 
-import nl.jappieklooster.ISAI.world.entity.graph.Graph
+import nl.jappieklooster.ISAI.collection.graph.Graph;
 import nl.jappieklooster.math.vector.Converter
 import nl.jappieklooster.math.vector.Vector3
 

@@ -7,8 +7,9 @@ import com.jme3.math.Vector2f
 import com.jme3.math.Vector3f
 import com.jme3.terrain.geomipmap.TerrainQuad
 import com.jme3.scene.Node
-import nl.jappieklooster.ISAI.world.entity.graph.Graph
-import nl.jappieklooster.ISAI.world.entity.graph.Vertex
+
+import nl.jappieklooster.ISAI.collection.graph.Graph;
+import nl.jappieklooster.ISAI.collection.graph.Vertex;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 

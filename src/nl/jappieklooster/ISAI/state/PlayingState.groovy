@@ -14,12 +14,12 @@ import com.jme3.math.Vector3f
 import com.jme3.input.KeyInput
 
 import nl.jappieklooster.ISAI.Game
+import nl.jappieklooster.ISAI.collection.graph.Graph;
+import nl.jappieklooster.ISAI.collection.graph.Vertex;
 import nl.jappieklooster.ISAI.init.LevelLoader
 import nl.jappieklooster.ISAI.input.InputDirector
 import nl.jappieklooster.ISAI.input.InputHandler
 import nl.jappieklooster.ISAI.world.World;
-import nl.jappieklooster.ISAI.world.entity.graph.Graph
-import nl.jappieklooster.ISAI.world.entity.graph.Vertex
 import nl.jappieklooster.math.vector.Vector3
 
 import com.jme3.app.SimpleApplication
