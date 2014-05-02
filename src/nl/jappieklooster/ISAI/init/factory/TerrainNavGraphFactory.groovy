@@ -1,6 +1,7 @@
 package nl.jappieklooster.ISAI.init.factory
 
 import com.jme3.math.Vector2f
+import com.jme3.math.Vector3f
 import com.jme3.terrain.geomipmap.TerrainQuad
 import nl.jappieklooster.ISAI.world.entity.graph.Graph
 import nl.jappieklooster.ISAI.world.entity.graph.Vertex
@@ -12,6 +13,7 @@ class TerrainNavGraphFactory {
 	 * will be automaticly created, but can be overwritten
 	 */
 	Graph graph
+	Random random
 	
 	/**
 	 * is not magicly created and has to be set
@@ -19,6 +21,7 @@ class TerrainNavGraphFactory {
 	TerrainQuad terrain
 	
 	TerrainNavGraphFactory(){
+		random = new Random()
 		graph = new Graph()
 		graph.name += " navgraph for terrain"
 	}
@@ -30,22 +33,41 @@ class TerrainNavGraphFactory {
 	 * @param edgeDistance
 	 */
 	void addRasterVerteciToGraph(float cellSize){
-		float width = terrain.terrainSize * terrain.localScale.x
-		float loopcount =  width * terrain.terrainSize * terrain.localScale.z
-		float x = 0, z = 0
-		for(float i = 0; i < loopcount; i += cellSize){
-			x += cellSize * terrain.localScale.x
-			if(x >= width){
-				x = 0
-				z += cellSize * terrain.localScale.z
+		Vector3f scale = terrain.getWorldScale()
+		Vector3f position = terrain.worldTranslation
+
+		float width = (terrain.terrainSize * scale.x )/2 
+		float depth = (terrain.terrainSize * scale.z )/2
+		
+		float xinit = -width + position.x
+		float x = xinit
+		float z = -depth + position.z
+
+		while(true){
+			x += cellSize * scale.x
+
+			if(x >= width + position.x){
+				x = xinit
+				z += cellSize * scale.z
 			}
+
+			if(z >= depth  + position.z){
+				break;
+			}
+
+			float height = terrain.getHeight( new Vector2f(x, z))
+
+			if(height == Float.NaN){
+				// its very nice of jme to not crash to program when it does not find a height
+				// but when it does not find a height, I have a bug
+				throw new Exception("height not found");
+			}
+
 			graph.add(
 				new Vertex(
 					new Vector3(
-						x, 
-						terrain.getHeight(
-							new Vector2f(x, z)
-						), 
+						x + random.nextFloat(), 
+						height + position.y, 
                         z
                     )
                 )

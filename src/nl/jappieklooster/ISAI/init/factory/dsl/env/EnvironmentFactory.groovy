@@ -49,7 +49,7 @@ class EnvironmentFactory extends AHasNodeFactory{
 
 		TerrainNavGraphFactory navfac = new TerrainNavGraphFactory()
 		navfac.terrain = result
-		navfac.addRasterVerteciToGraph(20)
+		navfac.addRasterVerteciToGraph(5)
 		
 		environment.navGraph = navfac.graph
 		

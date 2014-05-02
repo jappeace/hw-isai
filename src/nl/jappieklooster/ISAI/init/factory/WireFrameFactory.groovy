@@ -35,10 +35,10 @@ class WireFrameFactory {
 
 	Geometry createSphere(int size = 1){
 		Geometry geometry = new Geometry("wireframe sphere", new WireSphere(size));
-		Material mataterial = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-		mataterial.getAdditionalRenderState().setWireframe(true);
-		mataterial.setColor("Color", createRandomColor());
-		geometry.setMaterial(mataterial);
+		Material material = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+		material.getAdditionalRenderState().setWireframe(true);
+		material.setColor("Color", createRandomColor());
+		geometry.setMaterial(material);
 		return geometry
 	}
 	

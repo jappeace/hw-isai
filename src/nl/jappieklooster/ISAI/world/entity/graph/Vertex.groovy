@@ -1,9 +1,11 @@
 package nl.jappieklooster.ISAI.world.entity.graph
 
 import nl.jappieklooster.ISAI.world.entity.Entity
+import com.jme3.math.ColorRGBA
 import com.jme3.scene.Geometry
 import com.jme3.scene.Node
 import com.jme3.scene.Spatial
+import com.jme3.scene.shape.Sphere
 import nl.jappieklooster.ISAI.init.factory.WireFrameFactory
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
@@ -24,6 +26,7 @@ class Vertex extends Entity{
 		super()
 		node = new Node("vertex node")
 		geometry = WireFrameFactory.getInstance().createSphere(1)
+	
 		node.attachChild(geometry)
 		position = pos
 		connections = new LinkedList<>() // memory effiecient and index acces not required
