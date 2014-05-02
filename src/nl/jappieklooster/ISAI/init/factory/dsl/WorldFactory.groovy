@@ -18,7 +18,6 @@ import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
-import com.jme3.scene.Node
 import com.jme3.scene.Spatial;
 import com.jme3.terrain.geomipmap.TerrainQuad
 

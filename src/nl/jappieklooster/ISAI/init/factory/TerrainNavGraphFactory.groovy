@@ -1,11 +1,16 @@
 package nl.jappieklooster.ISAI.init.factory
 
+import com.jme3.collision.CollisionResult
+import com.jme3.collision.CollisionResults
+import com.jme3.math.Ray
 import com.jme3.math.Vector2f
 import com.jme3.math.Vector3f
 import com.jme3.terrain.geomipmap.TerrainQuad
+import com.jme3.scene.Node
 import nl.jappieklooster.ISAI.world.entity.graph.Graph
 import nl.jappieklooster.ISAI.world.entity.graph.Vertex
 import nl.jappieklooster.math.vector.Vector3
+import nl.jappieklooster.math.vector.Converter
 
 class TerrainNavGraphFactory {
 
@@ -20,10 +25,18 @@ class TerrainNavGraphFactory {
 	 */
 	TerrainQuad terrain
 	
+	/**
+	 * this node is checked aggain to see if a connection can be made in the graph
+	 * when the terrain is set it is automaticly attached to this node
+	 */
+	Node collidable
+	
 	TerrainNavGraphFactory(){
 		random = new Random()
 		graph = new Graph()
 		graph.name += " navgraph for terrain"
+		
+		collidable = new Node("collision node for navgraph")
 	}
 	
 	/**
@@ -67,7 +80,7 @@ class TerrainNavGraphFactory {
 				new Vertex(
 					new Vector3(
 						x + random.nextFloat(), 
-						height + position.y, 
+						height + position.y + 3f, 
                         z
                     )
                 )
@@ -77,5 +90,30 @@ class TerrainNavGraphFactory {
 	}
 	void connectVerticiCloserThen(float edgeDistance){
 		
+		graph.verteci.each{ Vertex outer ->
+			graph.verteci.each{ Vertex inner ->
+
+				if(inner.position == outer.position){
+					return
+				}
+
+				Vector3 difference = outer.position - inner.position
+
+				if(difference.lengthSq >= edgeDistance * edgeDistance){
+					return
+				}
+				CollisionResults results = new CollisionResults();
+				Ray ray = new Ray(Converter.toJME(inner.position), Converter.toJME(difference.normalized))
+				collidable.collideWith(ray, results)
+				
+				CollisionResult closest = results.closestCollision
+				if(closest){
+					if(closest.distance < difference.length){
+						return
+					}
+				}
+                inner.connect(outer)
+			}
+		}
 	}
 }

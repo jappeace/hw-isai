@@ -18,6 +18,7 @@ import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
+import com.jme3.math.Vector3f
 import com.jme3.scene.Node
 import com.jme3.scene.Spatial;
 import com.jme3.terrain.geomipmap.TerrainQuad
@@ -49,8 +50,12 @@ class EnvironmentFactory extends AHasNodeFactory{
 
 		TerrainNavGraphFactory navfac = new TerrainNavGraphFactory()
 		navfac.terrain = result
-		navfac.addRasterVerteciToGraph(5)
+		navfac.addRasterVerteciToGraph(20)
 		
+		navfac.collidable.attachChild(environment.node)
+		navfac.connectVerticiCloserThen(130)
+		navfac.collidable.detachAllChildren()
+
 		environment.navGraph = navfac.graph
 		
 		return result

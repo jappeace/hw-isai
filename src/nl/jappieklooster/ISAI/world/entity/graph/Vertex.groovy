@@ -26,6 +26,7 @@ class Vertex extends Entity{
 		super()
 		node = new Node("vertex node")
 		geometry = WireFrameFactory.getInstance().createSphere(1)
+		geometry.material.setColor("Color", new ColorRGBA(0.1,0.1,0.1,1))
 	
 		node.attachChild(geometry)
 		position = pos
@@ -45,6 +46,7 @@ class Vertex extends Entity{
 		Vector3 conpos = (to.position - position) / new Vector3(2)
 
 		Geometry edgeConnection = WireFrameFactory.getInstance().createCube(new Vector3(1, difference.length/2,1))
+		edgeConnection.material.setColor("Color", new ColorRGBA(0,0,0,1))
 
 		edgeConnection.setLocalTranslation(Converter.toJME(conpos))
 		
