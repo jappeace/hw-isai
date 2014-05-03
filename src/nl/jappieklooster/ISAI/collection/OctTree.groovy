@@ -70,30 +70,11 @@ class OctTree {
 	}
 	
 	Collection<IPositionable> find(Vector3 location, float radius){
-        Collection<IPositionable> result = new LinkedList<>()
-		if(isLeafNode()){
-			if(data == null){
-                return result
-			}
-			if((location - data.position).lengthSq < radius * radius){
-				result.add(data)
-			}
-			return result
-		}
-		(0..7).each{
-			Vector3 min = children[it].center - children[it].halfDimension + new Vector3(radius)
-			Vector3 max = children[it].center + children[it].halfDimension - new Vector3(radius)
-			
-			if(min.x < location.x || min.y < location.y || min.z < location.z){
-				return
-			}
-			
-			if(max.x > location.x || max.y > location.y || max.z > location.z){
-				return
-			}
-			result.addAll(children[it].find(location, radius))
-		}
-		return result
+        Collection<IPositionable> results = new LinkedList<>()
+		forFound(location, radius, { IPositionable result ->
+			results.add(result)
+		})
+		return results
 		
 	}
 	void forFound(Vector3 location, float radius, Closure action){
@@ -107,18 +88,27 @@ class OctTree {
 			return
 		}
 		(0..7).each{
-			Vector3 min = children[it].center - children[it].halfDimension + new Vector3(radius)
-			Vector3 max = children[it].center + children[it].halfDimension - new Vector3(radius)
-			
-			if(min.x < location.x || min.y < location.y || min.z < location.z){
-				return
-			}
-			
-			if(max.x > location.x || max.y > location.y || max.z > location.z){
-				return
-			}
-			children[it].forFound(location, radius, action)
+            if(children[it].hasPoint(location, new Vector3(radius))){
+
+                children[it].forFound(location, radius, action)
+
+            }
 		}
+	}
+	
+	boolean hasPoint(Vector3 point, Vector3 offset = new Vector3(0)){
+        Vector3 min = center - halfDimension - offset
+        Vector3 max = center + halfDimension + offset
+        
+        if(min.x < point.x || min.y < point.y || min.z < point.z){
+            return false
+        }
+        
+        if(max.x > point.x || max.y > point.y || max.z > point.z){
+            return false
+        }
+
+		return true
 	}
 	
 	private boolean isLeafNode(){ children == null }
