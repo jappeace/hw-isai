@@ -18,36 +18,14 @@ class OctTree {
 	}
 	
 	void add(IPositionable element){
-		if(elements){
-			elements.add(element)
-			if(elements.size() > 3){
-				divide()
-				return
-			}
-			return
-		}
-		addToSubQuad(element)
 	}
 	
-	IPositionable get(Vector2 location){
+	IPositionable get(Vector3 location){
 		
 	}
 	
-	IPositionable find(Vector2 location, float radius){
+	Collection<IPositionable> find(Vector3 location, float radius){
 		
 	}
-	private void divide(){
 
-		elements = null // destroy own refrences to elements
-	}
-	
-	private void addToSubQuad(IPositionable element){
-		
-	}
-	int size(){
-		if(elements){
-			return elements.size()
-		}
-		return topLeft.size() + topRight.size() + bottomLeft.size() + bottomRight.size()
-	}
 }
