@@ -4,30 +4,17 @@ import nl.jappieklooster.ISAI.world.IPositionable
 import nl.jappieklooster.math.vector.Vector2
 import nl.jappieklooster.math.vector.Vector3
 
-class Quad {
+class OctTree {
 
-	private Quad parent
+	private Vector3 center
+	private Vector3 halfDimension
 	
-	// the leafs are stored in a list
-	private List<IPositionable> elements
-
-	// when the list exceeds 4 elements the elements will be divided among the subquads
-	private Quad topLeft
-	private Quad topRight
-	private Quad bottomLeft
-	private Quad bottomRight
+	private OctTree children
 	
-	//
-	private Vector2 center
-	
-	Quad(){
-		center = new Vector2(0)
-		topLeft = null
-		topRight = null
-		bottomLeft = null
-		bottomRight = null
-		parent = null
-		elements = new ArrayList<>(4)
+	OctTree(Vector3 center, Vector3 halfDimension){
+		this.center = center
+		this.halfDimension = halfDimension
+		children = null
 	}
 	
 	void add(IPositionable element){
