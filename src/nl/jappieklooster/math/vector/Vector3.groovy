@@ -211,4 +211,32 @@ class Vector3 implements IVector3{
 		}
 		base[index] = value
 	}
+	
+	/**
+	 * if the input has any lower values then the input it will be assigned to this
+	 * usefull together with max for creating bounding boxes
+	 * @param input
+	 */
+	void assimilateMin(Vector3 input){
+		if(input.x < x){
+			x = input.x
+		}
+		if(input.y < y){
+			y = input.y
+		}
+		if(input.z < z){
+			z = input.z
+		}
+	}
+	void assimilateMax(Vector3 input){
+		if(input.x > x){
+			x = input.x
+		}
+		if(input.y > y){
+			y = input.y
+		}
+		if(input.z > z){
+			z = input.z
+		}
+	}
 }
