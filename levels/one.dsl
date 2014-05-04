@@ -1,15 +1,18 @@
 import nl.jappieklooster.math.vector.Vector3
 import com.jme3.scene.shape.*
 
-name "rootnode (sortof)"
+environment{
+    name "rootnode (sortof)"
 
-(0..3).each{ int number ->
-    terrain{
-        scale new Vector3(5, 1, 4)
-        location new Vector3(512*5*number, -500, 0)
+    (0..3).each{ int number ->
+        terrain{
+            scale new Vector3(5, 1, 4)
+            location new Vector3(512*5*number, -500, 0)
+        }
     }
-}
-sky{
+    sky{
+
+    }
 }
 group{
 
