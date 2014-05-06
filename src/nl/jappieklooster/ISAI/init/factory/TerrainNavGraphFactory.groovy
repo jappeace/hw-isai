@@ -10,6 +10,7 @@ import com.jme3.scene.Node
 
 import nl.jappieklooster.ISAI.collection.graph.Graph;
 import nl.jappieklooster.ISAI.collection.graph.Vertex;
+import nl.jappieklooster.ISAI.collection.oct.OctTree
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
@@ -91,18 +92,13 @@ class TerrainNavGraphFactory {
 	}
 	void connectVerticiCloserThen(float edgeDistance){
 		
+		OctTree<Vertex> tree = createOctTree()
 		graph.verteci.each{ Vertex outer ->
-			graph.verteci.each{ Vertex inner ->
-
-				if(inner.position == outer.position){
+			tree.search(outer.position, edgeDistance, { Vertex inner ->
+				if(outer.position == inner.position){
 					return
 				}
-
 				Vector3 difference = outer.position - inner.position
-
-				if(difference.lengthSq >= edgeDistance * edgeDistance){
-					return
-				}
 				CollisionResults results = new CollisionResults();
 				Ray ray = new Ray(Converter.toJME(inner.position), Converter.toJME(difference.normalized))
 				collidable.collideWith(ray, results)
@@ -114,7 +110,24 @@ class TerrainNavGraphFactory {
 					}
 				}
                 inner.connect(outer)
-			}
+			})
 		}
+	}
+
+	/**
+	 * creates an octree that wrap precisley arround the graphs edges
+	 * @return
+	 */
+	OctTree<Vertex> createOctTree(){
+		Vector3 min = new Vector3(0)
+		Vector3 max = new Vector3(0)
+		
+		graph.verteci.each{
+			min.assimilateMin(it.position)
+			max.assimilateMax(it.position)
+		}
+
+		OctTree<Vertex> result = new OctTree<>( (max + min) / new Vector3(2), (max - min) / new Vector3(2))
+		result.addAll(graph.verteci)
 	}
 }
