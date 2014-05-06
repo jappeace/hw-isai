@@ -41,8 +41,9 @@ class Graph extends AHasNode{
 			min.assimilateMin(it.position)
 			max.assimilateMax(it.position)
 		}
-		Vector3 position = (max - min) / new Vector3(2)
-		OctTree<Vertex> result = new OctTree<>(position, position)
+
+		OctTree<Vertex> result = new OctTree<>( (max + min) / new Vector3(2), (max - min) / new Vector3(2))
+		result.addAll(verteci)
 	}
 	
 	
