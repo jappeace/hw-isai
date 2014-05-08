@@ -8,6 +8,7 @@ import com.jme3.math.Vector3f
 import com.jme3.terrain.geomipmap.TerrainQuad
 import com.jme3.scene.Node
 
+import nl.jappieklooster.ISAI.TaskSynchronizer
 import nl.jappieklooster.ISAI.collection.graph.Graph;
 import nl.jappieklooster.ISAI.collection.graph.Vertex;
 import nl.jappieklooster.ISAI.collection.oct.OctTree
@@ -32,13 +33,17 @@ class TerrainNavGraphFactory {
 	 * when the terrain is set it is automaticly attached to this node
 	 */
 	Node collidable
-	
+	private Closure connector
 	TerrainNavGraphFactory(){
 		random = new Random()
 		graph = new Graph()
 		graph.name += " navgraph for terrain"
 		
 		collidable = new Node("collision node for navgraph")
+		// allows swapping on runtime
+		connector = { Vertex inner, Vertex outer -> 
+			inner.connect(outer)
+        }
 	}
 	
 	/**
@@ -109,9 +114,23 @@ class TerrainNavGraphFactory {
 						return
 					}
 				}
-                inner.connect(outer)
+				connector(inner, outer)
 			})
 		}
+	}
+
+	void connectVerticiCloserThenAsync(float edgeDistance, TaskSynchronizer syncer){
+		new Thread({
+            Closure syncedLogic = connector
+            connector = { Vertex inner, Vertex outer ->
+                syncer.execute{
+                    inner.connect(outer)
+                }
+            }
+            connectVerticiCloserThen(edgeDistance)
+            connector = syncedLogic
+		}).start()
+			
 	}
 
 	/**
