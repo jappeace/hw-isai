@@ -5,15 +5,15 @@ import java.util.NoSuchElementException;
 import nl.jappieklooster.ISAI.world.IPositionable;
 
 
-class RecursiveOctTreeIterator <T extends IPositionable> implements Iterator<T>{
+class RecursiveOctTreeIterator implements Iterator<IPositionable>{
 
-	OctTree<T> current
+	OctTree current
 	int currentChild
 	private static final int childInit = 0
 	
 	private RecursiveOctTreeIterator recursive
 
-	RecursiveOctTreeIterator(OctTree<T> target){
+	RecursiveOctTreeIterator(OctTree target){
 		current = target
 		currentChild = childInit
 		recursive = null
@@ -31,7 +31,7 @@ class RecursiveOctTreeIterator <T extends IPositionable> implements Iterator<T>{
 		return false
 	}
 	
-    T next(){
+    IPositionable next(){
 		if(!hasNext()){
 			return null
 		}

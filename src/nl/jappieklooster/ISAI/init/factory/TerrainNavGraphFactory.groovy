@@ -118,7 +118,7 @@ class TerrainNavGraphFactory {
 	 * creates an octree that wrap precisley arround the graphs edges
 	 * @return
 	 */
-	OctTree<Vertex> createOctTree(){
+	OctTree createOctTree(){
 		Vector3 min = new Vector3(0)
 		Vector3 max = new Vector3(0)
 		
@@ -127,7 +127,10 @@ class TerrainNavGraphFactory {
 			max.assimilateMax(it.position)
 		}
 
-		OctTree<Vertex> result = new OctTree<>( (max + min) / new Vector3(2), (max - min) / new Vector3(2))
+		OctTree result = new OctTree(
+			(max + min) / new Vector3(2) ,
+			((max - min) / new Vector3(2) ) * new Vector3(1.001))
 		result.addAll(graph.verteci)
+		return result
 	}
 }

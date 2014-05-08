@@ -33,18 +33,4 @@ class Graph extends AHasNode{
 		from.connect(to)
 	}
 	
-	OctTree<Vertex> createOctTree(){
-		Vector3 min = new Vector3(0)
-		Vector3 max = new Vector3(0)
-		
-		verteci.each{
-			min.assimilateMin(it.position)
-			max.assimilateMax(it.position)
-		}
-
-		OctTree<Vertex> result = new OctTree<>( (max + min) / new Vector3(2), (max - min) / new Vector3(2))
-		result.addAll(verteci)
-	}
-	
-	
 }

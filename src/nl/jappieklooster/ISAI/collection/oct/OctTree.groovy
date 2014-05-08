@@ -9,7 +9,7 @@ import nl.jappieklooster.math.vector.Vector3
  * @author jappie
  *
  */
-class OctTree<T extends IPositionable> implements Collection<T>{
+class OctTree implements Collection<IPositionable>{
 
 	// for bitwise magic
 	private final int Xax = 4, Yax = 2, Zax = 1
@@ -18,27 +18,29 @@ class OctTree<T extends IPositionable> implements Collection<T>{
 	private Vector3 halfDimension
 	
 	private OctTree<T>[] children
-	T data
+	IPositionable data
+
 	
-	OctTree<T>[] getChildren(){
-		return children
-	}
 	OctTree(Vector3 center, Vector3 halfDimension){
 		this.center = center
 		this.halfDimension = halfDimension
 		clear()
+	}
+
+	OctTree[] getChildren(){
+		return children
 	}
 	
 	/**
 	 * this is the recursive add call
 	 * @param element
 	 */
-	void insert(T element){
+	void insert(IPositionable element){
 		
 		// this gaurd prevents an eternal trying to get to a point which is out of reach
 		// I conteplated moving this to the add, but putting it here is less bug prone
 		if(!hasPoint(element.position)){
-			throw new IndexOutOfBoundsException("This is where a proprer octree should grow in the desired direction")
+			throw new IndexOutOfBoundsException("this octree does not contain: " + element.position + " the octree is " + center + "with a halfdimension of" + halfDimension)
 		}
 		if(isLeaf()){
 			
@@ -76,9 +78,9 @@ class OctTree<T extends IPositionable> implements Collection<T>{
 	 * navigates the graph and tries to get the data at the bottom, will try to return a result, but it might not be at the exact coordinate,
 	 * if there is somthing at the coordinate in this tree, this method will find that
 	 */
-	T getAt(Vector3 location){
-		T result
-		searchLeafTree(location,{ OctTree<T> tree ->
+	IPositionable getAt(Vector3 location){
+		IPositionable result
+		searchLeafTree(location,{ OctTree tree ->
 			result = tree.data
 		})
 		return result
@@ -100,9 +102,9 @@ class OctTree<T extends IPositionable> implements Collection<T>{
 	 * @param radius
 	 * @return
 	 */
-	Collection<T> find(Vector3 location, float radius){
-        Collection<T> results = new LinkedList<>()
-		search(location, radius, { T result ->
+	Collection find(Vector3 location, float radius){
+        Collection results = new LinkedList<>()
+		search(location, radius, { OctTree result ->
 			results.add(result)
 		})
 		return results
@@ -124,7 +126,7 @@ class OctTree<T extends IPositionable> implements Collection<T>{
 			}
 			return
 		}
-		eachChild{ OctTree<T> child ->
+		eachChild{ OctTree child ->
             if(child.hasPoint(location, new Vector3(radius))){
                 child.search(location, radius, action)
             }
@@ -147,7 +149,7 @@ class OctTree<T extends IPositionable> implements Collection<T>{
 			action(data)
 			return
 		}
-		eachChild{ OctTree<T> child ->
+		eachChild{ OctTree child ->
 			child.traverse(action)
 		}
 	}
@@ -158,11 +160,11 @@ class OctTree<T extends IPositionable> implements Collection<T>{
         Vector3 min = center - halfDimension - offset
         Vector3 max = center + halfDimension + offset
         
-        if(min.x < point.x || min.y < point.y || min.z < point.z){
+        if(min.x > point.x || min.y > point.y || min.z > point.z){
             return false
         }
         
-        if(max.x > point.x || max.y > point.y || max.z > point.z){
+        if(max.x < point.x || max.y < point.y || max.z < point.z){
             return false
         }
 
@@ -204,7 +206,7 @@ class OctTree<T extends IPositionable> implements Collection<T>{
 		
 		// not a leafnode, go trough all children and see wat there sisze is
 		int result = 0
-		eachChild{ OctTree<T> child ->
+		eachChild{ OctTree child ->
 			result += child.size()
 		}
 		return result
@@ -215,19 +217,20 @@ class OctTree<T extends IPositionable> implements Collection<T>{
 	}
 	@Override
     boolean contains(Object obj){
-		if(!(obj instanceof T)){
+		if(!(obj instanceof IPositionable)){
 			return false
 		}
-		T target = (T) obj
-		return get(target) == obj
+		IPositionable target = (IPositionable) obj
+		return getAt(target) == obj
 	}
 
-    Iterator<T> iterator(){
+    Iterator<IPositionable> iterator(){
 		return new RecursiveOctTreeIterator(this)
+
 	}
 	@Override
     Object[] toArray(){
-		List<T> result = new LinkedList<>()
+		List<IPositionable> result = new LinkedList<>()
 		traverse{
 			result.add(it)
 		}
@@ -236,14 +239,14 @@ class OctTree<T extends IPositionable> implements Collection<T>{
 	@Override
     @SuppressWarnings("unchecked")
 	<X> X[] toArray(X[] a){
-		List<T> result = new LinkedList<>()
+		List<IPositionable> result = new LinkedList<>()
 		traverse{
 			result.add(it)
 		}
 		return result.toArray(a)
 	}
 	@Override
-    boolean add(T element){
+    boolean add(IPositionable element){
 		if(element == null){
 			throw new NullPointerException("Null is not allowed in this collection")
 		}
@@ -253,13 +256,13 @@ class OctTree<T extends IPositionable> implements Collection<T>{
 	@Override
     boolean remove(Object obj){
 
-		if(!(obj instanceof T)){
+		if(!(obj instanceof IPositionable)){
 			return false
 		}
 
 		boolean changed = false
-		searchLeafTree(((T) obj).position,
-			{ OctTree<T> tree ->
+		searchLeafTree(((IPositionable) obj).position,
+			{ OctTree tree ->
                 if(tree.data == obj){
                     tree.data = null
 					changed = true
@@ -280,7 +283,8 @@ class OctTree<T extends IPositionable> implements Collection<T>{
 		return result
 	}
 	@Override
-    boolean addAll(Collection<? extends T> collection){
+    boolean addAll(Collection<? extends IPositionable> collection){
+
 		boolean changed = false
 		collection.each{
 			changed = add(it) || changed
@@ -289,6 +293,7 @@ class OctTree<T extends IPositionable> implements Collection<T>{
 	}
 	@Override
     boolean removeAll(Collection<?> collection){
+
 
 		boolean changed = false
 		collection.each{
@@ -317,10 +322,10 @@ class OctTree<T extends IPositionable> implements Collection<T>{
 		if(obj.is(this)){
 			return true
 		}
-		if(!(obj instanceof OctTree<T>)){
+		if(!(obj instanceof OctTree)){
 			return false
 		}
-		OctTree<T> target = (OctTree<T>) obj
+		OctTree target = (OctTree) obj
 		return target.data == data && target.children == children
 	}
 

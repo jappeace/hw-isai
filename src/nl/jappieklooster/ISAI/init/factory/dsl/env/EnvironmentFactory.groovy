@@ -50,10 +50,11 @@ class EnvironmentFactory extends AHasNodeFactory{
 
 		TerrainNavGraphFactory navfac = new TerrainNavGraphFactory()
 		navfac.terrain = result
-		navfac.addRasterVerteciToGraph(20)
+		navfac.addRasterVerteciToGraph(5)
 		
 		navfac.collidable.attachChild(environment.node)
-		navfac.connectVerticiCloserThen(130)
+		navfac.connectVerticiCloserThen(32)
+
 		navfac.collidable.detachAllChildren()
 
 		environment.navGraph = navfac.graph
