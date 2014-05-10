@@ -24,17 +24,15 @@ import nl.jappieklooster.math.vector.Vector3
 
 import com.jme3.app.SimpleApplication
 
-class PlayingState extends ACommenState{
+class PlayingState extends AnInputDirectingState{
 
 	World world
 	
-	InputDirector director
 
     private Graph graph = null
 	@Override
 	void init(Game app) {
-
-		director = new InputDirector(inputManager)
+		super.init(app)
 		director.addHandler(
 			new InputHandler(
 				triggers:[
@@ -89,7 +87,6 @@ class PlayingState extends ACommenState{
 	void cleanup() {
         super.cleanup();
         rootNode.detachChild(world.node)
-		director.removeMyHandlers()
         world = null // can be quite big, so mark it for gc
     }
 }

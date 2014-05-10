@@ -19,7 +19,6 @@ class MenuState extends ACommenState implements ScreenController{
 
 	World world
     private Nifty nifty;
-	private FlyByCamera cam
 	private Game game
 	@Override
 	void init(Game app) {
@@ -31,14 +30,8 @@ class MenuState extends ACommenState implements ScreenController{
 		nifty = app.nifty
         nifty.fromXml("Interface/Menu.xml", "start", this);
 
-
-		cam = app.flyCam
-        // disable the fly cam
-		cam.setDragToRotate(true);
         inputManager.setCursorVisible(true);
 	}
-
-	
 
     void bind(Nifty nifty, Screen screen) {
         System.out.println("bind( " + screen.getScreenId() + ")");
@@ -52,9 +45,6 @@ class MenuState extends ACommenState implements ScreenController{
 		nifty.getCurrentScreen().findNiftyControl("path", TextField.class)
 	}
     void onEndScreen() {
-
-
-		cam.setDragToRotate(false);
         inputManager.setCursorVisible(false);
 		stateManager.attach(game.loadLevel(getTextField().getRealText()))
 		stateManager.detach(this)

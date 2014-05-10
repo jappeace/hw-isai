@@ -16,19 +16,27 @@ import com.jme3.math.Vector3f
  *
  */
 class MovingCamera {
-	Camera cam
+	private Camera camera
 	float rotationSpeed = 1f;
-	float moveSpeed = 3f;
+	float moveSpeed = 50f;
 	float zoomSpeed = 1f;
-
 	MotionAllowedListener motionAllowed = null;
+	
+	MovingCamera(Camera cam){
+		camera = cam
+	}
+
+	Camera getCamera(){
+		return camera
+	}
+
 	void rotateCamera(float value, Vector3f axis){
 		Matrix3f matatrix = new Matrix3f()
 		matatrix.fromAngleNormalAxis(rotationSpeed * value, axis)
 
-		Vector3f up = cam.getUp()
-		Vector3f left = cam.getLeft()
-		Vector3f dir = cam.getDirection()
+		Vector3f up = camera.getUp()
+		Vector3f left = camera.getLeft()
+		Vector3f dir = camera.getDirection()
 
 		matatrix.mult(up, up)
 		matatrix.mult(left, left)
@@ -38,16 +46,16 @@ class MovingCamera {
 		qauternion.fromAxes(left, up, dir)
 		qauternion.normalizeLocal()
 
-		cam.setAxes(qauternion)
+		camera.setAxes(qauternion)
 	}
 
 	void zoomCamera(float value){
 		// derive fovY value
-		float frustTop = cam.getFrustumTop()
-		float frustRight = cam.getFrustumRight()
+		float frustTop = camera.getFrustumTop()
+		float frustRight = camera.getFrustumRight()
 		float aspect = frustRight / frustTop
 
-		float near = cam.getFrustumNear()
+		float near = camera.getFrustumNear()
 
 		float fovY = FastMath.atan(frustTop / near) / (FastMath.DEG_TO_RAD * 0.5f)
 		float newFovY = fovY + value * 0.1f * zoomSpeed
@@ -58,15 +66,15 @@ class MovingCamera {
 		frustTop = FastMath.tan( fovY * FastMath.DEG_TO_RAD * 0.5f) * near
 		frustRight = frustTop * aspect
 
-		cam.setFrustumTop(frustTop)
-		cam.setFrustumBottom(-frustTop)
-		cam.setFrustumLeft(-frustRight)
-		cam.setFrustumRight(frustRight)
+		camera.setFrustumTop(frustTop)
+		camera.setFrustumBottom(-frustTop)
+		camera.setFrustumLeft(-frustRight)
+		camera.setFrustumRight(frustRight)
 	}
 
 	void riseCamera(float value){
 		Vector3f vel = new Vector3f(0, value * moveSpeed, 0)
-		Vector3f pos = cam.getLocation().clone()
+		Vector3f pos = camera.getLocation().clone()
 
 		if (motionAllowed != null){
 			motionAllowed.checkMotionAllowed(pos, vel)
@@ -74,17 +82,17 @@ class MovingCamera {
 			pos.addLocal(vel)
 		}
 
-		cam.setLocation(pos)
+		camera.setLocation(pos)
 	}
 
 	void moveCamera(float value, boolean sideways){
 		Vector3f vel = new Vector3f()
-		Vector3f pos = cam.getLocation().clone()
+		Vector3f pos = camera.getLocation().clone()
 
 		if (sideways){
-			cam.getLeft(vel)
+			camera.getLeft(vel)
 		}else{
-			cam.getDirection(vel)
+			camera.getDirection(vel)
 		}
 		vel.multLocal(value * moveSpeed)
 
@@ -94,7 +102,7 @@ class MovingCamera {
 			pos.addLocal(vel)
 		}
 
-		cam.setLocation(pos)
+		camera.setLocation(pos)
 	}
 
 }

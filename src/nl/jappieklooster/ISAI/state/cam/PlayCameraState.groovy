@@ -14,6 +14,6 @@ class PlayCameraState extends ACommenState{
 	private MovingCamera camera
 
 	void init(Game app){
-		
+		camera = new MovingCamera(app.camera)
 	}
 }
