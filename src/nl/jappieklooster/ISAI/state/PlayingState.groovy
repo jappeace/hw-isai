@@ -50,19 +50,18 @@ class PlayingState extends AnInputDirectingState{
 				}
 			)
 		)
-		director.addHandler(
+		director.addPressedHandler(
 			new InputHandler(
-				triggers:[
+				[
 					new KeyTrigger(KeyInput.KEY_F1)
 				],
-				handler:{float value, float tpf, String name ->
+				{float value, float tpf, String name ->
 					if(world.node.hasChild(world.environment.navGraph.node)){
                         world.node.detachChild(world.environment.navGraph.node)
 						return
 					}
                     world.node.attachChild(world.environment.navGraph.node)
 				},
-				isAnalog: false
 			)
 		)
 	}

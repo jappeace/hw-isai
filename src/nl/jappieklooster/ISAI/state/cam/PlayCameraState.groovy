@@ -23,24 +23,23 @@ class PlayCameraState extends AnInputDirectingState{
 	PlayCameraState(){
 		initialUpVec = null
 	}
-	private boolean getIsRotating(){
-		boolean value = isRotating
-		isRotating = false
-		return value
-	}
 	void init(Game app){
 		super.init(app)
 		camera = new MovingCamera(app.camera)
 		if(initialUpVec == null){
             initialUpVec = app.camera.up.clone()
 		}
-		director.addHandler(new InputHandler(
+		director.addPressedHandler(new InputHandler(
 			"StartRotating",
 			[
 				new KeyTrigger(KeyInput.KEY_LSHIFT),
 			],
 			{float value, float tpf, String name ->
-				isRotating = true
+				if(!isRotating){
+                    isRotating = true
+					return
+				}
+				isRotating = false
 			}
 		))
 		director.addHandler(new InputHandler(

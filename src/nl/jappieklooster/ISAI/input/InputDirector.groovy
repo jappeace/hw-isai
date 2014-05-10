@@ -35,6 +35,10 @@ class InputDirector {
 		String[] names = (String[])handler.names.toArray()
 		inputManager.addListener(handler, names)
 	}
+	void addPressedHandler(InputHandler handler){
+		handler.isAnalog = false
+		addHandler(handler)
+	}
 	void removeHandler(InputHandler handler){
 		inputManager.removeListener(handler)
 	}
