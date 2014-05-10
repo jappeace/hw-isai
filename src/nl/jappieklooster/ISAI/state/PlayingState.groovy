@@ -36,7 +36,7 @@ class PlayingState extends AnInputDirectingState{
 		director.addHandler(
 			new InputHandler(
 				[
-					new KeyTrigger(KeyInput.KEY_X)
+					new KeyTrigger(KeyInput.KEY_ESCAPE)
 				],
 				{float value, float tpf, String name ->
 					
@@ -52,25 +52,19 @@ class PlayingState extends AnInputDirectingState{
 		)
 		director.addHandler(
 			new InputHandler(
-				[
-					new KeyTrigger(KeyInput.KEY_F)
+				triggers:[
+					new KeyTrigger(KeyInput.KEY_F1)
 				],
-				{float value, float tpf, String name ->
-					world.node.attachChild(world.environment.navGraph.node)
-				}
+				handler:{float value, float tpf, String name ->
+					if(world.node.hasChild(world.environment.navGraph.node)){
+                        world.node.detachChild(world.environment.navGraph.node)
+						return
+					}
+                    world.node.attachChild(world.environment.navGraph.node)
+				},
+				isAnalog: false
 			)
 		)
-		director.addHandler(
-			new InputHandler(
-				[
-					new KeyTrigger(KeyInput.KEY_G)
-				],
-				{float value, float tpf, String name ->
-                    world.node.detachChild(world.environment.navGraph.node)
-				}
-			)
-		)
-		
 	}
 
 	@Override

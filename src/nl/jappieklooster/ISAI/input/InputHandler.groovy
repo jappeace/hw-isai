@@ -21,6 +21,7 @@ class InputHandler implements ActionListener, AnalogListener{
 	String name
 	List<Trigger> triggers
 	List<String> names
+	boolean isAnalog = true
 
 	InputHandler(){
 		this("", new ArrayList<>(), null)
@@ -36,6 +37,9 @@ class InputHandler implements ActionListener, AnalogListener{
 	}
 	@Override
 	public void onAnalog(String name, float value, float tpf) {
+		if(!isAnalog){
+			return
+		}
 		if(!canExecute(name)){
 			return
 		}
@@ -45,7 +49,13 @@ class InputHandler implements ActionListener, AnalogListener{
 
 	@Override
 	public void onAction(String name, boolean isPressed, float tpf) {
-		// ignore the onaction
+		if(isAnalog){
+			return
+		}
+		if(!canExecute(name)){
+			return
+		}
+		handler(isPressed ? 1 : 0, tpf, name) // i mean a boolean fits like 32 times in a float sortof
 	}	
 	
 	private boolean canExecute(String name){
