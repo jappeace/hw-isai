@@ -23,16 +23,17 @@ class InputDirector {
 
 	void addHandler(InputHandler handler){
 		handlers.add(handler)
+		
+		// fix naming and attach mappings
 		handler.triggers.eachWithIndex { Trigger trigger, int index ->
 			if(index <= handler.names.size()){
-				handler.names[index] = trigger.name
+				handler.names[index] = handler.handlerName + trigger.name
 			}
 			inputManager.addMapping(handler.names[index], trigger)
 		}
+
 		String[] names = (String[])handler.names.toArray()
 		inputManager.addListener(handler, names)
-		int x = 3
-		x--
 	}
 	void removeHandler(InputHandler handler){
 		inputManager.removeListener(handler)
