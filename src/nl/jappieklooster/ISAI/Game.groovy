@@ -27,6 +27,7 @@ import nl.jappieklooster.ISAI.init.LevelLoader
 import nl.jappieklooster.ISAI.init.factory.WireFrameFactory
 import nl.jappieklooster.ISAI.state.LoadState
 import nl.jappieklooster.ISAI.state.PlayingState
+import nl.jappieklooster.ISAI.state.cam.PlayCameraState
 
 import java.awt.Toolkit
 
@@ -43,7 +44,7 @@ class Game extends Application {
 	private Nifty nifty
 	private Node rootNode = new Node("Root Node")
 	private Node guiNode = new Node("Gui Node")
-	private static final Collection<AppState> initialStates = [new StatsAppState(),  new DebugKeysAppState()]
+	private static final Collection<AppState> initialStates = [new DebugKeysAppState(), new PlayCameraState()]
 
 	Game(){
 		super()
@@ -90,7 +91,7 @@ class Game extends Application {
 		viewPort.attachScene(rootNode)
 		guiViewPort.attachScene(guiNode)
 
-		attachFontToStatsState()
+		stateManager.attach(new StatsAppState(guiNode, assetManager.loadFont("Interface/Fonts/Default.fnt")))
 		
         NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort)
         nifty = niftyDisplay.getNifty()
@@ -105,12 +106,6 @@ class Game extends Application {
 		factory.setAssetManager(assetManager)
 	}
 
-	private void attachFontToStatsState(){
-        if (stateManager.getState(StatsAppState.class) == null) {
-			return
-		}
-		stateManager.getState(StatsAppState.class).setFont(assetManager.loadFont("Interface/Fonts/Default.fnt"))
-	}
 	
 	@Override
 	public void update() {

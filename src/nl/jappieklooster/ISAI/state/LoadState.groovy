@@ -34,10 +34,9 @@ class LoadState extends ACommenState{
 	void init(Game app) {
 
 		loaded = false
+
 		// TODO: move to dsl
-		FlyByCamera flyCam = app.flyByCamera
-		flyCam.setMoveSpeed(100)
-		flyCam.cam.setFrustumFar(9000)
+		app.cam.setFrustumFar(9000)
 
 	}
 

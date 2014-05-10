@@ -30,9 +30,9 @@ class MovingCamera {
 		return camera
 	}
 
-	void rotateCamera(float value, Vector3f axis){
+	void rotate(float value, Vector3f axis){
 		Matrix3f matatrix = new Matrix3f()
-		matatrix.fromAngleNormalAxis(rotationSpeed * value, axis)
+		matatrix.fromAngleNormalAxis((float)rotationSpeed * value, axis)
 
 		Vector3f up = camera.getUp()
 		Vector3f left = camera.getLeft()
@@ -49,7 +49,7 @@ class MovingCamera {
 		camera.setAxes(qauternion)
 	}
 
-	void zoomCamera(float value){
+	void zoom(float value){
 		// derive fovY value
 		float frustTop = camera.getFrustumTop()
 		float frustRight = camera.getFrustumRight()
@@ -72,7 +72,7 @@ class MovingCamera {
 		camera.setFrustumRight(frustRight)
 	}
 
-	void riseCamera(float value){
+	void rise(float value){
 		Vector3f vel = new Vector3f(0, value * moveSpeed, 0)
 		Vector3f pos = camera.getLocation().clone()
 
@@ -85,7 +85,7 @@ class MovingCamera {
 		camera.setLocation(pos)
 	}
 
-	void moveCamera(float value, boolean sideways){
+	void move(float value, boolean sideways){
 		Vector3f vel = new Vector3f()
 		Vector3f pos = camera.getLocation().clone()
 
@@ -94,7 +94,7 @@ class MovingCamera {
 		}else{
 			camera.getDirection(vel)
 		}
-		vel.multLocal(value * moveSpeed)
+		vel.multLocal((float)value * moveSpeed)
 
 		if (motionAllowed != null){
 			motionAllowed.checkMotionAllowed(pos, vel)

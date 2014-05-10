@@ -27,7 +27,7 @@ class InputDirector {
 		// fix naming and attach mappings
 		handler.triggers.eachWithIndex { Trigger trigger, int index ->
 			if(index <= handler.names.size()){
-				handler.names[index] = handler.handlerName + trigger.name
+				handler.names[index] = handler.name + trigger.name
 			}
 			inputManager.addMapping(handler.names[index], trigger)
 		}

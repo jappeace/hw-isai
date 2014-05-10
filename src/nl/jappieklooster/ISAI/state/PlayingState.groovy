@@ -35,10 +35,10 @@ class PlayingState extends AnInputDirectingState{
 		super.init(app)
 		director.addHandler(
 			new InputHandler(
-				triggers:[
+				[
 					new KeyTrigger(KeyInput.KEY_X)
 				],
-				handler:{float value, float tpf, String name ->
+				{float value, float tpf, String name ->
 					
 					MenuState menu = new MenuState(world: world)
                     if(stateManager.hasState(menu)){
@@ -52,20 +52,20 @@ class PlayingState extends AnInputDirectingState{
 		)
 		director.addHandler(
 			new InputHandler(
-				triggers:[
+				[
 					new KeyTrigger(KeyInput.KEY_F)
 				],
-				handler:{float value, float tpf, String name ->
+				{float value, float tpf, String name ->
 					world.node.attachChild(world.environment.navGraph.node)
 				}
 			)
 		)
 		director.addHandler(
 			new InputHandler(
-				triggers:[
+				[
 					new KeyTrigger(KeyInput.KEY_G)
 				],
-				handler:{float value, float tpf, String name ->
+				{float value, float tpf, String name ->
                     world.node.detachChild(world.environment.navGraph.node)
 				}
 			)
