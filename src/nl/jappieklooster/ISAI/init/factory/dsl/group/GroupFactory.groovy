@@ -7,10 +7,13 @@ import java.util.concurrent.ScheduledThreadPoolExecutor
 import nl.jappieklooster.ISAI.Game
 import nl.jappieklooster.ISAI.init.DelegateClosure;
 import nl.jappieklooster.ISAI.init.factory.dsl.AHasNodeFactory
+import nl.jappieklooster.ISAI.init.factory.dsl.AMovingEntityFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.ASpatialFactory;
 import nl.jappieklooster.ISAI.world.AHasNode;
 import nl.jappieklooster.ISAI.world.Group
+import nl.jappieklooster.ISAI.world.entity.Unit
 import nl.jappieklooster.ISAI.world.entity.Vehicle;
+import nl.jappieklooster.ISAI.world.entity.tracking.ClickablesTracker
 import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
@@ -31,6 +34,7 @@ class GroupFactory extends AHasNodeFactory{
 	Group group
 	NeighbourTracker neighTracker
 	Random random
+	ClickablesTracker clickTracker
 
     private ScheduledThreadPoolExecutor threadPool
 	GroupFactory(ScheduledThreadPoolExecutor exec){
@@ -47,14 +51,14 @@ class GroupFactory extends AHasNodeFactory{
 	/** create a new vehicle */
 	Vehicle vehicle(Closure commands){
 		VehicleFactory factory = new VehicleFactory(neighTracker)
-		factory.group = group
-		factory.assetManager = assetManager
-		factory.random = random
-		factory.setToDefault()
-
-		new DelegateClosure(to:factory).call(commands)
-		group.entities.add(factory.vehicle)
+		delegateMovingFactory(factory, commands)
 		return factory.vehicle
+	}
+	Unit unit(Closure commands){
+		UnitFactory factory = new UnitFactory()
+		delegateMovingFactory(factory, commands)
+		clickTracker.track(factory.unit)
+		return factory.unit
 	}
 
 	@Override
@@ -74,6 +78,17 @@ class GroupFactory extends AHasNodeFactory{
 		GroupFactory factory = (GroupFactory) child
 		group.shouldUpdate = group.shouldUpdate ?: factory.group.shouldUpdate
 		group.entities.add(factory.group)
+	}
+	
+	
+	private void delegateMovingFactory(AMovingEntityFactory factory, Closure commands){
+		factory.group = group
+		factory.assetManager = assetManager
+		factory.random = random
+		factory.setToDefault()
+
+		new DelegateClosure(to:factory).call(commands)
+		group.entities.add(factory.movingEntity)
 	}
 
 }

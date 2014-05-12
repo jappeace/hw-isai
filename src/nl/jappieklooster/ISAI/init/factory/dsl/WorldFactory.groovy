@@ -14,6 +14,7 @@ import nl.jappieklooster.ISAI.world.Environment
 import nl.jappieklooster.ISAI.world.Group
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.Vehicle;
+import nl.jappieklooster.ISAI.world.entity.tracking.ClickablesTracker
 import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
@@ -32,11 +33,13 @@ class WorldFactory extends AHasNodeFactory{
 
 	World world
 
+	private ClickablesTracker clickTracker
     private ScheduledThreadPoolExecutor threadPool
 
-	WorldFactory(ScheduledThreadPoolExecutor exec){
+	WorldFactory(ScheduledThreadPoolExecutor exec, ClickablesTracker clickables){
 		threadPool = exec
 		world = new World()
+		this.clickTracker = clickables
 	}
 	
 	/**
@@ -63,7 +66,7 @@ class WorldFactory extends AHasNodeFactory{
 	@Override
 	protected AHasNodeFactory createChildFactory() {
 		GroupFactory factory = new GroupFactory(threadPool)
-		
+		factory.clickTracker = clickTracker
 		factory.random = new Random()
 		return factory
 	}
@@ -71,7 +74,7 @@ class WorldFactory extends AHasNodeFactory{
 	@Override
 	protected void integrateChildFactory(AHasNodeFactory child) {
 		
-		world.actors.add(((GroupFactory)child).group)
+		world.actors.add(child.AHasNode)
 	}
 	
 	

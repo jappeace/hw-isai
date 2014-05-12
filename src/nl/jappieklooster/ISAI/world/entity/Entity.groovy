@@ -11,6 +11,10 @@ abstract class Entity implements IPositionable{
 	/** world position */
 	Vector3 position
 	
+	Geometry getGeometry(){
+		geometry
+	}
+	
 	Entity(){
 		position = new Vector3()
 	}

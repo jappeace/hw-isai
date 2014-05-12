@@ -26,6 +26,7 @@ import java.awt.Dimension
 import nl.jappieklooster.ISAI.init.LevelLoader
 import nl.jappieklooster.ISAI.init.factory.WireFrameFactory
 import nl.jappieklooster.ISAI.state.LoadState
+import nl.jappieklooster.ISAI.state.MouseInteractionState
 import nl.jappieklooster.ISAI.state.PlayingState
 import nl.jappieklooster.ISAI.state.cam.PlayCameraState
 
@@ -44,7 +45,7 @@ class Game extends Application {
 	private Nifty nifty
 	private Node rootNode = new Node("Root Node")
 	private Node guiNode = new Node("Gui Node")
-	private static final Collection<AppState> initialStates = [new DebugKeysAppState(), new PlayCameraState()]
+	private static final Collection<AppState> initialStates = [new DebugKeysAppState(), new PlayCameraState(), new MouseInteractionState()]
 
 	Game(){
 		super()
