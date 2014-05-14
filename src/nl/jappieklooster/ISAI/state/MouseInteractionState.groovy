@@ -58,6 +58,19 @@ class MouseInteractionState extends AnInputDirectingState{
 
 			}
 		))
+		director.addHandler(new InputHandler(
+			"Right",
+			[
+				new MouseButtonTrigger(MouseInput.BUTTON_RIGHT)
+			],
+			{float value, float tpf, String name ->
+				
+				Vehicle clicked = trySelect()
+				if(clicked){
+                    clicked.invalidatedBehaviours.addAll(clicked.steeringBehaviours)
+				}
+			}
+		))
 	}
 	private Vehicle trySelect(){
 		
