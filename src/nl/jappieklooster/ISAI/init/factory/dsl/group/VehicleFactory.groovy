@@ -19,6 +19,7 @@ import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.Entity;
 import nl.jappieklooster.ISAI.world.entity.MovingEntity;
 import nl.jappieklooster.ISAI.world.entity.Vehicle;
+import nl.jappieklooster.ISAI.world.entity.tracking.ClickablesTracker
 import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
@@ -27,6 +28,7 @@ class VehicleFactory extends AMovingEntityFactory{
 	Vehicle vehicle
 
 	NeighbourTracker neighTracker
+	ClickablesTracker clickTracker
 	VehicleFactory(NeighbourTracker tracker){
 		super()
 		neighTracker = tracker
@@ -44,7 +46,11 @@ class VehicleFactory extends AMovingEntityFactory{
 	}
 
 	@Override
-	public MovingEntity getMovingEntity() {
+	MovingEntity getMovingEntity() {
 		return vehicle
+	}
+	void clickable(){
+		group.shouldUpdate = true
+		clickTracker.track(vehicle)
 	}
 }

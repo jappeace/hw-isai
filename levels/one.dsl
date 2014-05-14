@@ -42,7 +42,7 @@ group{
 
     }
 
-    (1..7).each{ int outer ->
+    (1..2).each{ int outer ->
         (0..600).each{int number ->
             group{
                 location new Vector3(100 * outer, 0, 100)

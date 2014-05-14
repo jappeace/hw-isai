@@ -7,13 +7,16 @@ import com.jme3.input.MouseInput;
 
 
 import nl.jappieklooster.ISAI.Game
+import nl.jappieklooster.ISAI.behaviour.Seek
 import nl.jappieklooster.ISAI.input.InputHandler
 import nl.jappieklooster.ISAI.state.ACommenState
 import nl.jappieklooster.ISAI.state.AnInputDirectingState
 import nl.jappieklooster.ISAI.world.entity.Entity
+import nl.jappieklooster.ISAI.world.entity.Vehicle
 import nl.jappieklooster.ISAI.world.entity.tracking.ClickablesTracker
 
 import nl.jappieklooster.math.vector.Converter
+import nl.jappieklooster.math.vector.Vector3
 /**
  * this state makes the camera respond on input so that it will act like its in the playing state,
  * ie wasd for movement, shift+ wasd for tilting and ctrl + shift wasd for zooming and rotating
@@ -22,6 +25,7 @@ import nl.jappieklooster.math.vector.Converter
  */
 class MouseInteractionState extends AnInputDirectingState{
 	ClickablesTracker clickTracker
+	Vehicle selected
 
 	void init(Game app){
 		super.init(app)
@@ -32,11 +36,22 @@ class MouseInteractionState extends AnInputDirectingState{
 			],
 			{float value, float tpf, String name ->
 				
-				Entity clickedEntity = clickTracker.click(rootNode, inputManager.cursorPos)
-				if(clickedEntity){
-					clickedEntity.geometry.rotate(0, 0, 0.1)
+				if(selected == null){
+					selected = trySelect()
+					return
 				}
+				Vector3 location = clickTracker.clickOnSurface(inputManager.cursorPos)
+				selected.add(new Seek(getToCallback:{location}))
 			}
 		))
+	}
+	private Vehicle trySelect(){
+		
+        clickTracker.candidates = rootNode
+		Entity result = clickTracker.clickOnEntity(inputManager.cursorPos)
+		if(result instanceof Vehicle){
+			return (Vehicle) result
+		}
+        return null
 	}
 }

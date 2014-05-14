@@ -33,6 +33,7 @@ environment{
 }
 
 group{
-    unit{
+    vehicle{
+    	clickable()
     }
 }
