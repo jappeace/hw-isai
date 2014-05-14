@@ -7,6 +7,7 @@ import com.jme3.input.MouseInput;
 
 
 import nl.jappieklooster.ISAI.Game
+import nl.jappieklooster.ISAI.behaviour.ISteerable
 import nl.jappieklooster.ISAI.behaviour.Seek
 import nl.jappieklooster.ISAI.input.InputHandler
 import nl.jappieklooster.ISAI.state.ACommenState
@@ -29,7 +30,7 @@ class MouseInteractionState extends AnInputDirectingState{
 
 	void init(Game app){
 		super.init(app)
-		director.addPressedHandler(new InputHandler(
+		director.addHandler(new InputHandler(
 			"Left",
 			[
 				new MouseButtonTrigger(MouseInput.BUTTON_LEFT)
@@ -41,7 +42,20 @@ class MouseInteractionState extends AnInputDirectingState{
 					return
 				}
 				Vector3 location = clickTracker.clickOnSurface(inputManager.cursorPos)
-				selected.add(new Seek(getToCallback:{location}))
+				if(location == null){
+					return
+				}
+				selected.add(
+                    new Seek(
+                        getToCallback:{location},
+                        onArrive:{
+                            Seek self ->
+                            self.entity.invalidatedBehaviours.add(self)
+                        }
+                    )
+                )
+                selected = null
+
 			}
 		))
 	}

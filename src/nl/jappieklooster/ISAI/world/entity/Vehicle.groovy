@@ -6,10 +6,15 @@ import nl.jappieklooster.math.vector.Vector3
 
 class Vehicle extends MovingEntity {
 	List<ISteerable> steeringBehaviours
+	/**
+	 * circumvents concurent modification errors
+	 */
+	List<ISteerable> invalidatedBehaviours
 
 	Vehicle(){
 		super()
 		steeringBehaviours = new LinkedList<>()
+		invalidatedBehaviours = new LinkedList<>()
 	}
 	@Override
 	void update(float tpf){
@@ -19,6 +24,8 @@ class Vehicle extends MovingEntity {
                 it.steer()
 			}
 		}
+		steeringBehaviours.removeAll(invalidatedBehaviours)
+		invalidatedBehaviours = new LinkedList<>()
 		velocity += (force / new Vector3(mass))  * new Vector3(tpf) // calculate speed
 		velocity -= new Vector3(friction) * velocity
 		Vector3 movement = velocity * new Vector3(tpf) // calculate movement

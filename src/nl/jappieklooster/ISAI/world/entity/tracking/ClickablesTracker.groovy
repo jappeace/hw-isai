@@ -54,6 +54,9 @@ class ClickablesTracker{
 	}
 	Vector3 clickOnSurface(Vector2f mousePosition){
 		CollisionResults rayCollisions = findCollisionResults(mousePosition)
+		if(rayCollisions.closestCollision == null){
+			return null
+		}
 		return Converter.fromJME(rayCollisions.closestCollision.contactPoint)
 	}
 	private CollisionResults findCollisionResults(Vector2f mousePosition){
