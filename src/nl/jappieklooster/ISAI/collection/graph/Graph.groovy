@@ -7,11 +7,15 @@ import nl.jappieklooster.math.vector.Vector3
 
 class Graph extends AHasNode{
 
-	Collection<Vertex> verteci
+    private Vector3 min
+    private Vector3 max
+    Collection<Vertex> verteci
 
 	Graph(){
 		super()
-		verteci = new LinkedList<>() // reserve some space, you don't make a graph for 10 elements
+        min = new Vector3(0)
+        max = new Vector3(0)	
+        verteci = new LinkedList<>() // reserve some space, you don't make a graph for 10 elements
 	}
 	
 	/**
@@ -20,7 +24,11 @@ class Graph extends AHasNode{
 	 */
 	void add(Vertex what){
 		verteci.add(what)
-		node.attachChild(what.node)
+        node.attachChild(what.node)
+		
+		// update bounding box
+        min.assimilateMin(what.position)
+        max.assimilateMax(what.position)
 	}
 	
 	void connect(Vertex from, Vertex to){
@@ -31,6 +39,19 @@ class Graph extends AHasNode{
 			add(to)
 		}
 		from.connect(to)
+	}
+	/**
+	 * creates an octree that wrap precisley arround the graphs edges
+	 * @return
+	 */
+	OctTree toOctTree(){
+		OctTree result = new OctTree(
+			(max + min) / new Vector3(2) ,
+			((max - min) / new Vector3(2) ) 
+                * new Vector3(1.001) // times a small number to prevent edge case falling outside the tree
+        )
+		result.addAll(verteci)
+		return result
 	}
 	
 }

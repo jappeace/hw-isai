@@ -97,7 +97,7 @@ class TerrainNavGraphFactory {
 	}
 	void connectVerticiCloserThen(float edgeDistance){
 		
-		OctTree<Vertex> tree = createOctTree()
+		OctTree<Vertex> tree = graph.toOctTree()
 		graph.verteci.each{ Vertex outer ->
 			tree.search(outer.position, edgeDistance, { Vertex inner ->
 				if(outer.position == inner.position){
@@ -133,23 +133,4 @@ class TerrainNavGraphFactory {
 			
 	}
 
-	/**
-	 * creates an octree that wrap precisley arround the graphs edges
-	 * @return
-	 */
-	OctTree createOctTree(){
-		Vector3 min = new Vector3(0)
-		Vector3 max = new Vector3(0)
-		
-		graph.verteci.each{
-			min.assimilateMin(it.position)
-			max.assimilateMax(it.position)
-		}
-
-		OctTree result = new OctTree(
-			(max + min) / new Vector3(2) ,
-			((max - min) / new Vector3(2) ) * new Vector3(1.001))
-		result.addAll(graph.verteci)
-		return result
-	}
 }
