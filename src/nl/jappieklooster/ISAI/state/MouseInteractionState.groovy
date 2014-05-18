@@ -19,8 +19,7 @@ import nl.jappieklooster.ISAI.world.entity.tracking.ClickablesTracker
 import nl.jappieklooster.math.vector.Converter
 import nl.jappieklooster.math.vector.Vector3
 /**
- * this state makes the camera respond on input so that it will act like its in the playing state,
- * ie wasd for movement, shift+ wasd for tilting and ctrl + shift wasd for zooming and rotating
+ * this state makes mouse interaction possible, ie clicks and stuf
  * @author jappie
  *
  */

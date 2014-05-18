@@ -5,6 +5,7 @@ import com.jme3.asset.AssetManager
 import java.util.concurrent.ScheduledThreadPoolExecutor
 
 import nl.jappieklooster.ISAI.Game
+import nl.jappieklooster.ISAI.TaskSynchronizer
 import nl.jappieklooster.ISAI.init.DelegateClosure;
 import nl.jappieklooster.ISAI.init.factory.TerrainNavGraphFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.env.EnvironmentFactory
@@ -53,6 +54,12 @@ class WorldFactory extends AHasNodeFactory{
 		
 		new DelegateClosure(to: factory).call(commands)
 		
+		TerrainNavGraphFactory navfac = new TerrainNavGraphFactory()
+
+		navfac.graph = factory.environment.navGraph
+		navfac.collidable.attachChild(factory.environment.node.clone())
+        navfac.connectVerticiCloserThenAsync(34, new TaskSynchronizer(application: game))
+
 		world.environment = factory.environment
 		world.node.attachChild(factory.environment.node)
 		return factory.environment

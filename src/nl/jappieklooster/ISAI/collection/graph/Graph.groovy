@@ -10,12 +10,14 @@ class Graph extends AHasNode{
     private Vector3 min
     private Vector3 max
     Collection<Vertex> verteci
+	private OctTree cachedOctTree
 
 	Graph(){
 		super()
         min = new Vector3(0)
         max = new Vector3(0)	
         verteci = new LinkedList<>() // reserve some space, you don't make a graph for 10 elements
+		clearCache()
 	}
 	
 	/**
@@ -23,6 +25,7 @@ class Graph extends AHasNode{
 	 * @param what
 	 */
 	void add(Vertex what){
+		clearCache()
 		verteci.add(what)
         node.attachChild(what.node)
 		
@@ -31,7 +34,24 @@ class Graph extends AHasNode{
         max.assimilateMax(what.position)
 	}
 	
+	/**
+	 * merge two graphs
+	 * @param graph
+	 */
+	Graph merge(Graph graph){
+		clearCache()
+		node.attachChild(graph.node)
+		graph.verteci.each{
+			add(it)
+		}
+		return this
+	}
+	
 	void connect(Vertex from, Vertex to){
+		/*
+		 * no need to clear the cache, because adding connections
+		 * does not change the verteci positions
+		 */
 		if(!verteci.contains(from)){
 			add(from)
 		}
@@ -40,18 +60,27 @@ class Graph extends AHasNode{
 		}
 		from.connect(to)
 	}
+
 	/**
 	 * creates an octree that wrap precisley arround the graphs edges
+	 * this method is cached
 	 * @return
 	 */
 	OctTree toOctTree(){
-		OctTree result = new OctTree(
+		if(cachedOctTree){
+			return cachedOctTree
+		}
+		cachedOctTree = new OctTree(
 			(max + min) / new Vector3(2) ,
 			((max - min) / new Vector3(2) ) 
                 * new Vector3(1.001) // times a small number to prevent edge case falling outside the tree
         )
-		result.addAll(verteci)
-		return result
+		cachedOctTree.addAll(verteci)
+		return cachedOctTree
+	}
+	
+	private void clearCache(){
+		cachedOctTree = null
 	}
 	
 }
