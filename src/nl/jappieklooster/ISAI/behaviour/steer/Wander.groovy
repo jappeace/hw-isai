@@ -1,9 +1,10 @@
-package nl.jappieklooster.ISAI.behaviour
+package nl.jappieklooster.ISAI.behaviour.steer
 
+import nl.jappieklooster.ISAI.behaviour.AbstractBehaviour;
 import nl.jappieklooster.ISAI.world.entity.MovingEntity;
 import nl.jappieklooster.math.vector.Vector3
 
-class Wander extends AbstractSteerable{
+class Wander extends AbstractBehaviour{
 
 	float constraintRadius
 	float circleDistance
@@ -16,7 +17,7 @@ class Wander extends AbstractSteerable{
 		wanderTarget = new Vector3()
 	}
 	@Override
-	public void steer() {
+	public void execute() {
 		wanderTarget += new Vector3(randomClamped()*jitter, randomClamped()*jitter, randomClamped()*jitter).normalized
 		wanderTarget = wanderTarget.normalized
 		wanderTarget *= new Vector3(constraintRadius)

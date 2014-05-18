@@ -5,17 +5,14 @@ import com.jme3.input.controls.MouseButtonTrigger
 import com.jme3.math.Vector3f
 import com.jme3.input.MouseInput;
 
-
 import nl.jappieklooster.ISAI.Game
-import nl.jappieklooster.ISAI.behaviour.ISteerable
-import nl.jappieklooster.ISAI.behaviour.Seek
+import nl.jappieklooster.ISAI.behaviour.steer.Seek;
 import nl.jappieklooster.ISAI.input.InputHandler
 import nl.jappieklooster.ISAI.state.ACommenState
 import nl.jappieklooster.ISAI.state.AnInputDirectingState
 import nl.jappieklooster.ISAI.world.entity.Entity
 import nl.jappieklooster.ISAI.world.entity.Vehicle
 import nl.jappieklooster.ISAI.world.entity.tracking.ClickablesTracker
-
 import nl.jappieklooster.math.vector.Converter
 import nl.jappieklooster.math.vector.Vector3
 /**

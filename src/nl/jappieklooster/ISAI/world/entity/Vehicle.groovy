@@ -1,15 +1,15 @@
 package nl.jappieklooster.ISAI.world.entity
 
-import nl.jappieklooster.ISAI.behaviour.ISteerable
+import nl.jappieklooster.ISAI.behaviour.IBehaviour;
 import nl.jappieklooster.math.vector.Converter;
 import nl.jappieklooster.math.vector.Vector3
 
 class Vehicle extends MovingEntity {
-	List<ISteerable> steeringBehaviours
+	List<IBehaviour> steeringBehaviours
 	/**
 	 * circumvents concurent modification errors
 	 */
-	List<ISteerable> invalidatedBehaviours
+	List<IBehaviour> invalidatedBehaviours
 
 	Vehicle(){
 		super()
@@ -21,7 +21,7 @@ class Vehicle extends MovingEntity {
 		force = new Vector3(0) // reset the forces, to put more accent on steering
 		steeringBehaviours.each{
 			if(it.chance > random.nextDouble()){
-                it.steer()
+                it.execute()
 			}
 		}
 		steeringBehaviours.removeAll(invalidatedBehaviours)
@@ -40,7 +40,7 @@ class Vehicle extends MovingEntity {
 		geometry.move(Converter.toJME(movement))
 	}
 	
-	void add(ISteerable behaviour){
+	void add(IBehaviour behaviour){
 		behaviour.setEntity(this);
 		steeringBehaviours.add(behaviour)
 	}

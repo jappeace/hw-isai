@@ -4,9 +4,7 @@ import nl.jappieklooster.ISAI.world.entity.MovingEntity;
 import nl.jappieklooster.math.vector.Vector3
 
 
-interface ISteerable {
+interface ICompletable {
 	
-	void steer()
-	void setEntity(MovingEntity to)
-	float chance
+	boolean isDone()
 }

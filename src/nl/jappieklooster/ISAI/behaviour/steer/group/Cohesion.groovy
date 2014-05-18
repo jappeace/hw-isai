@@ -1,7 +1,7 @@
-package nl.jappieklooster.ISAI.behaviour.group
+package nl.jappieklooster.ISAI.behaviour.steer.group
 
-import nl.jappieklooster.ISAI.behaviour.AbstractSteerable;
-import nl.jappieklooster.ISAI.behaviour.Seek
+import nl.jappieklooster.ISAI.behaviour.AbstractBehaviour;
+import nl.jappieklooster.ISAI.behaviour.steer.Seek;
 import nl.jappieklooster.ISAI.world.IGroupItem;
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.MovingEntity;
@@ -16,7 +16,7 @@ class Cohesion extends ANeighbourAware{
 		super.setEntity(ent)
 		seek.entity = ent
 	}
-	public void steer() {
+	public void execute() {
 		List<IGroupItem> neighbours = tracker.getNeighbours(entity, neighbourRadius)
 		
 		// prevent eventual division by zero
@@ -33,7 +33,7 @@ class Cohesion extends ANeighbourAware{
 		seek.getToCallback = {
 			centerOfMass / new Vector3(neighbours.size())
 		}
-		seek.steer()
+		seek.execute()
 	}
 
 }

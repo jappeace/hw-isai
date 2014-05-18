@@ -8,15 +8,15 @@ import com.jme3.scene.Mesh
 import com.jme3.scene.shape.Box
 import com.jme3.texture.Texture
 
-import nl.jappieklooster.ISAI.behaviour.Explore
-import nl.jappieklooster.ISAI.behaviour.Flee
-import nl.jappieklooster.ISAI.behaviour.ISteerable
-import nl.jappieklooster.ISAI.behaviour.Seek
-import nl.jappieklooster.ISAI.behaviour.Wander
-import nl.jappieklooster.ISAI.behaviour.group.ANeighbourAware
-import nl.jappieklooster.ISAI.behaviour.group.Alignment
-import nl.jappieklooster.ISAI.behaviour.group.Cohesion
-import nl.jappieklooster.ISAI.behaviour.group.Seperation
+import nl.jappieklooster.ISAI.behaviour.steer.Explore;
+import nl.jappieklooster.ISAI.behaviour.steer.Flee;
+import nl.jappieklooster.ISAI.behaviour.IBehaviour;
+import nl.jappieklooster.ISAI.behaviour.steer.Seek;
+import nl.jappieklooster.ISAI.behaviour.steer.Wander;
+import nl.jappieklooster.ISAI.behaviour.steer.group.ANeighbourAware;
+import nl.jappieklooster.ISAI.behaviour.steer.group.Alignment;
+import nl.jappieklooster.ISAI.behaviour.steer.group.Cohesion;
+import nl.jappieklooster.ISAI.behaviour.steer.group.Seperation;
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.Vehicle;
 import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
@@ -33,7 +33,7 @@ class BehaviourFactory{
 		this.vehicle = vehicle
 	}
 	
-	ISteerable wander(float constraintRadius = 3, float circleDistance = 2, float jitter = 1){
+	IBehaviour wander(float constraintRadius = 3, float circleDistance = 2, float jitter = 1){
 		Wander wander = new Wander(random)
 		wander.constraintRadius = constraintRadius
 		wander.circleDistance = circleDistance
@@ -41,39 +41,39 @@ class BehaviourFactory{
 		bind(wander)
 	}
 	
-	ISteerable flee(Closure from){
+	IBehaviour flee(Closure from){
 		Flee flee = new Flee()
 		flee.getFromCallback = from
 		bind(flee)
 	}
-	ISteerable seek(Closure from){
+	IBehaviour seek(Closure from){
 		Seek flee = new Seek()
 		flee.getToCallback = from
 		bind(flee)
 	}
-	ISteerable explore(){
+	IBehaviour explore(){
 		bind(new Explore())
 	}
 	
-	ISteerable alignment(float radius = 20){
+	IBehaviour alignment(float radius = 20){
         createANeighbourAware(new Alignment(), radius)
 	}
 	
-	ISteerable cohesion(float radius = 40){
+	IBehaviour cohesion(float radius = 40){
         createANeighbourAware(new Cohesion(), radius)
 	}
 	
-	ISteerable seperate(float radius = 8){
+	IBehaviour seperate(float radius = 8){
         createANeighbourAware(new Seperation(), radius)
 	}
 	
 	/** shorthand for flocking like behavior (its a combination) */
 	void flock(){
-		ISteerable seperate = seperate()
+		IBehaviour seperate = seperate()
 		seperate.chance = 0.3
-		ISteerable alignment = alignment()
+		IBehaviour alignment = alignment()
 		alignment.chance = 0.1
-		ISteerable cohesion = cohesion()
+		IBehaviour cohesion = cohesion()
 		cohesion.chance = 0.3
 	}
 	
@@ -82,12 +82,12 @@ class BehaviourFactory{
 	 * @param what
 	 * @return
 	 */
-	private ISteerable bind(ISteerable what){
+	private IBehaviour bind(IBehaviour what){
 		vehicle.add(what)
 		return what
 	}
 
-	private ISteerable createANeighbourAware(ANeighbourAware what, float radius){
+	private IBehaviour createANeighbourAware(ANeighbourAware what, float radius){
 		what.tracker = neighTracker
 		what.neighbourRadius = radius
 		bind(what)

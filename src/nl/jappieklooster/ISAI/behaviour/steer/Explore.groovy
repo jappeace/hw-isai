@@ -1,9 +1,10 @@
-package nl.jappieklooster.ISAI.behaviour
+package nl.jappieklooster.ISAI.behaviour.steer
 
+import nl.jappieklooster.ISAI.behaviour.AbstractBehaviour;
 import nl.jappieklooster.ISAI.world.entity.MovingEntity;
 import nl.jappieklooster.math.vector.Vector3
 
-class Explore extends AbstractSteerable{
+class Explore extends AbstractBehaviour{
 
 	private Seek seek
 	
@@ -11,10 +12,6 @@ class Explore extends AbstractSteerable{
 	void setEntity(MovingEntity ent){
 		super.setEntity(ent)
 		seek.entity = ent
-	}
-	void setPower(Vector3 to){
-		super.setPower(to)
-		seek.power = to
 	}
 	
 	Explore(){
@@ -32,10 +29,10 @@ class Explore extends AbstractSteerable{
 	private Vector3 destination
 	private int nr = 0
 	@Override
-	public void steer() {
+	public void execute() {
 		
 		if((entity.position - destination).lengthSq > 10){
-			seek.steer()
+			seek.execute()
 			return
 		}
 		nr = (nr + 1) % 4
@@ -56,7 +53,7 @@ class Explore extends AbstractSteerable{
 				destination.x = fibonacci
 			break
 		}
-		seek.steer()
+		seek.execute()
 	}
 
 }
