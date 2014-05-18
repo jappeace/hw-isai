@@ -53,13 +53,12 @@ class EnvironmentFactory extends AHasNodeFactory{
 		navfac.terrain = result
 		navfac.addRasterVerteciToGraph(5)
 		
-		navfac.collidable.attachChild(environment.node)
+		navfac.collidable.attachChild(environment.node.clone())
 
         navfac.connectVerticiCloserThenAsync(34, new TaskSynchronizer(application: game))
-
-		navfac.collidable.detachAllChildren()
-
-		environment.navGraph = navfac.graph
+		
+		environment.navGraph.node.attachChild(navfac.graph.node)
+		environment.navGraph.verteci.addAll(navfac.graph.verteci)
 		
 		return result
 	}
