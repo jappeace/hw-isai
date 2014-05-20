@@ -69,7 +69,7 @@ class PlayingState extends AnInputDirectingState{
 	@Override
 	void update(float tpf) {
 		if(tpf > 1){ // prevent a first huge tick or any other
-			return
+		return
 		}
 		world.update(tpf); // let the world do its thing
 	}

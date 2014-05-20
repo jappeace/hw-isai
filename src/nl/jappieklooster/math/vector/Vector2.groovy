@@ -184,9 +184,9 @@ class Vector2 implements IVector2{
 	}
 	float getAt(int index){
 		switch(index){
-			case Dimension.x:
+			case Dimension.x.value():
 				return x
-			case Dimension.y:
+			case Dimension.y.value():
 				return y	
 		}
 		return Float.NaN
@@ -194,10 +194,10 @@ class Vector2 implements IVector2{
 	
 	void putAt(int index, float value) {
 		switch(index){
-			case Dimension.x:
+			case Dimension.x.value():
 				x = value
 				return
-			case Dimension.y:
+			case Dimension.y.value():
 				y = value
 				return
 		}

@@ -54,11 +54,18 @@ class OctTree implements Collection<IPositionable>{
 			children = new OctTree<>[8]
 			(0..7).each{
 				children[it] = new OctTree<>(
-                    center + new Vector3(
-                        halfDimension.x * (it & Xax ? 0.5 : -0.5),
-                        halfDimension.y * (it & Yax ? 0.5 : -0.5),
-                        halfDimension.z * (it & Zax ? 0.5 : -0.5)
-                    ), 
+                    center + 
+                    new Vector3(
+						halfDimension.x,
+						halfDimension.y,
+						halfDimension.z
+					) 
+					* 
+					new Vector3(
+						it & Xax ? 0.5 : -0.5, 
+						it & Yax ? 0.5 : -0.5, 
+						it & Zax ? 0.5 : -0.5
+					), 
                     halfDimension * new Vector3(0.5)
 				)
 			}
@@ -159,14 +166,14 @@ class OctTree implements Collection<IPositionable>{
 	boolean hasPoint(Vector3 point, Vector3 offset){
         Vector3 min = center - halfDimension - offset
         Vector3 max = center + halfDimension + offset
-        
-        if(min.x > point.x || min.y > point.y || min.z > point.z){
-            return false
-        }
-        
-        if(max.x < point.x || max.y < point.y || max.z < point.z){
-            return false
-        }
+		for(int dim : 0..2){
+			if(point[dim] <= min[dim]){
+                return false
+            }		
+			if(point[dim] >= max[dim]){
+				return false
+			}
+		}
 
 		return true
 	}

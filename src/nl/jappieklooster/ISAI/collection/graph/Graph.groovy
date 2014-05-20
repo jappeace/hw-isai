@@ -14,8 +14,9 @@ class Graph extends AHasNode{
 
 	Graph(){
 		super()
-        min = new Vector3(0)
-        max = new Vector3(0)	
+        min = new Vector3(Float.POSITIVE_INFINITY)
+        max = new Vector3(Float.NEGATIVE_INFINITY)	
+
         verteci = new LinkedList<>() // reserve some space, you don't make a graph for 10 elements
 		clearCache()
 	}
@@ -32,6 +33,7 @@ class Graph extends AHasNode{
 		// update bounding box
         min.assimilateMin(what.position)
         max.assimilateMax(what.position)
+		int i =0
 	}
 	
 	/**
@@ -67,7 +69,7 @@ class Graph extends AHasNode{
 	 * @return
 	 */
 	OctTree toOctTree(){
-		if(cachedOctTree){
+	if(cachedOctTree){
 			return cachedOctTree
 		}
 		cachedOctTree = new OctTree(

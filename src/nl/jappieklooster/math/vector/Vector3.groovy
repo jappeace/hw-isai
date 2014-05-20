@@ -198,14 +198,14 @@ class Vector3 implements IVector3{
 	}
 
 	float getAt(int index){
-		if(index == Dimension.z){
+		if(index == Dimension.z.value()){
 			return z
 		}
 		return base[index]
 	}
 	
 	void putAt(int index, float value) {
-		if(index == Dimension.z){
+		if(index == Dimension.z.value()){
 			z = value
 			return
 		}
@@ -229,11 +229,11 @@ class Vector3 implements IVector3{
 		}
 	}
 	void assimilateMax(Vector3 input){
-		if(input.x > x){
-			x = input.x
+		if(input.x > base.x){
+			base.x = input.x
 		}
-		if(input.y > y){
-			y = input.y
+		if(input.y > base.y){
+			base.y = input.y
 		}
 		if(input.z > z){
 			z = input.z
