@@ -16,10 +16,10 @@ class TaskSynchronizer {
 		application = to
 	}
 	
-	void execute(Closure task){
+	void execute(Runnable task){
 		application.enqueue(new Callable<Integer>() {
 			public Integer call() throws Exception {
-				task()
+				task.run()
 				return 1 // it has to return somthing
 			}
 		})
