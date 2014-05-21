@@ -40,7 +40,10 @@ class OctTree implements Collection<IPositionable>{
 		// this gaurd prevents an eternal trying to get to a point which is out of reach
 		// I conteplated moving this to the add, but putting it here is less bug prone
 		if(!hasPoint(element.position)){
-			throw new IndexOutOfBoundsException("this octree does not contain: " + element.position + " the octree is " + center + "with a halfdimension of" + halfDimension)
+			throw new IndexOutOfBoundsException("this octree does not contain: " + element.position + "\n"
+				+ " the octree is " + center + " \n with a halfdimension of" + halfDimension +"\n\n"
+				+ "the bounding box min: " + (center - halfDimension) + "\n"
+				+ "the bounding box max: " + (center + halfDimension) + "\n")
 		}
 		if(isLeaf()){
 			
@@ -167,10 +170,10 @@ class OctTree implements Collection<IPositionable>{
         Vector3 min = center - halfDimension - offset
         Vector3 max = center + halfDimension + offset
 		for(int dim : 0..2){
-			if(point[dim] <= min[dim]){
+			if(point[dim] < min[dim]){
                 return false
             }		
-			if(point[dim] >= max[dim]){
+			if(point[dim] > max[dim]){
 				return false
 			}
 		}
