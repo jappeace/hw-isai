@@ -43,11 +43,7 @@ class MouseInteractionState extends AnInputDirectingState{
 				}
 				selected.add(
                     new Seek(
-                        getToCallback:{location},
-                        onArrive:{
-                            Seek self ->
-                            self.entity.invalidatedBehaviours.add(self)
-                        }
+                        toPosition:{location},
                     )
                 )
                 selected = null
