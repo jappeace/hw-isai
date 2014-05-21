@@ -17,6 +17,7 @@ import nl.jappieklooster.ISAI.behaviour.steer.group.ANeighbourAware;
 import nl.jappieklooster.ISAI.behaviour.steer.group.Alignment;
 import nl.jappieklooster.ISAI.behaviour.steer.group.Cohesion;
 import nl.jappieklooster.ISAI.behaviour.steer.group.Seperation;
+import nl.jappieklooster.ISAI.world.IPositionable
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.Vehicle;
 import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
@@ -41,14 +42,14 @@ class BehaviourFactory{
 		bind(wander)
 	}
 	
-	IBehaviour flee(Closure from){
+	IBehaviour flee(IPositionable from){
 		Flee flee = new Flee()
-		flee.getFromCallback = from
+		flee.from = from
 		bind(flee)
 	}
-	IBehaviour seek(Closure from){
+	IBehaviour seek(IPositionable from){
 		Seek flee = new Seek()
-		flee.getToCallback = from
+		flee.toPosition = from
 		bind(flee)
 	}
 	IBehaviour explore(){

@@ -30,7 +30,7 @@ class Cohesion extends ANeighbourAware{
 			
 		}
 		
-		seek.getToCallback = {
+		seek.toPosition = {
 			centerOfMass / new Vector3(neighbours.size())
 		}
 		seek.execute()
