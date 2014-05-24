@@ -20,7 +20,7 @@ abstract class AMaterialFactory extends ASpatialFactory{
 	protected abstract Material getMaterial()
 
 	void texture(String path){
-		getMaterial().setTexture("ColorMap", assetManager.loadTexture(path))
+		getMaterial().setTexture("DiffuseMap", assetManager.loadTexture(path))
 	}
 	
 	void texture(String name, String path){

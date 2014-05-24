@@ -100,11 +100,11 @@ class OctTree implements Collection<IPositionable>{
 	 * @param location
 	 * @param action
 	 */
-	private void searchLeafTree(Vector3 location, Closure action){
+	private void searchLeafTree(Vector3 location, IReceiveOctTree handler){
 		if(isLeaf()){
-			action(this)
+			handler.receive(this)
 		}
-		children[getChildIndex(location)].searchLeafTree(location, action)
+		children[getChildIndex(location)].searchLeafTree(location, handler)
 	}
 	/**
 	 * returns a collection of things inside the location radius
@@ -126,19 +126,19 @@ class OctTree implements Collection<IPositionable>{
 	 * @param radius
 	 * @param action
 	 */
-	void search(Vector3 location, float radius, Closure action){
+	void search(Vector3 location, float radius, IReceivePositionable handler){
 		if(isLeaf()){
 			if(data == null){
                 return
 			}
 			if((location - data.position).lengthSq < radius * radius){
-				action(data)
+				handler.receive(data)
 			}
 			return
 		}
 		eachChild{ OctTree child ->
             if(child.hasPoint(location, new Vector3(radius))){
-                child.search(location, radius, action)
+                child.search(location, radius, handler)
             }
 		}
 	}
@@ -151,16 +151,16 @@ class OctTree implements Collection<IPositionable>{
 	 * O(N) speed
 	 * @param action
 	 */
-	void traverse(Closure action){
+	void traverse(IReceivePositionable handler){
 		if(isLeaf()){
 			if(data == null){
                 return
 			}
-			action(data)
+			handler.receive(data)
 			return
 		}
 		eachChild{ OctTree child ->
-			child.traverse(action)
+			child.traverse(handler)
 		}
 	}
 	boolean hasPoint(Vector3 point){
@@ -199,9 +199,9 @@ class OctTree implements Collection<IPositionable>{
 	 * traverse all the children and for evrey child execute the action, giving the child as argument
 	 * @param action
 	 */
-	private void eachChild(Closure action){
+	private void eachChild(IReceiveOctTree handler){
 		(0..7).each{
-			action(children[it])
+			handler.receive(children[it])
 		}
 	}
 

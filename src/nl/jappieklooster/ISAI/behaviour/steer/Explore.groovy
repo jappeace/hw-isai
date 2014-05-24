@@ -17,7 +17,7 @@ class Explore extends AbstractBehaviour{
 	Explore(){
 		seek = new Seek()
         destination = new Vector3()
-		seek.getToCallback = {
+		seek.toPosition = {
 			destination
 		}
 		prevFib = 0

@@ -60,7 +60,7 @@ class LoadState extends ACommenState{
 		rootNode.addLight(al);
 
 		DirectionalLight dl = new DirectionalLight();
-		dl.setColor(ColorRGBA.White);
+		dl.setColor(ColorRGBA.Red);
 		dl.setDirection(new Vector3f(2.8f, -2.8f, -2.8f).normalizeLocal());
 		rootNode.addLight(dl);
 

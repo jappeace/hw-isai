@@ -10,10 +10,7 @@ import com.jme3.input.controls.Trigger
  *
  */
 class InputHandler implements ActionListener, AnalogListener{
-	/**
-	 * @Prototype void(float,float,String)
-	 */
-	Closure handler
+	IInputListener handler
 	
 	/**
 	 * allow multiple handlers to be attached to the same key (optional
@@ -43,7 +40,7 @@ class InputHandler implements ActionListener, AnalogListener{
 		if(!canExecute(name)){
 			return
 		}
-		handler(value, tpf, name)
+		handler.onInput(value, tpf, name)
 		
 	}
 
@@ -55,7 +52,7 @@ class InputHandler implements ActionListener, AnalogListener{
 		if(!canExecute(name)){
 			return
 		}
-		handler(isPressed ? 1 : 0, tpf, name) // i mean a boolean fits like 32 times in a float sortof
+		handler.onInput(isPressed ? 1 : 0, tpf, name) // i mean a boolean fits like 32 times in a float sortof
 	}	
 	
 	private boolean canExecute(String name){

@@ -19,7 +19,7 @@ import nl.jappieklooster.ISAI.world.entity.Vehicle;
 import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
-
+import com.jme3.math.ColorRGBA;
 /**
  * specifies what a default entity should look like and also gives acces to the dsl to change those defaults
  * @author jappie
@@ -31,9 +31,11 @@ abstract class AEntityFactory extends AMaterialFactory{
 		Geometry geometry = new Geometry("Default box", new Box(1,1,1) );
 		geometry.setLocalTranslation(new Vector3f());
 
-		Material material = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-		material.setTexture("ColorMap", assetManager.loadTexture("Textures/smile.png"));
-
+		Material material = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
+		material.setTexture("DiffuseMap", assetManager.loadTexture("Textures/smile.png"));
+		material.setBoolean("UseMaterialColors",false);
+		material.setColor("Diffuse",ColorRGBA.Green);
+		material.setColor("Specular",ColorRGBA.White);
 		geometry.setMaterial(material);
 
 		entity.geometry = geometry

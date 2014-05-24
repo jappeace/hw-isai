@@ -1,4 +1,4 @@
-package nl.jappieklooster.ISAI.init.factory
+package nl.jappieklooster.ISAI.init.factory.path
 
 import com.jme3.collision.CollisionResult
 import com.jme3.collision.CollisionResults
