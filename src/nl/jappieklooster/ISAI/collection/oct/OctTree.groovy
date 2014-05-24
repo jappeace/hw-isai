@@ -112,13 +112,25 @@ class OctTree implements Collection<IPositionable>{
 	 * @param radius
 	 * @return
 	 */
-	Collection find(Vector3 location, float radius){
-        Collection results = new LinkedList<>()
-		search(location, radius, { OctTree result ->
+	Collection<IPositionable> find(Vector3 location, float radius){
+        Collection<IPositionable> results = new LinkedList<>()
+		search(location, radius){ IPositionable result ->
 			results.add(result)
-		})
+		}
 		return results
 		
+	}
+	
+	IPositionable findClosest(Vector3 to, float considerRadius = 1){
+		IPositionable start = null
+		search(to, considerRadius){ IPositionable current ->
+			if(start == null){
+				start = current
+			}
+			if((start.position - to).lengthSq > (current.position - to).lengthSq){
+				start = current
+			}
+		}
 	}
 	/**
 	 * calls the action for each element it finds
