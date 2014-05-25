@@ -27,13 +27,15 @@ class AStar implements IPathFindStrategy{
 		target = to
 		
 		considirationQueue.add(new AStarElement(from, 0))
-		AStarElement path = AStart()
+		AStarElement starResult = AStart()
 		
 		Collection<Vertex> result = new Stack<>()
 		
-		while(path != null){
-			result.add(path.vertex)
-			path = path.from
+
+		// to inverse the star result and add it to a collection put evreything on a stack
+		while(starResult != null){
+			result.add(starResult.vertex)
+			starResult = starResult.from
 		}
 		
 		return result;
@@ -54,7 +56,7 @@ class AStar implements IPathFindStrategy{
 					new AStarElement(
 						current, 
 						it.to, 
-						it.weight + heuristic.calculateHeuristic(it.to,	target)
+						(float)(it.weight + heuristic.calculateHeuristic(it.to,	target))
 					)
 				)
 			}

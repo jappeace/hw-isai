@@ -50,8 +50,8 @@ class MouseInteractionState extends AnInputDirectingState{
 				Collection<Vertex> path = new PathFindFactory(world.environment.navGraph).findPath(selected.position, location)
 				
 				BehaviourScheduler behaviour = new BehaviourScheduler()
-				path.each{
-					behaviour.add(new Seek(entity: selected, toPosition:{it.position}))
+				path.each{ Vertex vert ->
+					behaviour.add(new Seek(entity: selected, toPosition:{vert.position}))
 				}
 				
 				behaviour.add(new Seek(entity: selected, toPosition:{location}))
@@ -73,7 +73,8 @@ class MouseInteractionState extends AnInputDirectingState{
 				
 				Vehicle clicked = trySelect()
 				if(clicked){
-                    clicked.invalidatedBehaviours.addAll(clicked.steeringBehaviours)
+					clicked.invalidatedBehaviours.addAll(clicked.steeringBehaviours)
+					selected = clicked
 				}
 			}
 		))

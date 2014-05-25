@@ -24,7 +24,7 @@ class PathFindFactory {
 		// find starth of the graph
 		Vertex start = (Vertex)tree.findClosest(from, initVertexRanger)
 		// find end of the graph
-		Vertex end = (Vertex)tree.findClosest(from, initVertexRanger)
+		Vertex end = (Vertex)tree.findClosest(to, initVertexRanger)
 		
 		return strategy.findPath(start, end)
 	}

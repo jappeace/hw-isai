@@ -131,6 +131,7 @@ class OctTree implements Collection<IPositionable>{
 				start = current
 			}
 		}
+		return start
 	}
 	/**
 	 * calls the action for each element it finds
