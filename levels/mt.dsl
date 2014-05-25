@@ -38,4 +38,8 @@ group{
     vehicle{
     	clickable()
     }
+    vehicle{
+    	location new Vector3(20,0,0)
+        mesh new Sphere(10, 10, 1)	
+    }
 }

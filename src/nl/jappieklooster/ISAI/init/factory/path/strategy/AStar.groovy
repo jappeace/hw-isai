@@ -7,9 +7,9 @@ import nl.jappieklooster.ISAI.collection.graph.Vertex;
 
 class AStar implements IPathFindStrategy{
 
-	Queue<AStarElement> considirationQueue
-	Vertex target
 	IAStarHeuristic heuristic
+	private Queue<AStarElement> considirationQueue
+	private Vertex target
 	AStar(){
 		heuristic = {Vertex from, Vertex to ->
 			return (from.position - to.position).length
