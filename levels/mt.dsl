@@ -29,7 +29,7 @@ environment{
         }
     }
     terrain{
-        scale new Vector3(2, 1, 2)
+        scale new Vector3(5, 1, 4)
         location new Vector3(0, 0, 0)
     }
 }
@@ -38,6 +38,7 @@ group{
     vehicle{
     	clickable()
     	scale new Vector3(2.5)
+    	mass 0.1
     }
     vehicle{
     	location new Vector3(20,0,0)

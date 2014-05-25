@@ -15,4 +15,6 @@ class Edge extends Entity{
 	 * the weight of the edge
 	 */
 	float weight = 1
+	
+	boolean visited = false
 }
