@@ -12,6 +12,7 @@ import nl.jappieklooster.ISAI.TaskSynchronizer
 import nl.jappieklooster.ISAI.collection.graph.Graph;
 import nl.jappieklooster.ISAI.collection.graph.Vertex;
 import nl.jappieklooster.ISAI.collection.oct.OctTree
+import nl.jappieklooster.math.vector.Vector2
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
@@ -56,19 +57,19 @@ class TerrainNavGraphFactory {
 		Vector3f scale = terrain.getWorldScale()
 		Vector3f position = terrain.worldTranslation
 
-		float width = (terrain.terrainSize * scale.x )/2 
-		float depth = (terrain.terrainSize * scale.z )/2
+		float width = terrain.terrainSize * scale.x * 0.499
+		float depth = terrain.terrainSize * scale.z * 0.499
 		
 		float xinit = -width + position.x
 		float x = xinit
 		float z = -depth + position.z
 
 		while(true){
-			x += cellSize * scale.x
+			x += cellSize
 
 			if(x >= width + position.x){
 				x = xinit
-				z += cellSize * scale.z
+				z += cellSize
 			}
 
 			if(z >= depth  + position.z){
@@ -80,7 +81,10 @@ class TerrainNavGraphFactory {
 			if(height == Float.NaN){
 				// its very nice of jme to not crash to program when it does not find a height
 				// but when it does not find a height, I have a bug
-				throw new Exception("height not found");
+				throw new Exception("height not found" + 
+					"Requested Position" + new Vector2(x,z) +
+					"bounding box min: " + new Vector2(xinit, -depth+position.z) +
+					"bounding box max: " + new Vector2(-xinit, depth+position.z));
 			}
 
 			graph.add(

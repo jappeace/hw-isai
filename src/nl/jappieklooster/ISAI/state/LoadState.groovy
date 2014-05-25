@@ -48,10 +48,6 @@ class LoadState extends ACommenState{
 		}
 		viewPort.setBackgroundColor(new ColorRGBA(0.5f, 0.3f, 0.2f, 1f));
 
-		MouseInteractionState mouseInteraction = stateManager.getState(MouseInteractionState)
-		if(mouseInteraction){
-			mouseInteraction.clickTracker = loader.clickTracker
-		}
 
 		// TODO: move to dsl
 		// We add light so we see the scene
@@ -88,6 +84,12 @@ class LoadState extends ACommenState{
 	 */
 	private void loadLevel() {
         rootNode.attachChild(world.node)
+
+		MouseInteractionState mouseInteraction = stateManager.getState(MouseInteractionState)
+		if(mouseInteraction){
+			mouseInteraction.clickTracker = loader.clickTracker
+			mouseInteraction.world = world
+		}
 		loaded = true
 	} 
 	/**

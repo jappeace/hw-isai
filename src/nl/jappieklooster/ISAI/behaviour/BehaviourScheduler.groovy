@@ -6,7 +6,7 @@ package nl.jappieklooster.ISAI.behaviour
  * @author jappie
  *
  */
-class BehaviourScheduler extends AbstractBehaviour{
+class BehaviourScheduler extends AbstractBehaviour implements ICompletable{
 
 	Deque<ICompletableBehaviour> behaviours
     BehaviourScheduler(){
@@ -28,9 +28,13 @@ class BehaviourScheduler extends AbstractBehaviour{
 		current.execute()
 	}
 	
-	void add(ICompletable element){
+	void add(ICompletableBehaviour element){
 		// add is by default addlast, but order is importand so i'm explecit
 		behaviours.addLast(element)
+	}
+	@Override
+	public boolean isDone() {
+		return behaviours.size() == 0;
 	}
 	
 }

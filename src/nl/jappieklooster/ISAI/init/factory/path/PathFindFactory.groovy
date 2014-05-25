@@ -13,18 +13,19 @@ class PathFindFactory {
 	float initVertexRanger = 100
 	IPathFindStrategy strategy
 	
-	PathFindFactory(){
+	PathFindFactory(Graph graph){
+		navGraph = graph
 		strategy = new AStar()
 	}
 
 	/** uses A start to find the path*/
-	Collection<Vertex> FindPath(Vector3 from, Vector3 to){
+	Collection<Vertex> findPath(Vector3 from, Vector3 to){
 		OctTree tree = navGraph.toOctTree()
 		// find starth of the graph
 		Vertex start = (Vertex)tree.findClosest(from, initVertexRanger)
 		// find end of the graph
 		Vertex end = (Vertex)tree.findClosest(from, initVertexRanger)
 		
-		return strategy.findPath(start, end, navGraph)
+		return strategy.findPath(start, end)
 	}
 }

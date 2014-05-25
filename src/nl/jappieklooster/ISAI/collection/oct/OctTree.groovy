@@ -235,7 +235,7 @@ class OctTree implements Collection<IPositionable>{
 	}
 	@Override
     boolean isEmpty(){
-		return size() == 0
+		return data == null && children == null
 	}
 	@Override
     boolean contains(Object obj){

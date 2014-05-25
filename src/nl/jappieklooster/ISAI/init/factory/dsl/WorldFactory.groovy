@@ -58,7 +58,7 @@ class WorldFactory extends AHasNodeFactory{
 
 		navfac.graph = factory.environment.navGraph
 		navfac.collidable.attachChild(factory.environment.node.clone())
-        navfac.connectVerticiCloserThenAsync(34, new TaskSynchronizer(application: game))
+        navfac.connectVerticiCloserThenAsync(30, new TaskSynchronizer(application: game))
 
 		world.environment = factory.environment
 		world.node.attachChild(factory.environment.node)

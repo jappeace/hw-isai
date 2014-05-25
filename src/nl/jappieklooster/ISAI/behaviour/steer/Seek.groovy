@@ -1,12 +1,12 @@
 package nl.jappieklooster.ISAI.behaviour.steer
 
 import nl.jappieklooster.ISAI.behaviour.AbstractBehaviour;
-import nl.jappieklooster.ISAI.behaviour.ICompletable;
+import nl.jappieklooster.ISAI.behaviour.ICompletableBehaviour;
 import nl.jappieklooster.ISAI.world.IPositionable
 import nl.jappieklooster.ISAI.world.entity.MovingEntity;
 import nl.jappieklooster.math.vector.Vector3
 
-class Seek extends AbstractBehaviour implements ICompletable{
+class Seek extends AbstractBehaviour implements ICompletableBehaviour{
 
 	/** somting to go to, can be a closure as long as it returns a vector3*/
 	IPositionable toPosition

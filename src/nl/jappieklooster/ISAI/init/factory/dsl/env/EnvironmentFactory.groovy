@@ -34,6 +34,7 @@ import com.jme3.terrain.geomipmap.TerrainQuad
 class EnvironmentFactory extends AHasNodeFactory{
 
 	Environment environment
+	static final float cellSize = 20
 
 	EnvironmentFactory(){
 
@@ -51,7 +52,7 @@ class EnvironmentFactory extends AHasNodeFactory{
 
 		TerrainNavGraphFactory navfac = new TerrainNavGraphFactory()
 		navfac.terrain = result
-		navfac.addRasterVerteciToGraph(5)
+		navfac.addRasterVerteciToGraph(cellSize)
 		
 		environment.navGraph.merge(navfac.graph)
 		

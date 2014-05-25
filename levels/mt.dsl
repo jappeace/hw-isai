@@ -4,7 +4,7 @@ import com.jme3.scene.shape.*
 name "rootnode (sortof)"
 
 environment{
-	location new Vector3(-200,-500,300)
+	location new Vector3(-200,-100,300)
     sky{
     }
 
@@ -29,7 +29,7 @@ environment{
         }
     }
     terrain{
-        scale new Vector3(5, 1, 4)
+        scale new Vector3(2, 1, 2)
         location new Vector3(0, 0, 0)
     }
 }
@@ -37,6 +37,7 @@ environment{
 group{
     vehicle{
     	clickable()
+    	scale new Vector3(2.5)
     }
     vehicle{
     	location new Vector3(20,0,0)

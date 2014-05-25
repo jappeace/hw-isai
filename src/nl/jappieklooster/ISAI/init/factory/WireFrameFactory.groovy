@@ -51,7 +51,7 @@ class WireFrameFactory {
           return geometry;
 	}
 	
-	private ColorRGBA createRandomColor(){
+	ColorRGBA createRandomColor(){
 		new ColorRGBA(random.nextFloat(), random.nextFloat(), random.nextFloat(), 1)
 	}
 }

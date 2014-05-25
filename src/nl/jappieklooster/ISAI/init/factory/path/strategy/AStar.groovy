@@ -1,15 +1,17 @@
 package nl.jappieklooster.ISAI.init.factory.path.strategy
 
+import com.jme3.math.ColorRGBA
 import java.util.Collection;
 
 import nl.jappieklooster.ISAI.collection.graph.Graph;
 import nl.jappieklooster.ISAI.collection.graph.Vertex;
-
+import nl.jappieklooster.ISAI.init.factory.WireFrameFactory
 class AStar implements IPathFindStrategy{
 
 	IAStarHeuristic heuristic
 	private Queue<AStarElement> considirationQueue
 	private Vertex target
+	private ColorRGBA debugColor
 	AStar(){
 		heuristic = {Vertex from, Vertex to ->
 			return (from.position - to.position).length
@@ -17,6 +19,10 @@ class AStar implements IPathFindStrategy{
 	}
 	@Override
 	Collection<Vertex> findPath(Vertex from, Vertex to) {
+		debugColor = WireFrameFactory.instance.createRandomColor()
+		if(from == null || to == null){
+			return new Stack<>()
+		}
 		considirationQueue = new PriorityQueue<>()
 		target = to
 		
@@ -43,6 +49,7 @@ class AStar implements IPathFindStrategy{
 			}
 
 			current.vertex.connections.each{
+				it.geometry.material.setColor("Color", debugColor)
 				considirationQueue.add(
 					new AStarElement(
 						current, 

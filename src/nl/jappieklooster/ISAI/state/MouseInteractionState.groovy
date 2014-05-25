@@ -6,10 +6,15 @@ import com.jme3.math.Vector3f
 import com.jme3.input.MouseInput;
 
 import nl.jappieklooster.ISAI.Game
+import nl.jappieklooster.ISAI.behaviour.BehaviourScheduler
+import nl.jappieklooster.ISAI.behaviour.Invalidator
 import nl.jappieklooster.ISAI.behaviour.steer.Seek;
+import nl.jappieklooster.ISAI.collection.graph.Vertex
+import nl.jappieklooster.ISAI.init.factory.path.PathFindFactory
 import nl.jappieklooster.ISAI.input.InputHandler
 import nl.jappieklooster.ISAI.state.ACommenState
 import nl.jappieklooster.ISAI.state.AnInputDirectingState
+import nl.jappieklooster.ISAI.world.World
 import nl.jappieklooster.ISAI.world.entity.Entity
 import nl.jappieklooster.ISAI.world.entity.Vehicle
 import nl.jappieklooster.ISAI.world.entity.tracking.ClickablesTracker
@@ -23,6 +28,7 @@ import nl.jappieklooster.math.vector.Vector3
 class MouseInteractionState extends AnInputDirectingState{
 	ClickablesTracker clickTracker
 	Vehicle selected
+	World world
 
 	void init(Game app){
 		super.init(app)
@@ -41,11 +47,19 @@ class MouseInteractionState extends AnInputDirectingState{
 				if(location == null){
 					return
 				}
-				selected.add(
-                    new Seek(
-                        toPosition:{location},
-                    )
-                )
+				Collection<Vertex> path = new PathFindFactory(world.environment.navGraph).findPath(selected.position, location)
+				
+				BehaviourScheduler behaviour = new BehaviourScheduler()
+				path.each{
+					behaviour.add(new Seek(entity: selected, toPosition:{it.position}))
+				}
+				
+				behaviour.add(new Seek(entity: selected, toPosition:{location}))
+				
+				behaviour.add(new Invalidator(selected, behaviour))
+				
+				selected.add(behaviour)
+
                 selected = null
 
 			}
