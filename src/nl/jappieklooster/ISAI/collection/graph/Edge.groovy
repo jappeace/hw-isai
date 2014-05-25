@@ -9,7 +9,10 @@ import nl.jappieklooster.ISAI.world.entity.Entity
  * @author jappie
  *
  */
-class Edge{
+class Edge extends Entity{
 	Vertex to
+	/**
+	 * the weight of the edge
+	 */
 	float weight = 1
 }

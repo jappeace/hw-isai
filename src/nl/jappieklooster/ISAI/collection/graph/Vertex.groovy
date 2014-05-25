@@ -53,6 +53,11 @@ class Vertex extends Entity{
 		// i have no idea, it has to do with the molecules, nobody knows what the sine function does, just go with it
 		edgeConnection.rotateUpTo(Converter.toJME(difference.normalized))
 		
+		// allows later manipulation of the edge color
+		edge.geometry = edgeConnection
+		edge.position = conpos
+		edge.weight = difference.length
+		
 		node.attachChild(edgeConnection)
 	}
 }
