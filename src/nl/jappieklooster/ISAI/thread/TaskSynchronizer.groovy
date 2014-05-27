@@ -1,4 +1,4 @@
-package nl.jappieklooster.ISAI
+package nl.jappieklooster.ISAI.thread
 
 import com.jme3.app.Application
 import java.util.concurrent.Callable
