@@ -25,10 +25,10 @@ import java.awt.Dimension
 
 import nl.jappieklooster.ISAI.init.LevelLoader
 import nl.jappieklooster.ISAI.init.factory.WireFrameFactory
-import nl.jappieklooster.ISAI.state.LoadState
-import nl.jappieklooster.ISAI.state.MouseInteractionState
-import nl.jappieklooster.ISAI.state.PlayingState
-import nl.jappieklooster.ISAI.state.cam.PlayCameraState
+import nl.jappieklooster.ISAI.state.global.LoadState;
+import nl.jappieklooster.ISAI.state.global.MouseInteractionState;
+import nl.jappieklooster.ISAI.state.global.PlayingState;
+import nl.jappieklooster.ISAI.state.global.cam.PlayCameraState;
 
 import java.awt.Toolkit
 

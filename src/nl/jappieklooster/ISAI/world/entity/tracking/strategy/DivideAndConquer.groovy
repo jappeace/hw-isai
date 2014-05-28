@@ -8,7 +8,7 @@ import nl.jappieklooster.ISAI.world.entity.compare.ComparatorIWorldItemX;
 import nl.jappieklooster.ISAI.world.entity.compare.ComparatorIWorldItemY;
 import nl.jappieklooster.ISAI.world.entity.compare.ComparatorIWorldItemZ;
 import nl.jappieklooster.ISAI.world.entity.tracking.Distance;
-import nl.jappieklooster.ISAI.world.entity.tracking.WorldItemDistance;
+import nl.jappieklooster.ISAI.world.entity.tracking.PositionDistance;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Dimension
 
@@ -35,7 +35,7 @@ class DivideAndConquer extends AbstractStrategy{
 	}
 
 	/** redetermens which neighbours are where and stores that result into the result */
-	Map<WorldItemDistance, Collection<IPositionable>> find(SortedSet<Distance> tresholds){
+	Map<PositionDistance, Collection<IPositionable>> find(SortedSet<Distance> tresholds){
 		this.tresholds = tresholds
 		// clear the buffer
 		result = new HashMap<>()

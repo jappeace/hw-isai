@@ -1,4 +1,4 @@
-package nl.jappieklooster.ISAI.state
+package nl.jappieklooster.ISAI.state.global
 
 import com.jme3.input.controls.KeyTrigger
 import com.jme3.input.controls.MouseButtonTrigger
@@ -12,8 +12,8 @@ import nl.jappieklooster.ISAI.behaviour.steer.Seek;
 import nl.jappieklooster.ISAI.collection.graph.Vertex
 import nl.jappieklooster.ISAI.init.factory.path.PathFindFactory
 import nl.jappieklooster.ISAI.input.InputHandler
-import nl.jappieklooster.ISAI.state.ACommenState
-import nl.jappieklooster.ISAI.state.AnInputDirectingState
+import nl.jappieklooster.ISAI.state.global.ACommenState;
+import nl.jappieklooster.ISAI.state.global.AnInputDirectingState;
 import nl.jappieklooster.ISAI.world.World
 import nl.jappieklooster.ISAI.world.entity.Entity
 import nl.jappieklooster.ISAI.world.entity.Vehicle

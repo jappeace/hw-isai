@@ -8,7 +8,7 @@ import nl.jappieklooster.ISAI.world.entity.compare.ComparatorIWorldItemX;
 import nl.jappieklooster.ISAI.world.entity.compare.ComparatorIWorldItemY;
 import nl.jappieklooster.ISAI.world.entity.compare.ComparatorIWorldItemZ;
 import nl.jappieklooster.ISAI.world.entity.tracking.Distance;
-import nl.jappieklooster.ISAI.world.entity.tracking.WorldItemDistance;
+import nl.jappieklooster.ISAI.world.entity.tracking.PositionDistance;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Dimension
 
@@ -17,7 +17,7 @@ import nl.jappieklooster.math.vector.Dimension
 abstract class AbstractStrategy implements IFindStrategy{
 	/** the world to read from */
 	Collection<IPositionable> targetItems
-	protected Map<WorldItemDistance, Collection<IPositionable>> result
+	protected Map<PositionDistance, Collection<IPositionable>> result
 
 	AbstractStrategy(){
 		targetItems = new LinkedList<>()
@@ -25,7 +25,7 @@ abstract class AbstractStrategy implements IFindStrategy{
 
 	protected void addToListValue(IPositionable keyOne, float keyTwo, IPositionable value){
 
-        def key = new WorldItemDistance(keyOne, keyTwo)
+        def key = new PositionDistance(keyOne, keyTwo)
         List<IPositionable> list = result[key]
 
 		if(list == null){

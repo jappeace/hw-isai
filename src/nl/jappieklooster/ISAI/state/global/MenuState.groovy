@@ -1,4 +1,4 @@
-package nl.jappieklooster.ISAI.state
+package nl.jappieklooster.ISAI.state.global
 
 import com.jme3.app.state.AbstractAppState
 import com.jme3.app.state.AppStateManager

@@ -13,7 +13,7 @@ import nl.jappieklooster.ISAI.world.IGroupItem;
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.Entity;
 import nl.jappieklooster.ISAI.world.entity.tracking.Distance;
-import nl.jappieklooster.ISAI.world.entity.tracking.WorldItemDistance;
+import nl.jappieklooster.ISAI.world.entity.tracking.PositionDistance;
 import nl.jappieklooster.ISAI.world.entity.tracking.strategy.BruteForceStrategy;
 import nl.jappieklooster.ISAI.world.entity.tracking.strategy.DivideAndConquer;
 import nl.jappieklooster.ISAI.world.entity.tracking.strategy.IFindStrategy;

@@ -33,7 +33,7 @@ class NeighbourTracker implements IUpdatable{
 	private SortedSet<Distance> distances
 
 	/** the resulting neighbours are stored in here */
-	private Map<WorldItemDistance, List<IPositionable>> neighbuffer
+	private Map<PositionDistance, List<IPositionable>> neighbuffer
 	
 	/** I should put this in a central place, this class is central for each world and no other class needs actualy acces to threads */
 	private TrackingThread threadLogic
@@ -46,14 +46,14 @@ class NeighbourTracker implements IUpdatable{
 		threadPoolExecuter = threadPool
 		distances = new TreeSet<>()
 		strategy = new DivideAndConquer()
-		neighbuffer = new HashMap<WorldItemDistance, List<IPositionable>>()
+		neighbuffer = new HashMap<PositionDistance, List<IPositionable>>()
 		
 		threadLogic = new TrackingThread()
 	}
 
 
 	List<IPositionable> getNeighbours(IPositionable to, float distance){
-		neighbuffer.get(new WorldItemDistance(to, distance)) ?: new LinkedList<>()
+		neighbuffer.get(new PositionDistance(to, distance)) ?: new LinkedList<>()
 	}
 	
 	void addDistance(float which){

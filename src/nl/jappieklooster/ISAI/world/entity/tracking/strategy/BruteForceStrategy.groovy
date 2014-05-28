@@ -5,7 +5,7 @@ import nl.jappieklooster.ISAI.world.IPositionable;
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.Entity;
 import nl.jappieklooster.ISAI.world.entity.tracking.Distance;
-import nl.jappieklooster.ISAI.world.entity.tracking.WorldItemDistance;
+import nl.jappieklooster.ISAI.world.entity.tracking.PositionDistance;
 
 /** this thing is an optimization (ugly code gauranteed) 
  * the intial implementation did a lot of dubble work per tick, this
@@ -21,7 +21,7 @@ class BruteForceStrategy extends AbstractStrategy{
 	}
 
 	/** redetrimens which neigbours are where and stores that result into the neighbuffer */
-	Map<WorldItemDistance, Collection<IPositionable>> find(SortedSet<Distance> tresholds){
+	Map<PositionDistance, Collection<IPositionable>> find(SortedSet<Distance> tresholds){
 		
 		// clear the buffer
 		result = new HashMap<>()

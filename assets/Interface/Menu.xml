@@ -6,7 +6,7 @@
 	<useControls filename="nifty-default-controls.xml" />
 
 
-	<screen controller="nl.jappieklooster.ISAI.state.MenuState" id="start">
+	<screen controller="nl.jappieklooster.ISAI.state.global.MenuState" id="start">
 		<layer backgroundColor="#0000" childLayout="center">
 			<panel align="center" backgroundColor="#f60f" childLayout="center"
 				height="8%" id="" valign="center" visibleToMouse="true" width="40%">

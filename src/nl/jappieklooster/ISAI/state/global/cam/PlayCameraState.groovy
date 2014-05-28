@@ -1,4 +1,4 @@
-package nl.jappieklooster.ISAI.state.cam
+package nl.jappieklooster.ISAI.state.global.cam
 
 import com.jme3.input.controls.KeyTrigger
 import com.jme3.math.Vector3f
@@ -6,8 +6,8 @@ import com.jme3.input.KeyInput;
 
 import nl.jappieklooster.ISAI.Game
 import nl.jappieklooster.ISAI.input.InputHandler
-import nl.jappieklooster.ISAI.state.ACommenState
-import nl.jappieklooster.ISAI.state.AnInputDirectingState
+import nl.jappieklooster.ISAI.state.global.ACommenState;
+import nl.jappieklooster.ISAI.state.global.AnInputDirectingState;
 
 /**
  * this state makes the camera respond on input so that it will act like its in the playing state,

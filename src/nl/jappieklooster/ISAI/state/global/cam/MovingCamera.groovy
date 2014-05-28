@@ -1,4 +1,4 @@
-package nl.jappieklooster.ISAI.state.cam
+package nl.jappieklooster.ISAI.state.global.cam
 
 import com.jme3.math.Vector3f
 import com.jme3.renderer.Camera
