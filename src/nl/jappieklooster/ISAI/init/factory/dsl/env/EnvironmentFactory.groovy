@@ -5,11 +5,11 @@ import com.jme3.asset.AssetManager
 import java.util.concurrent.ScheduledThreadPoolExecutor
 
 import nl.jappieklooster.ISAI.Game
+import nl.jappieklooster.ISAI.TaskSynchronizer;
 import nl.jappieklooster.ISAI.init.DelegateClosure;
 import nl.jappieklooster.ISAI.init.factory.dsl.AHasNodeFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.ASpatialFactory;
 import nl.jappieklooster.ISAI.init.factory.path.TerrainNavGraphFactory;
-import nl.jappieklooster.ISAI.thread.TaskSynchronizer;
 import nl.jappieklooster.ISAI.world.AHasNode;
 import nl.jappieklooster.ISAI.world.Environment
 import nl.jappieklooster.ISAI.world.Group

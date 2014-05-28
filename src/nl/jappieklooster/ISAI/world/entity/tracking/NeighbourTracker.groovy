@@ -5,7 +5,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor
 
 import nl.jappieklooster.ISAI.world.Group
 import nl.jappieklooster.ISAI.world.IUpdatable;
-import nl.jappieklooster.ISAI.world.IGroupItem;
+import nl.jappieklooster.ISAI.world.IPositionable;
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.Entity;
 import nl.jappieklooster.ISAI.world.entity.tracking.strategy.BruteForceStrategy;
@@ -33,7 +33,7 @@ class NeighbourTracker implements IUpdatable{
 	private SortedSet<Distance> distances
 
 	/** the resulting neighbours are stored in here */
-	private Map<WorldItemDistance, List<IGroupItem>> neighbuffer
+	private Map<WorldItemDistance, List<IPositionable>> neighbuffer
 	
 	/** I should put this in a central place, this class is central for each world and no other class needs actualy acces to threads */
 	private TrackingThread threadLogic
@@ -46,13 +46,13 @@ class NeighbourTracker implements IUpdatable{
 		threadPoolExecuter = threadPool
 		distances = new TreeSet<>()
 		strategy = new DivideAndConquer()
-		neighbuffer = new HashMap<WorldItemDistance, List<IGroupItem>>()
+		neighbuffer = new HashMap<WorldItemDistance, List<IPositionable>>()
 		
 		threadLogic = new TrackingThread()
 	}
 
 
-	List<IGroupItem> getNeighbours(IGroupItem to, float distance){
+	List<IPositionable> getNeighbours(IPositionable to, float distance){
 		neighbuffer.get(new WorldItemDistance(to, distance)) ?: new LinkedList<>()
 	}
 	

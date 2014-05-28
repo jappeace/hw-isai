@@ -7,6 +7,7 @@ import java.util.concurrent.Future
 import java.util.concurrent.ScheduledThreadPoolExecutor
 
 import nl.jappieklooster.ISAI.world.Group
+import nl.jappieklooster.ISAI.world.IPositionable
 import nl.jappieklooster.ISAI.world.IUpdatable;
 import nl.jappieklooster.ISAI.world.IGroupItem;
 import nl.jappieklooster.ISAI.world.World;
@@ -44,7 +45,11 @@ class TrackingThread implements Callable<ThreadResult>{
             it.isUsed = false
         }
 		// tell strategy about the world
-		strategy.targetItems = group.entities
+		Collection<IPositionable> lazyCopieMachines = new LinkedList<>()
+		group.entities.each{
+			lazyCopieMachines.add(new LazyPositionCopyMachine(source: it))
+		}
+		strategy.targetItems = lazyCopieMachines
 
 		// create the result
 		ThreadResult result = new ThreadResult()

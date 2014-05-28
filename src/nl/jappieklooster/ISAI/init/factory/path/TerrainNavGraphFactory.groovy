@@ -8,10 +8,10 @@ import com.jme3.math.Vector3f
 import com.jme3.terrain.geomipmap.TerrainQuad
 import com.jme3.scene.Node
 
+import nl.jappieklooster.ISAI.TaskSynchronizer;
 import nl.jappieklooster.ISAI.collection.graph.Graph;
 import nl.jappieklooster.ISAI.collection.graph.Vertex;
 import nl.jappieklooster.ISAI.collection.oct.OctTree
-import nl.jappieklooster.ISAI.thread.TaskSynchronizer;
 import nl.jappieklooster.math.vector.Vector2
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter

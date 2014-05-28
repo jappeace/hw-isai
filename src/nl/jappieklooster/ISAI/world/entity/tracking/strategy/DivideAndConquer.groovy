@@ -1,7 +1,7 @@
 package nl.jappieklooster.ISAI.world.entity.tracking.strategy
 
 import nl.jappieklooster.ISAI.world.IUpdatable;
-import nl.jappieklooster.ISAI.world.IGroupItem;
+import nl.jappieklooster.ISAI.world.IPositionable;
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.Entity;
 import nl.jappieklooster.ISAI.world.entity.compare.ComparatorIWorldItemX;
@@ -23,7 +23,7 @@ import groovy.util.logging.*
 @Log
 class DivideAndConquer extends AbstractStrategy{
 	private static final int bruteTreshold = 8
-	private Comparator<IWorldItem>[] comparators = [
+	private Comparator<IPositionable>[] comparators = [
 		new ComparatorIWorldItemX(), 
 		new ComparatorIWorldItemY(), 
 		new ComparatorIWorldItemZ()
@@ -35,7 +35,7 @@ class DivideAndConquer extends AbstractStrategy{
 	}
 
 	/** redetermens which neighbours are where and stores that result into the result */
-	Map<WorldItemDistance, List<IGroupItem>> find(SortedSet<Distance> tresholds){
+	Map<WorldItemDistance, Collection<IPositionable>> find(SortedSet<Distance> tresholds){
 		this.tresholds = tresholds
 		// clear the buffer
 		result = new HashMap<>()
@@ -45,7 +45,7 @@ class DivideAndConquer extends AbstractStrategy{
 		return result
 	}
 	
-	Vector3 recursiveSolve(List<IGroupItem> items, int xyz){
+	Vector3 recursiveSolve(Collection<IPositionable> items, int xyz){
 		if(items == null){
 			return Vector3.max()
 		}
@@ -54,8 +54,8 @@ class DivideAndConquer extends AbstractStrategy{
 		}
 		// adding this solves an anoying hunch in my mind and it is faster
 		if(items.size() <= bruteTreshold){
-			items.each{ IGroupItem outer ->
-				items.each{ IGroupItem inner ->
+			items.each{ IPositionable outer ->
+				items.each{ IPositionable inner ->
 					if(inner == outer){
 						return
 					}
@@ -84,7 +84,7 @@ class DivideAndConquer extends AbstractStrategy{
 			return // java did not like this
 		}
 		
-		List<List<IGroupItem>> fracturedItems = items.toList().collate((int) ((items.size() / 2)))
+		List<List<IPositionable>> fracturedItems = items.toList().collate((int) ((items.size() / 2)))
 		Vector3 one = recursiveSolve(fracturedItems[0], xyz) ?: Vector3.max()
 		Vector3 two = recursiveSolve(fracturedItems[1], xyz) ?: Vector3.max()
 		
@@ -108,7 +108,7 @@ class DivideAndConquer extends AbstractStrategy{
 	
 	
 	
-	private Vector3 tryAdd(IGroupItem one, IGroupItem two){
+	private Vector3 tryAdd(IPositionable one, IPositionable two){
 		if(one == null || two == null){
 			return Vector3.max()
 		}
