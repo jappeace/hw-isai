@@ -1,19 +1,16 @@
 package nl.jappieklooster.ISAI.world.entity
 
 import nl.jappieklooster.ISAI.behaviour.IBehaviour;
-import nl.jappieklooster.ISAI.behaviour.state.IStateMachineContainer;
 import nl.jappieklooster.ISAI.behaviour.state.StateMachine;
 import nl.jappieklooster.math.vector.Converter;
 import nl.jappieklooster.math.vector.Vector3
 
-class Vehicle extends MovingEntity implements IStateMachineContainer{
+class Vehicle extends MovingEntity{
 	List<IBehaviour> steeringBehaviours
 	/**
 	 * circumvents concurent modification errors
 	 */
 	List<IBehaviour> invalidatedBehaviours
-
-	StateMachine stateMachine
 	Vehicle(){
 		super()
 		steeringBehaviours = new LinkedList<>()
