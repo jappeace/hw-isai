@@ -8,11 +8,11 @@ class StateMachine extends AbstractBehaviour{
 
 	void setCurrentState(IState to){
 		if(currentState){
-			currentState.onExit()
+			currentState.onExit(this)
 		}
 		currentState = to
 		if(currentState){
-			currentState.onEnter()
+			currentState.onEnter(this)
 		}
 	}
 
@@ -20,7 +20,7 @@ class StateMachine extends AbstractBehaviour{
 	public void execute() {
 		// TODO Auto-generated method stub
 		if(currentState){
-			currentState.execute()
+			currentState.execute(this)
 		}
 		
 	}
