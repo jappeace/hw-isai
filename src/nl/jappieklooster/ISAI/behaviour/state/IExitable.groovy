@@ -1,4 +1,4 @@
-package nl.jappieklooster.ISAI.state.vehicle
+package nl.jappieklooster.ISAI.behaviour.state
 
 import nl.jappieklooster.ISAI.world.IUpdatable
 
