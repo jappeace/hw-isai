@@ -48,9 +48,9 @@ class BehaviourFactory{
 		bind(flee)
 	}
 	IBehaviour seek(IPositionable from){
-		Seek flee = new Seek()
-		flee.toPosition = from
-		bind(flee)
+		Seek seek = new Seek()
+		seek.toPosition = from
+		bind(seek)
 	}
 	IBehaviour explore(){
 		bind(new Explore())
