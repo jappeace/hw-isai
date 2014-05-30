@@ -2,6 +2,7 @@ package nl.jappieklooster.ISAI.behaviour.state
 import nl.jappieklooster.ISAI.behaviour.IBehaviour
 import nl.jappieklooster.ISAI.behaviour.AbstractBehaviour
 import nl.jappieklooster.ISAI.world.entity.MovingEntity;
+import nl.jappieklooster.ISAI.world.entity.Vehicle
 class StateMachine extends AbstractBehaviour{
 
 	IState currentState = null
@@ -39,11 +40,14 @@ class StateMachine extends AbstractBehaviour{
 	}
 
 	@Override
-	public void execute() {
+	void execute() {
 		// TODO Auto-generated method stub
 		if(currentState){
 			currentState.execute(this)
 		}
 		
+	}
+	Vehicle getVehicle(){
+		return (Vehicle)entity
 	}
 }

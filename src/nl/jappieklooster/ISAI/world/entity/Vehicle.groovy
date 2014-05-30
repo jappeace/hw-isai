@@ -6,25 +6,25 @@ import nl.jappieklooster.math.vector.Converter;
 import nl.jappieklooster.math.vector.Vector3
 
 class Vehicle extends MovingEntity{
-	List<IBehaviour> steeringBehaviours
+	List<IBehaviour> behaviours
 	/**
 	 * circumvents concurent modification errors
 	 */
 	List<IBehaviour> invalidatedBehaviours
 	Vehicle(){
 		super()
-		steeringBehaviours = new LinkedList<>()
+		behaviours = new LinkedList<>()
 		invalidatedBehaviours = new LinkedList<>()
 	}
 	@Override
 	void update(float tpf){
 		force = new Vector3(0) // reset the forces, to put more accent on steering
-		steeringBehaviours.each{
+		behaviours.each{
 			if(it.chance > random.nextDouble()){
                 it.execute()
 			}
 		}
-		steeringBehaviours.removeAll(invalidatedBehaviours)
+		behaviours.removeAll(invalidatedBehaviours)
 		invalidatedBehaviours = new LinkedList<>()
 		velocity += (force / new Vector3(mass))  * new Vector3(tpf) // calculate speed
 		velocity -= new Vector3(friction) * velocity
@@ -42,7 +42,7 @@ class Vehicle extends MovingEntity{
 	
 	void add(IBehaviour behaviour){
 		behaviour.setEntity(this);
-		steeringBehaviours.add(behaviour)
+		behaviours.add(behaviour)
 	}
 }
 

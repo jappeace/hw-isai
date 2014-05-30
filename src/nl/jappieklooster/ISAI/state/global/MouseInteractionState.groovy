@@ -73,7 +73,7 @@ class MouseInteractionState extends AnInputDirectingState{
 				
 				Vehicle clicked = trySelect()
 				if(clicked){
-					clicked.invalidatedBehaviours.addAll(clicked.steeringBehaviours)
+					clicked.invalidatedBehaviours.addAll(clicked.behaviours)
 					selected = clicked
 				}
 			}

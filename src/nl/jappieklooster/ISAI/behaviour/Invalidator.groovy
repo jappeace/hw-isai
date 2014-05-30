@@ -39,7 +39,7 @@ class Invalidator extends AbstractBehaviour implements ICompletableBehaviour{
 
 	@Override
 	public void execute() {
-		if(!listener.steeringBehaviours.contains(target)){
+		if(!listener.behaviours.contains(target)){
 			throw new IllegalArgumentException("tried to mark a nonexsisting behaviour as invalid")
 		}
 		listener.invalidatedBehaviours.add(target)
@@ -48,7 +48,7 @@ class Invalidator extends AbstractBehaviour implements ICompletableBehaviour{
 		if(!shouldInvalidateSelf){
 			return
 		}
-		if(listener.steeringBehaviours.contains(this)){
+		if(listener.behaviours.contains(this)){
 			listener.invalidatedBehaviours.add(this)
 		}
 	}

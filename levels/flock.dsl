@@ -113,20 +113,4 @@ group{
         }
     }
     
-    group{
-        name "wanderers"
-        location new Vector3(-600,0,0)
-        (0..40).each{ int number ->
-
-            vehicle{
-                location new Vector3(random.nextDouble() * number, random.nextDouble() *number, random.nextDouble() * number)
-                mass 1
-                behaviour{
-                    wander()
-                }
-            }
-
-        }
-    }
-    
 }

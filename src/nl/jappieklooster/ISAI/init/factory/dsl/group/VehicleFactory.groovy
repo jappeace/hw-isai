@@ -45,6 +45,11 @@ class VehicleFactory extends AMovingEntityFactory{
 		new DelegateClosure(to:factory).call(commands)
 	}
 
+	void states(Closure commands){
+		group.shouldUpdate = true
+		StateMachineFactory smFactory = new StateMachineFactory()
+		new DelegateClosure(to:smFactory).call(commands)
+	}
 	@Override
 	MovingEntity getMovingEntity() {
 		return vehicle

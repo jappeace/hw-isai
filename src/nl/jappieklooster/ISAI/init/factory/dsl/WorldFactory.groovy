@@ -8,6 +8,7 @@ import nl.jappieklooster.ISAI.Game
 import nl.jappieklooster.ISAI.TaskSynchronizer;
 import nl.jappieklooster.ISAI.init.DelegateClosure;
 import nl.jappieklooster.ISAI.init.factory.dsl.env.EnvironmentFactory
+import nl.jappieklooster.ISAI.init.factory.dsl.env.LightFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.group.GroupFactory;
 import nl.jappieklooster.ISAI.init.factory.path.TerrainNavGraphFactory;
 import nl.jappieklooster.ISAI.world.AHasNode;
@@ -63,6 +64,12 @@ class WorldFactory extends AHasNodeFactory{
 		world.environment = factory.environment
 		world.node.attachChild(factory.environment.node)
 		return factory.environment
+	}
+
+	void light(Closure commands){
+		LightFactory lightFactory = new LightFactory()
+		new DelegateClosure(to:lightFactory).call(commands)
+		world.node.attachChild(lightFactory.light)
 	}
 
 	@Override
