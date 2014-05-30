@@ -21,7 +21,8 @@ class StateMachine extends AbstractBehaviour{
 		return states[key]
 	}
 	
-	void setCurrentState(String to){
+	void changeState(String to){
+
 		IState state = states[to]
 		if(state == null){
 			throw new IllegalArgumentException("Could not find " + to + " state. make sure you named it exactly the same")
@@ -44,6 +45,7 @@ class StateMachine extends AbstractBehaviour{
 		// TODO Auto-generated method stub
 		if(currentState){
 			currentState.execute(this)
+			return
 		}
 		
 	}

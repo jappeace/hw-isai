@@ -1,4 +1,5 @@
 import nl.jappieklooster.math.vector.Vector3
+import nl.jappieklooster.ISAI.behaviour.state.StateMachine
 import com.jme3.scene.shape.*
 
 name "rootnode (sortof)"
@@ -53,9 +54,9 @@ group{
        			enter{
        				println "I am farming"	
        			}
-       			execute{ StateMachine
+       			execute{ StateMachine stateMachine ->
        				if(energy < requiredEnergy){
-       					stateMachine.currentState="resting"	
+       					stateMachine.changeState "resting"	
        					return
        				}	
        				energy -= decrease
@@ -63,7 +64,7 @@ group{
        		}
 
        		state{
-       			int enoughEnergy = 1000
+       			int enoughEnergy = 100
        			int increase = 1
        			name="resting"
        			active = true
@@ -72,13 +73,12 @@ group{
        			}
 				execute{ StateMachine stateMachine ->
 					if(energy > enoughEnergy){
-						stateMachine.currentState="farming"	
+						stateMachine.changeState "farming"
 						return
 					}
 					energy += increase
 				}	
        		} 
-
         }
     }
 }

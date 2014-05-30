@@ -36,12 +36,15 @@ class StateFactory {
 	
 	IState enter(IEnterable onEnter){
 		state.enterCallback = onEnter
+		return state
 	}
 	IState exit(IExitable onExit){
 		state.exitCallback = onExit
+		return state
 	}
 	IState execute(IExecutable onExecute){
 		state.executer = onExecute
+		return state
 	}
 	
 		
