@@ -190,7 +190,7 @@ class Vector3 implements IVector3{
 	{
 
 		// use the sqrt of one field to differentiate between the two
-		return (super.hashCode() * this.z).hashCode()
+		return (base.hashCode() * this.z).hashCode()
 	}
 	
 	static Vector3 max(){

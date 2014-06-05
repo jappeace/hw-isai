@@ -27,6 +27,6 @@ class PositionDistance {
 	
 	@Override
 	int hashCode(){
-		(distance.hashCode() + ((Object)item).hashCode()).hashCode()
+		(distance.hashCode() + item.hashCode()).hashCode()
 	}
 }

@@ -4,12 +4,6 @@ import com.jme3.scene.shape.*
 environment{
     name "rootnode (sortof)"
 
-    (0..1).each{ int number ->
-        terrain{
-            scale new Vector3(5, 1, 4)
-            location new Vector3(512*5*number, -500, 0)
-        }
-    }
     sky{
 
     }
@@ -91,7 +85,7 @@ group{
                 behaviour{ 
                     flock() 
                 }
-                mass 0.03
+                mass 0.5
                 friction 0
             }
             vehicle{
@@ -99,7 +93,7 @@ group{
                 behaviour{ 
                     flock() 
                 }
-                mass 0.05
+                mass 1
                 friction 0
             }
             vehicle{
@@ -107,7 +101,7 @@ group{
                 behaviour{ 
                     flock() 
                 }
-                mass 0.07
+                mass 2
                 friction 0
             }
         }

@@ -16,10 +16,21 @@ class LazyPositionCopyMachine implements IPositionable{
 	IPositionable source
 	@Override
 	Vector3 getPosition() {
-		if(copy){
+		if(copy != null){
 			return copy
 		}
 		copy = new Vector3(source.position)
 		return copy
+	}
+
+	// this is a wrapper so this is legit
+	@Override
+	int hashCode(){
+		return source.hashCode()
+	}
+
+	@Override
+	boolean equals(Object obj){
+		return source == obj
 	}
 }
