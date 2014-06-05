@@ -31,7 +31,7 @@ class ClickablesTracker{
 		candidates = to
 	}
 	void track(Entity clickable){
-		trackingItems[clickable.geometry] = clickable
+		trackingItems[clickable.spatial] = clickable
 	}
 	
 	Entity clickOnEntity(Vector2f mousePosition){

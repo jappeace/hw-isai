@@ -49,21 +49,6 @@ class LoadState extends ACommenState{
 		viewPort.setBackgroundColor(new ColorRGBA(0.5f, 0.3f, 0.2f, 1f));
 
 
-		// TODO: move to dsl
-		// We add light so we see the scene
-		AmbientLight al = new AmbientLight();
-		al.setColor(ColorRGBA.White.mult(1.2));
-		rootNode.addLight(al);
-
-		DirectionalLight dl = new DirectionalLight();
-		dl.setColor(ColorRGBA.Red.mult(0.3));
-		dl.setDirection(new Vector3f(2.8f, -1f, -2.8f).normalizeLocal());
-		rootNode.addLight(dl);
-		dl = new DirectionalLight();
-		dl.setColor(ColorRGBA.Green.mult(0.3));
-		dl.setDirection(new Vector3f(-2.8f, -1f, -2.8f).normalizeLocal());
-		rootNode.addLight(dl);
-
 		// if no level is set goto level one
 		level = level ?: "levels/"+ firstLevel
 		

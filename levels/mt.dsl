@@ -3,6 +3,7 @@ import com.jme3.scene.shape.*
 
 name "rootnode (sortof)"
 
+
 environment{
 	location new Vector3(-200,-100,300)
     sky{

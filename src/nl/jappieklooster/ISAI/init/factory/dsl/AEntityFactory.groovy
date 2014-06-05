@@ -40,12 +40,12 @@ abstract class AEntityFactory extends AMaterialFactory{
 
 		entity.geometry = geometry
 
-		nodeContainer.node.attachChild(geometry);
+		nodeContainer.node.attachChild(entity.spatial);
 	}
 	
 	
 	void mesh(Mesh shape){
-		entity.geometry.mesh = shape
+		entity.mesh = shape
 	} 
 	
 	@Override
@@ -55,12 +55,12 @@ abstract class AEntityFactory extends AMaterialFactory{
 	}
 	@Override
 	protected Spatial getSpatial() {
-		return entity.geometry
+		entity.spatial
 	}
 	
 	@Override
 	protected Material getMaterial() {
-		entity.geometry.material
+		entity.material
 	}
 	
 	protected abstract Entity getEntity()

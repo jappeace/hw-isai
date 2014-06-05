@@ -43,6 +43,8 @@ class LevelLoader {
 		script.setDelegate(factory)
 		script.run()
 		factory.world.name = path
+		
+		factory.setDefaultsIfNecisary()
 		return factory.world
 	}
 	

@@ -24,6 +24,8 @@ import nl.jappieklooster.math.vector.Converter
 import com.jme3.scene.Spatial;
 import com.jme3.terrain.geomipmap.TerrainQuad
 
+import com.jme3.math.ColorRGBA
+
 /**
  * primary factory that delegates tasks to all other factory,
  * it is also a big encapsulation unit since it knows game but lets it little worker factories only know what they need
@@ -37,6 +39,10 @@ class WorldFactory extends AHasNodeFactory{
 
 	private ClickablesTracker clickTracker
     private ScheduledThreadPoolExecutor threadPool
+	/**
+	 * allows levelloader check if default lighting is necisary
+	 */
+	boolean lightAttached = false
 
 	WorldFactory(ScheduledThreadPoolExecutor exec, ClickablesTracker clickables){
 		threadPool = exec
@@ -67,9 +73,10 @@ class WorldFactory extends AHasNodeFactory{
 	}
 
 	void light(Closure commands){
+		lightAttached = true
 		LightFactory lightFactory = new LightFactory()
 		new DelegateClosure(to:lightFactory).call(commands)
-		world.node.attachChild(lightFactory.light)
+		world.node.addLight(lightFactory.light)
 	}
 
 	@Override
@@ -89,6 +96,27 @@ class WorldFactory extends AHasNodeFactory{
 	protected void integrateChildFactory(AHasNodeFactory child) {
 		
 		world.actors.add(child.AHasNode)
+	}
+	
+	void setDefaultsIfNecisary(){
+		
+		if(!lightAttached){
+            //ambient light
+            light{
+                color = ColorRGBA.White.mult(1.5)
+            }
+            //directional 1
+            light {
+                color = ColorRGBA.Red.mult(0.4)
+                direction = new Vector3(1,-0.5,-2.8).normalized
+            }
+
+            //directional 2
+            light{
+                color = ColorRGBA.Green.mult(0.4)
+                direction = new Vector3(-1,-1,-2.8).normalized
+            }
+		}
 	}
 	
 	

@@ -28,7 +28,7 @@ class Graph extends AHasNode{
 	void add(Vertex what){
 		clearCache()
 		verteci.add(what)
-        node.attachChild(what.node)
+        node.attachChild(what.spatial)
 		
 		// update bounding box
         min.assimilateMin(what.position)

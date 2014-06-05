@@ -26,15 +26,9 @@ abstract class MovingEntity extends Entity implements IGroupItem{
 	
 	void setHeading(Vector3 to){
 		heading = to
-		geometry.rotateUpTo(Converter.toJME(to))
+		spatial.rotateUpTo(Converter.toJME(to))
 	}
 	
-	Vector3 toWorldSpace(Vector3 input){
-		
-		// fixes the fact that a spatial can be moved by chancing a parent node, however my position tracking does
-		// not know of this, so force calculation would result in huge numbers
-		return Converter.fromJME(geometry.localToWorld(Converter.toJME(input), null)) - difference
-	}
 	@Override
 	boolean equals(Object obj){
 		if(obj.is(this)){

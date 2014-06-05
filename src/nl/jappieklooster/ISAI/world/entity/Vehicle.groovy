@@ -37,7 +37,7 @@ class Vehicle extends MovingEntity{
             heading = velocity.normalized
 		}
 		
-		geometry.move(Converter.toJME(movement))
+		spatial.move(Converter.toJME(movement))
 	}
 	
 	void add(IBehaviour behaviour){

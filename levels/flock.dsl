@@ -4,7 +4,7 @@ import com.jme3.scene.shape.*
 environment{
     name "rootnode (sortof)"
 
-    (0..3).each{ int number ->
+    (0..1).each{ int number ->
         terrain{
             scale new Vector3(5, 1, 4)
             location new Vector3(512*5*number, -500, 0)

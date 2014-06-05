@@ -19,23 +19,16 @@ import nl.jappieklooster.math.vector.Converter
  */
 class Vertex extends Entity{
 
-	Node node
 	List<Edge> connections
 
 	Vertex(Vector3 pos){
 		super()
-		node = new Node("vertex node")
+		localSpace.name = "Vertex Node"
 		geometry = WireFrameFactory.getInstance().createSphere(1)
-		geometry.material.setColor("Color", new ColorRGBA(0.1,0.1,0.1,1))
+		material.setColor("Color", new ColorRGBA(0.1,0.1,0.1,1))
 	
-		node.attachChild(geometry)
 		position = pos
 		connections = new LinkedList<>() // memory effiecient and index acces not required
-	}
-	
-	void setPosition(Vector3 to){
-		super.setPosition(to)
-		node.setLocalTranslation(Converter.toJME(to))
 	}
 	
 	void connect(Vertex to){
@@ -58,6 +51,6 @@ class Vertex extends Entity{
 		edge.position = conpos
 		edge.weight = difference.length
 		
-		node.attachChild(edgeConnection)
+		attach(edgeConnection)
 	}
 }
