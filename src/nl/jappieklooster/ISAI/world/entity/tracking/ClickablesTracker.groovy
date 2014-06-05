@@ -11,14 +11,14 @@ import nl.jappieklooster.math.vector.Vector2
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
+import com.jme3.scene.Geometry
 import com.jme3.scene.Node
-import com.jme3.scene.Spatial
 
 class ClickablesTracker{
 
 	private Camera camera
 	/** allows the retrieval of the entity from the spatial */
-	private Map<Spatial, Entity> trackingItems
+	private Map<Geometry, Entity> trackingItems
     private Node candidates
     ClickablesTracker(){
 		super()
@@ -31,7 +31,7 @@ class ClickablesTracker{
 		candidates = to
 	}
 	void track(Entity clickable){
-		trackingItems[clickable.spatial] = clickable
+		trackingItems[clickable.geometry] = clickable
 	}
 	
 	Entity clickOnEntity(Vector2f mousePosition){

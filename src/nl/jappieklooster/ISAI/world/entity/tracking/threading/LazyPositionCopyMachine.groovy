@@ -22,6 +22,4 @@ class LazyPositionCopyMachine implements IPositionable{
 		copy = new Vector3(source.position)
 		return copy
 	}
-
-
 }

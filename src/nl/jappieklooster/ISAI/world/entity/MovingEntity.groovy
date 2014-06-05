@@ -65,7 +65,7 @@ abstract class MovingEntity extends Entity implements IGroupItem{
 	
 	@Override
 	int hashCode(){
-        (
+        return (
 			super.hashCode() * 3 + 
 			velocity.hashCode() * 5 + 
 			force.hashCode() * 7 + 

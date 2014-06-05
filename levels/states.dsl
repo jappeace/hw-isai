@@ -44,6 +44,7 @@ group{
     vehicle{
     	location new Vector3(20,0,0)
         mesh new Sphere(10, 10, 1)	
+        
         states{
         	int energy = 0
 			

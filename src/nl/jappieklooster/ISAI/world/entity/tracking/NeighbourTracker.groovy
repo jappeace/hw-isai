@@ -11,8 +11,10 @@ import nl.jappieklooster.ISAI.world.entity.Entity;
 import nl.jappieklooster.ISAI.world.entity.tracking.strategy.BruteForceStrategy;
 import nl.jappieklooster.ISAI.world.entity.tracking.strategy.DivideAndConquer;
 import nl.jappieklooster.ISAI.world.entity.tracking.strategy.IFindStrategy;
+import nl.jappieklooster.ISAI.world.entity.tracking.threading.LazyPositionCopyMachine
 import nl.jappieklooster.ISAI.world.entity.tracking.threading.ThreadResult;
 import nl.jappieklooster.ISAI.world.entity.tracking.threading.TrackingThread;
+import nl.jappieklooster.math.vector.Vector3
 
 /** this thing is an optimization (ugly code gauranteed) 
  * the intial implementation did a lot of dubble work per tick, this
@@ -53,7 +55,7 @@ class NeighbourTracker implements IUpdatable{
 
 
 	List<IPositionable> getNeighbours(IPositionable to, float distance){
-		neighbuffer.get(new PositionDistance(to, distance)) ?: new LinkedList<>()
+		return neighbuffer[new PositionDistance(to, distance)] ?: new LinkedList<>()
 	}
 	
 	void addDistance(float which){

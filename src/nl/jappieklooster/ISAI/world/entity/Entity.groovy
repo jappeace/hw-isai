@@ -11,7 +11,7 @@ import com.jme3.scene.Node
 
 abstract class Entity implements IPositionable{
 
-	private Geometry geometry
+	Geometry geometry
 	private Node localSpace
 	
 	Entity(){
@@ -41,6 +41,7 @@ abstract class Entity implements IPositionable{
 	void setMesh(Mesh to){
 		geometry.mesh = to
 	}
+	
 	/**
 	 * assign a new geometry to this entety, clearing the local space
 	 * @param to
@@ -80,12 +81,12 @@ abstract class Entity implements IPositionable{
 			return false
 		}
 		Entity entity = (Entity) obj
-		return entity.geometry == geometry && entity.position == position
+		return entity.position == position
 	}
 	
 	@Override
 	int hashCode(){
-		(geometry.hashCode() + position.hashCode() * 5).hashCode()
+		return (position.hashCode() * 5).hashCode()
 	}
 	
 	Vector3 toWorldSpace(Vector3 input){
