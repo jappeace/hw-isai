@@ -29,8 +29,6 @@ class MenuState extends ACommenState implements ScreenController{
 		}
 		nifty = app.nifty
         nifty.fromXml("Interface/Menu.xml", "start", this);
-
-        inputManager.setCursorVisible(true);
 	}
 
     void bind(Nifty nifty, Screen screen) {
@@ -45,7 +43,6 @@ class MenuState extends ACommenState implements ScreenController{
 		nifty.getCurrentScreen().findNiftyControl("path", TextField.class)
 	}
     void onEndScreen() {
-        inputManager.setCursorVisible(false);
 		stateManager.attach(game.loadLevel(getTextField().getRealText()))
 		stateManager.detach(this)
     }

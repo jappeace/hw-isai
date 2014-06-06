@@ -65,8 +65,8 @@ class Game extends Application {
         settings.setTitle(gameName);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-        settings.setWidth((int)(screenSize.getWidth() / 2));
-        settings.setHeight((int)(screenSize.getHeight() - 10));
+        settings.setWidth((int)(screenSize.getWidth()));
+        settings.setHeight((int)(screenSize.getHeight()));
 
 		//re-setting settings they can have been merged from the registry.
 		setSettings(settings);
