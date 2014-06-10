@@ -18,10 +18,11 @@ environment{
 
 group{
     vehicle{
-    	location new Vector3(0,0,0)
+    	location new Vector3(0,10,0)
         mesh new Sphere(10, 10, 1)	
         
-        states{
+        rotation new Vector3(0, 0,-0.25*Math.PI)
+        StateMachine machine = states{
         	int energy = 0
 			
 			float rate = 0.01
@@ -59,6 +60,12 @@ group{
        				stateMachine.vehicle.spatial.localScale.multLocal(Converter.toJME(new Vector3(1+rate,1+rate,1+rate)))
 				}	
        		} 
+        }
+        
+        write{
+        	text {machine.currentStateName}
+        	scale 0.5f
+        	location 2f, 5f, 0f
         }
     }
 }

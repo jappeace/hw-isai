@@ -23,7 +23,7 @@ class Vertex extends Entity{
 
 	Vertex(Vector3 pos){
 		super()
-		localSpace.name = "Vertex Node"
+		node.name = "Vertex Node"
 		geometry = WireFrameFactory.getInstance().createSphere(1)
 		material.setColor("Color", new ColorRGBA(0.1,0.1,0.1,1))
 	

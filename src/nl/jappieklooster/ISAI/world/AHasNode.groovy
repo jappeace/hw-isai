@@ -8,10 +8,13 @@ import com.jme3.scene.Node
 /**
  * this class  represents somthing that has a node
  * usaly this mean it is a container class that holds multiple objects that have a 3d represitatation
+ * 
+ * classes that extend this class should have as primary purpouse have, that they group stuff together
+ * If not then its probably better to implement the IHasNode interface
  * @author jappie
  *
  */
-abstract class AHasNode implements IPositionable{
+abstract class AHasNode implements IPositionable, IHasNode{
 
 	/**
 	 * the view of this world, this is how jme3 decides what to render and how

@@ -7,6 +7,7 @@ class StateMachine extends AbstractBehaviour{
 
 	IState currentState = null
 	
+	String currentStateName
 	Vehicle vehicle
 	/**
 	 * used for identifying states with setcurrentstate "name"
@@ -14,6 +15,7 @@ class StateMachine extends AbstractBehaviour{
 	Map<String, IState> states
 	StateMachine(){
 		states = new HashMap<>()
+		currentStateName = ""
 	}
 	void putAt(String key, IState value){
 		states[key]	= value
@@ -24,6 +26,7 @@ class StateMachine extends AbstractBehaviour{
 	
 	void changeState(String to){
 
+		currentStateName = to
 		IState state = states[to]
 		if(state == null){
 			throw new IllegalArgumentException("Could not find " + to + " state. make sure you named it exactly the same")

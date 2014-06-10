@@ -9,6 +9,8 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box
 import com.jme3.texture.Texture
 
+import nl.jappieklooster.ISAI.behaviour.state.StateMachine
+import nl.jappieklooster.ISAI.behaviour.text.TextWriter
 import nl.jappieklooster.ISAI.init.DelegateClosure;
 import nl.jappieklooster.ISAI.init.factory.dsl.AEntityFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.AMaterialFactory;
@@ -45,16 +47,25 @@ class VehicleFactory extends AMovingEntityFactory{
 		new DelegateClosure(to:factory).call(commands)
 	}
 
-	void states(Closure commands){
+	StateMachine states(Closure commands){
 		group.shouldUpdate = true
 		StateMachineFactory smFactory = new StateMachineFactory()
 		new DelegateClosure(to:smFactory).call(commands)
 		smFactory.stateMachine.vehicle = vehicle
 		vehicle.behaviours.add(smFactory.stateMachine)
+		return smFactory.stateMachine
 	}
 	@Override
 	MovingEntity getMovingEntity() {
 		return vehicle
+	}
+
+	@Override
+	TextWriter write(Closure commands){
+		TextWriter writer = super.write(commands)
+		// allows texts to be updated
+		vehicle.behaviours.add(writer)
+		return writer
 	}
 	void clickable(){
 		group.shouldUpdate = true

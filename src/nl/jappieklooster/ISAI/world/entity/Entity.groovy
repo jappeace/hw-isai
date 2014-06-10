@@ -8,8 +8,9 @@ import com.jme3.scene.Spatial
 import nl.jappieklooster.ISAI.world.IPositionable;
 import nl.jappieklooster.math.vector.*
 import com.jme3.scene.Node
+import nl.jappieklooster.ISAI.world.IHasNode
 
-abstract class Entity implements IPositionable{
+abstract class Entity implements IPositionable, IHasNode{
 
 	Geometry geometry
 	private Node localSpace
@@ -27,10 +28,13 @@ abstract class Entity implements IPositionable{
 	}
 	
 	Spatial getSpatial(){
+		// returning the node instead of geometry is intentional
+		// so all tranformations would include the stuff thats attached to the node
+		// this makes for example attaching a text to somthing easy and mutatable
 		return localSpace
 	}
 	
-	protected Node getLocalSpace(){
+	Node getNode(){
 		return localSpace
 	}
 	

@@ -22,6 +22,21 @@ abstract class ASpatialFactory{
 	void scale(Vector3 to){
 		getSpatial().setLocalScale(Converter.toJME(to))
 	}
+	void scale(float evenScale){
+		getSpatial().setLocalScale(evenScale)
+	}
+	
+	void scale(float x, float y, float z){
+		getSpatial().setLocalScale(x, y, z)
+	}
+	
+	void location(float x, float y, float z){
+		getSpatial().setLocalTranslation(x, y, z)
+	}
+	
+	void rotation(float x, float y, float z){
+		getSpatial().rotate(x, y, z)
+	}
 
 	/**
 	 * set a name for the spatial for debugging or to organise init code

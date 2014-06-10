@@ -9,6 +9,7 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box
 import com.jme3.texture.Texture
 
+import nl.jappieklooster.ISAI.behaviour.text.TextWriter
 import nl.jappieklooster.ISAI.init.DelegateClosure;
 import nl.jappieklooster.ISAI.init.factory.dsl.AMaterialFactory;
 import nl.jappieklooster.ISAI.world.AHasNode
@@ -62,6 +63,16 @@ abstract class AEntityFactory extends AMaterialFactory{
 	protected Material getMaterial() {
 		entity.material
 	}
+	
+	TextWriter write(Closure commands){
+		TextFactory factory = new TextFactory(assetManager)
+		factory.setToDefault()
+		new DelegateClosure(to:factory).call(commands)
+		factory.result.nodeContainer = entity
+		factory.result.execute() // put the text in, only callled once for entity
+		return factory.result
+	}
+
 	
 	protected abstract Entity getEntity()
 	protected abstract AHasNode getNodeContainer()
