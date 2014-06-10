@@ -1,10 +1,9 @@
 package nl.jappieklooster.ISAI.behaviour.steer
 
-import nl.jappieklooster.ISAI.behaviour.AbstractBehaviour;
 import nl.jappieklooster.ISAI.world.entity.MovingEntity;
 import nl.jappieklooster.math.vector.Vector3
 
-class Explore extends AbstractBehaviour{
+class Explore extends AbstractSteeringBehaviour{
 
 	private Seek seek
 	

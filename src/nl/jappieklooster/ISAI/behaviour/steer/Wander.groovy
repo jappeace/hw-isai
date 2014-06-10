@@ -1,10 +1,9 @@
 package nl.jappieklooster.ISAI.behaviour.steer
 
-import nl.jappieklooster.ISAI.behaviour.AbstractBehaviour;
 import nl.jappieklooster.ISAI.world.entity.MovingEntity;
 import nl.jappieklooster.math.vector.Vector3
 
-class Wander extends AbstractBehaviour{
+class Wander extends AbstractSteeringBehaviour{
 
 	float constraintRadius
 	float circleDistance

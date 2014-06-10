@@ -39,10 +39,5 @@ class Vehicle extends MovingEntity{
 		
 		spatial.move(Converter.toJME(movement))
 	}
-	
-	void add(IBehaviour behaviour){
-		behaviour.setEntity(this);
-		behaviours.add(behaviour)
-	}
 }
 

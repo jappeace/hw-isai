@@ -10,6 +10,7 @@ import com.jme3.texture.Texture
 
 import nl.jappieklooster.ISAI.behaviour.steer.Explore;
 import nl.jappieklooster.ISAI.behaviour.steer.Flee;
+import nl.jappieklooster.ISAI.behaviour.steer.ISteeringBehaviour
 import nl.jappieklooster.ISAI.behaviour.IBehaviour;
 import nl.jappieklooster.ISAI.behaviour.steer.Seek;
 import nl.jappieklooster.ISAI.behaviour.steer.Wander;
@@ -83,8 +84,9 @@ class BehaviourFactory{
 	 * @param what
 	 * @return
 	 */
-	private IBehaviour bind(IBehaviour what){
-		vehicle.add(what)
+	private IBehaviour bind(ISteeringBehaviour what){
+		what.entity = vehicle
+		vehicle.behaviours.add(what)
 		return what
 	}
 

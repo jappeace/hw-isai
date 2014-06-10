@@ -7,6 +7,7 @@ class StateMachine extends AbstractBehaviour{
 
 	IState currentState = null
 	
+	Vehicle vehicle
 	/**
 	 * used for identifying states with setcurrentstate "name"
 	 */
@@ -48,8 +49,5 @@ class StateMachine extends AbstractBehaviour{
 			return
 		}
 		
-	}
-	Vehicle getVehicle(){
-		return (Vehicle)entity
 	}
 }
