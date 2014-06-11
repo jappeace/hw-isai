@@ -85,24 +85,24 @@ group{
                 behaviour{ 
                     flock() 
                 }
-                mass 0.01
-                friction 0
+                mass 0.2
+                friction 0.001
             }
             vehicle{
                 location new Vector3(number * 8, random.nextDouble() * 10, random.nextDouble() * 10)
                 behaviour{ 
                     flock() 
                 }
-                mass 0.02
-                friction 0
+                mass 0.4
+                friction 0.001
             }
             vehicle{
                 location new Vector3(number * 8 + 20, random.nextDouble() * 10 + 20, random.nextDouble() * 10)
                 behaviour{ 
                     flock() 
                 }
-                mass 0.03
-                friction 0
+                mass 0.6
+                friction 0.001
             }
         }
     }

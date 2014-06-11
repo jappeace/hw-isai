@@ -72,11 +72,11 @@ class BehaviourFactory{
 	/** shorthand for flocking like behavior (its a combination) */
 	void flock(){
 		IBehaviour seperate = seperate()
-		seperate.chance = 0.3
+		seperate.chance = 0.1
 		IBehaviour alignment = alignment()
-		alignment.chance = 0.1
+		alignment.chance = 0.3
 		IBehaviour cohesion = cohesion()
-		cohesion.chance = 0.3
+		cohesion.chance = 0.1
 	}
 	
 	/**

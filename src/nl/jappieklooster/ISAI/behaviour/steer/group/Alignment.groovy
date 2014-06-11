@@ -30,6 +30,9 @@ class Alignment extends ANeighbourAware{
 			averageHeading += current.heading
 		}
 		
+		if(size == 0){
+			return
+		}
 		entity.force += averageHeading / new Vector3(size)
 	}
 
