@@ -1,7 +1,8 @@
 package nl.jappieklooster.ISAI.init.factory.path
 
 import nl.jappieklooster.ISAI.behaviour.BehaviourScheduler
-import nl.jappieklooster.ISAI.behaviour.Invalidator
+import nl.jappieklooster.ISAI.behaviour.change.ChangeBehaviour
+import nl.jappieklooster.ISAI.behaviour.change.RemoveBehaviour
 import nl.jappieklooster.ISAI.behaviour.steer.Seek
 import nl.jappieklooster.ISAI.collection.graph.Graph
 import nl.jappieklooster.ISAI.collection.graph.Vertex
@@ -41,7 +42,7 @@ class PathFindFactory {
 		
 		result.add(new Seek(entity: forVehicle, toPosition:{to}))
 		
-		result.add(new Invalidator(forVehicle, result))
+		result.add(new ChangeBehaviour(forVehicle, new RemoveBehaviour(result)))
 		
 		return result
 	}

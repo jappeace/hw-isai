@@ -22,7 +22,7 @@ import nl.jappieklooster.ISAI.world.World;
 import com.jme3.app.SimpleApplication
 
 class LoadState extends ACommenState{
-	static final String firstLevel = "flock"
+	static final String firstLevel = "astar"
 
 	World world
 	LevelLoader loader

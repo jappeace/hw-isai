@@ -9,24 +9,26 @@ class Actor extends MovingEntity{
 	List<IBehaviour> behaviours
 	/**
 	 * circumvents concurent modification errors
+	 * 
+	 * in the behaviours loop you can add changes to this list.
+	 * and all items in this list will receive the behaviours to change them
 	 */
-	List<IBehaviour> invalidatedBehaviours
+	List<IBehaviourEditor> behaviourChanges
 	Actor(){
 		super()
 		behaviours = new LinkedList<>()
-		invalidatedBehaviours = new LinkedList<>()
+		behaviourChanges = new LinkedList<>()
 	}
 	@Override
 	void update(float tpf){
-		force = new Vector3(0) // reset the forces, to put more accent on steering
+		behaviourChanges.each{
+			it.edit(behaviours)
+		}
 		behaviours.each{
 			if(it.chance > random.nextDouble()){
                 it.execute()
 			}
 		}
-		behaviours.removeAll(invalidatedBehaviours)
-		invalidatedBehaviours = new LinkedList<>()
-
 		super.update(tpf)
 	}
 }

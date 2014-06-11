@@ -8,7 +8,6 @@ import com.jme3.input.MouseInput;
 import nl.jappieklooster.ISAI.Game
 import nl.jappieklooster.ISAI.behaviour.BehaviourScheduler
 import nl.jappieklooster.ISAI.behaviour.IBehaviour
-import nl.jappieklooster.ISAI.behaviour.Invalidator
 import nl.jappieklooster.ISAI.behaviour.steer.Seek;
 import nl.jappieklooster.ISAI.collection.graph.Vertex
 import nl.jappieklooster.ISAI.init.factory.path.PathFindFactory
@@ -50,7 +49,7 @@ class MouseInteractionState extends AnInputDirectingState{
 				}
 				IBehaviour path = new PathFindFactory(world.environment.navGraph).planPath(selected, location)
 				
-				selected.add(path)
+				selected.behaviours.add(path)
 
                 selected = null
 
@@ -65,7 +64,7 @@ class MouseInteractionState extends AnInputDirectingState{
 				
 				Actor clicked = trySelect()
 				if(clicked){
-					clicked.invalidatedBehaviours.addAll(clicked.behaviours)
+					clicked.behaviours.clear()
 					selected = clicked
 				}
 			}
