@@ -11,7 +11,7 @@ import nl.jappieklooster.ISAI.init.factory.dsl.AMovingEntityFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.ASpatialFactory;
 import nl.jappieklooster.ISAI.world.AHasNode;
 import nl.jappieklooster.ISAI.world.Group
-import nl.jappieklooster.ISAI.world.entity.Vehicle;
+import nl.jappieklooster.ISAI.world.entity.Actor;
 import nl.jappieklooster.ISAI.world.entity.tracking.ClickablesTracker
 import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
 import nl.jappieklooster.math.vector.Vector3
@@ -48,7 +48,7 @@ class GroupFactory extends AHasNodeFactory{
 	}
 
 	/** create a new vehicle */
-	Vehicle vehicle(Closure commands){
+	Actor vehicle(Closure commands){
 		VehicleFactory factory = new VehicleFactory(neighTracker)
 		factory.clickTracker = clickTracker
 		delegateMovingFactory(factory, commands)

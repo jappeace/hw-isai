@@ -17,7 +17,7 @@ import nl.jappieklooster.ISAI.state.global.ACommenState;
 import nl.jappieklooster.ISAI.state.global.AnInputDirectingState;
 import nl.jappieklooster.ISAI.world.World
 import nl.jappieklooster.ISAI.world.entity.Entity
-import nl.jappieklooster.ISAI.world.entity.Vehicle
+import nl.jappieklooster.ISAI.world.entity.Actor
 import nl.jappieklooster.ISAI.world.entity.tracking.ClickablesTracker
 import nl.jappieklooster.math.vector.Converter
 import nl.jappieklooster.math.vector.Vector3
@@ -28,7 +28,7 @@ import nl.jappieklooster.math.vector.Vector3
  */
 class MouseInteractionState extends AnInputDirectingState{
 	ClickablesTracker clickTracker
-	Vehicle selected
+	Actor selected
 	World world
 
 	void init(Game app){
@@ -63,7 +63,7 @@ class MouseInteractionState extends AnInputDirectingState{
 			],
 			{float value, float tpf, String name ->
 				
-				Vehicle clicked = trySelect()
+				Actor clicked = trySelect()
 				if(clicked){
 					clicked.invalidatedBehaviours.addAll(clicked.behaviours)
 					selected = clicked
@@ -71,12 +71,12 @@ class MouseInteractionState extends AnInputDirectingState{
 			}
 		))
 	}
-	private Vehicle trySelect(){
+	private Actor trySelect(){
 		
         clickTracker.candidates = rootNode
 		Entity result = clickTracker.clickOnEntity(inputManager.cursorPos)
-		if(result instanceof Vehicle){
-			return (Vehicle) result
+		if(result instanceof Actor){
+			return (Actor) result
 		}
         return null
 	}

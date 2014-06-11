@@ -9,7 +9,7 @@ import nl.jappieklooster.ISAI.collection.oct.OctTree
 import nl.jappieklooster.ISAI.init.factory.path.strategy.AStar
 import nl.jappieklooster.ISAI.init.factory.path.strategy.IPathFindStrategy
 import nl.jappieklooster.ISAI.world.IPositionable
-import nl.jappieklooster.ISAI.world.entity.Vehicle
+import nl.jappieklooster.ISAI.world.entity.Actor
 import nl.jappieklooster.math.vector.Vector3
 
 class PathFindFactory {
@@ -32,7 +32,7 @@ class PathFindFactory {
 		
 		return strategy.findPath(start, end)
 	}
-	BehaviourScheduler planPath(Vehicle forVehicle, Vector3 to){
+	BehaviourScheduler planPath(Actor forVehicle, Vector3 to){
 		Collection<Vertex> pathpoints = findPath(forVehicle.position, to)
 		BehaviourScheduler result = new BehaviourScheduler()
 		pathpoints.each{ Vertex vert ->

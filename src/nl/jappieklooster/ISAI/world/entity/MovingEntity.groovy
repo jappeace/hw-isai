@@ -3,7 +3,7 @@ package nl.jappieklooster.ISAI.world.entity
 import nl.jappieklooster.ISAI.world.IGroupItem;
 import nl.jappieklooster.math.vector.*
 
-abstract class MovingEntity extends Entity implements IGroupItem{
+class MovingEntity extends Entity implements IGroupItem{
 	protected Vector3 velocity
 	Vector3 force
 	Vector3 heading
@@ -27,6 +27,23 @@ abstract class MovingEntity extends Entity implements IGroupItem{
 	void setHeading(Vector3 to){
 		heading = to
 		spatial.rotateUpTo(Converter.toJME(to))
+	}
+
+	@Override
+	void update(float tpf){
+		velocity += (force / new Vector3(mass))  * new Vector3(tpf) // calculate speed
+		velocity -= new Vector3(friction) * velocity
+		Vector3 movement = velocity * new Vector3(tpf) // calculate movement
+		
+		// keep track of the world location
+		position += movement
+		
+		if(velocity.length != 0){
+            setHeading(velocity.normalized)
+		}
+		spatial.move(Converter.toJME(movement)) // move the visible part
+
+		force = new Vector3(0) // forget about the forces, velocity represent inertia
 	}
 	
 	@Override

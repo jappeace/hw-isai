@@ -10,7 +10,7 @@ import nl.jappieklooster.math.vector.*
 import com.jme3.scene.Node
 import nl.jappieklooster.ISAI.world.IHasNode
 
-abstract class Entity implements IPositionable, IHasNode{
+class Entity implements IPositionable, IHasNode{
 
 	Geometry geometry
 	private Node localSpace

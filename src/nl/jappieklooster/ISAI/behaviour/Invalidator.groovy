@@ -1,6 +1,6 @@
 package nl.jappieklooster.ISAI.behaviour
 
-import nl.jappieklooster.ISAI.world.entity.Vehicle
+import nl.jappieklooster.ISAI.world.entity.Actor
 
 /**
  * a behaviour that lets an vehicle know that target behaviour should be removed
@@ -25,14 +25,14 @@ class Invalidator extends AbstractBehaviour implements ICompletableBehaviour{
 	/**
 	 * the listener will be notified that the target behaviour is invalid
 	 */
-	Vehicle listener
+	Actor listener
 	
 	/**
 	 * this behaviour will be marked invalid
 	 */
 	IBehaviour target
 	
-	Invalidator(Vehicle listener, IBehaviour target){
+	Invalidator(Actor listener, IBehaviour target){
 		this.listener = listener
 		this.target = target
 	}

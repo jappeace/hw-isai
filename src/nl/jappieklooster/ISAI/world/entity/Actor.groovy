@@ -5,13 +5,13 @@ import nl.jappieklooster.ISAI.behaviour.state.StateMachine;
 import nl.jappieklooster.math.vector.Converter;
 import nl.jappieklooster.math.vector.Vector3
 
-class Vehicle extends MovingEntity{
+class Actor extends MovingEntity{
 	List<IBehaviour> behaviours
 	/**
 	 * circumvents concurent modification errors
 	 */
 	List<IBehaviour> invalidatedBehaviours
-	Vehicle(){
+	Actor(){
 		super()
 		behaviours = new LinkedList<>()
 		invalidatedBehaviours = new LinkedList<>()
@@ -26,18 +26,8 @@ class Vehicle extends MovingEntity{
 		}
 		behaviours.removeAll(invalidatedBehaviours)
 		invalidatedBehaviours = new LinkedList<>()
-		velocity += (force / new Vector3(mass))  * new Vector3(tpf) // calculate speed
-		velocity -= new Vector3(friction) * velocity
-		Vector3 movement = velocity * new Vector3(tpf) // calculate movement
-		
-		// keep track of the world location
-		position += movement
-		
-		if(velocity.length != 0){
-            heading = velocity.normalized
-		}
-		
-		spatial.move(Converter.toJME(movement))
+
+		super.update(tpf)
 	}
 }
 

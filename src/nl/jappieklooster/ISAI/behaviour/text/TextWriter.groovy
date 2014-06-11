@@ -6,6 +6,7 @@ import nl.jappieklooster.ISAI.world.IHasNode
 import com.jme3.font.BitmapFont
 import com.jme3.font.BitmapText
 import com.jme3.math.ColorRGBA
+import com.jme3.math.Vector3f
 import com.jme3.scene.Node
 
 /**
@@ -49,14 +50,21 @@ class TextWriter extends AbstractBehaviour implements IHasNode{
 		}
 		previousTextHash = text.hashCode()
 		if(jmeText){
-			transformTarget.detachChild(jmeText)
+			transformTarget.detachAllChildren()
 		}
-		jmeText = new BitmapText(font, false)
-		jmeText.text = text
-		jmeText.color = color
-		jmeText.size = font.charSet.renderedSize
-
+		jmeText = createText(text)
+	
+		BitmapText behind = createText(text)
+		behind.rotate((float)Math.PI,0,0)
 		transformTarget.attachChild(jmeText)
+		transformTarget.attachChild(behind)
 	}
 
+	private BitmapText createText(String text){
+		BitmapText result = new BitmapText(font, false)
+		result.text = text
+		result.color = color
+		result.size = font.charSet.renderedSize
+		return result
+	}
 }

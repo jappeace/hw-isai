@@ -20,14 +20,14 @@ import nl.jappieklooster.ISAI.world.Group
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.Entity;
 import nl.jappieklooster.ISAI.world.entity.MovingEntity;
-import nl.jappieklooster.ISAI.world.entity.Vehicle;
+import nl.jappieklooster.ISAI.world.entity.Actor;
 import nl.jappieklooster.ISAI.world.entity.tracking.ClickablesTracker
 import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
 class VehicleFactory extends AMovingEntityFactory{
-	Vehicle vehicle
+	Actor vehicle
 
 	NeighbourTracker neighTracker
 	ClickablesTracker clickTracker
@@ -35,7 +35,7 @@ class VehicleFactory extends AMovingEntityFactory{
 		super()
 		neighTracker = tracker
 
-		vehicle = new Vehicle()
+		vehicle = new Actor()
 		vehicle.velocity = new Vector3()
 		vehicle.position = new Vector3()
 	}

@@ -6,7 +6,7 @@ import nl.jappieklooster.ISAI.Game
 import nl.jappieklooster.ISAI.init.DelegateClosure
 import nl.jappieklooster.ISAI.init.factory.dsl.env.ObstacleFactory
 import nl.jappieklooster.ISAI.world.AHasNode
-import nl.jappieklooster.ISAI.world.entity.Obstacle
+import nl.jappieklooster.ISAI.world.entity.Entity
 
 /**
  * should be AAHasnodeFactory but that is just silly
@@ -37,7 +37,7 @@ abstract class AHasNodeFactory extends ASpatialFactory{
 	}
 	
 
-	Obstacle obstacle(Closure commands){
+	Entity obstacle(Closure commands){
 		ObstacleFactory factory = new ObstacleFactory()
 		factory.parent = AHasNode
 		factory.assetManager = assetManager
