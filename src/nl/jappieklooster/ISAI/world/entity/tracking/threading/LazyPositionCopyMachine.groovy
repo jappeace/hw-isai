@@ -14,6 +14,10 @@ class LazyPositionCopyMachine implements IPositionable{
 
 	private Vector3 copy = null
 	IPositionable source
+	
+	LazyPositionCopyMachine(IPositionable src){
+		source = src
+	}
 	@Override
 	Vector3 getPosition() {
 		if(copy != null){

@@ -8,8 +8,10 @@ class MovingEntity extends Entity implements IGroupItem{
 	Vector3 force
 	Vector3 heading
 	float mass
-	float maxForce
-	float maxRotation
+	/**
+	 * how much force will be applied
+	 */
+	float impulse
 	float friction
 	
 	Random random
@@ -19,9 +21,8 @@ class MovingEntity extends Entity implements IGroupItem{
 		force = new Vector3()
 		heading = new Vector3()
 		mass = 1
-		maxForce = 10
-		maxRotation = 10
-		friction = 0.01
+		impulse = 1
+		friction = 0.10
 	}
 	
 	void setHeading(Vector3 to){
@@ -31,8 +32,8 @@ class MovingEntity extends Entity implements IGroupItem{
 
 	@Override
 	void update(float tpf){
+		force -= new Vector3(friction) * velocity
 		velocity += (force / new Vector3(mass))  * new Vector3(tpf) // calculate speed
-		velocity -= new Vector3(friction) * velocity
 		Vector3 movement = velocity * new Vector3(tpf) // calculate movement
 		
 		// keep track of the world location
@@ -59,8 +60,7 @@ class MovingEntity extends Entity implements IGroupItem{
 		// first compare primitives because they are lightweight
 		if(!(
 			entity.mass == mass && 
-			entity.maxForce == maxForce && 
-			entity.maxRotation == maxRotation && 
+			entity.impulse == impulse && 
 			entity.friction == friction
         )){
 			return false
@@ -88,8 +88,7 @@ class MovingEntity extends Entity implements IGroupItem{
 			force.hashCode() * 7 + 
 			heading.hashCode() * 9 +
             mass * 5+ 
-			maxForce + 
-			maxRotation + 
+			impulse + 
 			friction
 		).hashCode() 
 	}

@@ -11,7 +11,7 @@ class Flee extends AbstractSteeringBehaviour{
 	
 	@Override
 	public void execute() {
-        entity.force += (entity.position - from.position).normalized * new Vector3(entity.maxForce)
+        entity.force += (entity.position - from.position).normalized * new Vector3(entity.impulse)
         return
 	}
 

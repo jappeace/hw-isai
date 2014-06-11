@@ -45,8 +45,12 @@ class TrackingThread implements Callable<ThreadResult>{
             it.isUsed = false
         }
 
+		Collection<IPositionable> entities = new LinkedList<>()
+		group.entities.each{
+			entities.add(new LazyPositionCopyMachine(it))
+		}
 		// tell strategy about the world
-		strategy.targetItems = group.entities
+		strategy.targetItems = entities
 
 		// create the result
 		ThreadResult result = new ThreadResult()

@@ -85,7 +85,7 @@ group{
                 behaviour{ 
                     flock() 
                 }
-                mass 0.5
+                mass 0.01
                 friction 0
             }
             vehicle{
@@ -93,7 +93,7 @@ group{
                 behaviour{ 
                     flock() 
                 }
-                mass 1
+                mass 0.02
                 friction 0
             }
             vehicle{
@@ -101,7 +101,7 @@ group{
                 behaviour{ 
                     flock() 
                 }
-                mass 2
+                mass 0.03
                 friction 0
             }
         }

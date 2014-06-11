@@ -40,7 +40,7 @@ import java.awt.Toolkit
  */
 class Game extends Application {
 	
-	static final String gameName = "Jappeace Game"
+	static final String gameName = "Jappeace Hunt"
 	private LoadState loader
 	private Nifty nifty
 	private Node rootNode = new Node("Root Node")

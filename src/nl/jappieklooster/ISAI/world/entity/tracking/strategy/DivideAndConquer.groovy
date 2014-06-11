@@ -31,7 +31,6 @@ class DivideAndConquer extends AbstractStrategy{
 	private SortedSet<Distance> tresholds
 	DivideAndConquer(){
 		super()
-		targetItems = new LinkedList<>()
 	}
 
 	/** redetermens which neighbours are where and stores that result into the result */

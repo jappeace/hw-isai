@@ -18,7 +18,7 @@ class Seek extends AbstractSteeringBehaviour implements ICompletableBehaviour{
 	@Override
 	void execute() {
 		Vector3 runTo = toPosition.position
-        entity.force += (runTo - entity.position).normalized * new Vector3(entity.maxForce) - entity.velocity
+        entity.force += (runTo - entity.position).normalized * new Vector3(entity.impulse) - entity.velocity
         return
 	}
 
