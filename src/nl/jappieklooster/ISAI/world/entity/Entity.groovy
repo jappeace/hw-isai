@@ -8,7 +8,9 @@ import com.jme3.scene.Spatial
 import nl.jappieklooster.ISAI.behaviour.state.IStateMachineTarget
 import nl.jappieklooster.ISAI.world.IPositionable;
 import nl.jappieklooster.math.vector.*
+
 import com.jme3.scene.Node
+
 import nl.jappieklooster.ISAI.world.IHasNode
 
 class Entity implements IPositionable, IHasNode, IStateMachineTarget{
@@ -100,5 +102,10 @@ class Entity implements IPositionable, IHasNode, IStateMachineTarget{
 		// fixes the fact that a spatial can be moved by chancing a parent node, however my position tracking does
 		// not know of this, so force calculation would result in huge numbers
 		return Converter.fromJME(spatial.localToWorld(Converter.toJME(input), null))
+	}
+
+	@Override
+	void move(Vector3 to) {
+		spatial.move(to)
 	}
 }
