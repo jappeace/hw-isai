@@ -16,12 +16,12 @@ class LevelLoader {
 	private GroovyShell shell
 	private ScheduledThreadPoolExecutor threadPoolExecuter
 	private static final int threadCount = 1
-	Game game
 	private ClickablesTracker clickTracker
+	Game game
 
-
+	static final String levelDir = "script"+ File.separator + "level" + File.separator
+	static final String defaultFolder = "default"
 	LevelLoader(Game game){
-		
 		this.game = game
 
         threadPoolExecuter = new ScheduledThreadPoolExecutor(threadCount) // curently only neighbourtracker uses it
@@ -34,21 +34,33 @@ class LevelLoader {
 	
 	ClickablesTracker getClickTracker(){ clickTracker }
 
-	World loadFromFile(String path){
+	World loadFromFile(String levelName){
 		clickTracker.camera = game.camera
 		// load the new world
-		DelegatingScript script = (DelegatingScript)shell.parse(new File(path+".dsl"))
 		WorldFactory factory = new WorldFactory(threadPoolExecuter, clickTracker)
 		factory.game = game
-		script.setDelegate(factory)
-		script.run()
-		factory.world.name = path
+
+		if(!new File(levelDir + levelName).isDirectory()){
+			throw new Exception("Excpected to find a directory at " + levelDir + levelName)
+		}
 		
-		factory.setDefaultsIfNecisary()
+		new File(levelDir+defaultFolder).listFiles().each{
+
+			File file = new File(levelDir + levelName + File.separator + it.getName())
+			
+			if(!file.exists()){
+				file = it
+			}
+
+            DelegatingScript script = (DelegatingScript)shell.parse(file)
+            script.setDelegate(factory)
+            script.run()
+		}
+		factory.world.name = levelName
 		return factory.world
 	}
 	
 	void shutdownThreadPool(){
-		threadPoolExecuter.shutdown()
+		threadPoolExecuter.shutdownNow()
 	}
 }

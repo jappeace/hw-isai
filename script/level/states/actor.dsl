@@ -4,18 +4,6 @@ import nl.jappieklooster.ISAI.behaviour.state.StateMachine
 import nl.jappieklooster.ISAI.behaviour.steer.Seek
 import com.jme3.scene.shape.*
 
-name "rootnode (sortof)"
-
-environment{
-	location new Vector3(-200,-100,300)
-    sky{
-    }
-    terrain{
-        scale new Vector3(5, 1, 4)
-        location new Vector3(0, 0, 0)
-    }
-}
-
 group{
     vehicle{
     	location new Vector3(0,10,0)

@@ -22,7 +22,7 @@ import nl.jappieklooster.ISAI.world.World;
 import com.jme3.app.SimpleApplication
 
 class LoadState extends ACommenState{
-	static final String firstLevel = "states"
+	static final String firstLevel = "wander"
 
 	World world
 	LevelLoader loader
@@ -50,7 +50,7 @@ class LoadState extends ACommenState{
 
 
 		// if no level is set goto level one
-		level = level ?: "levels/"+ firstLevel
+		level = level ?: firstLevel
 		
 		if(world){
 			if(world.name == level){

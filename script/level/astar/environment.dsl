@@ -1,9 +1,6 @@
 import nl.jappieklooster.math.vector.Vector3
 import com.jme3.scene.shape.*
 
-name "rootnode (sortof)"
-
-
 environment{
 	location new Vector3(-200,-100,300)
     sky{
@@ -32,17 +29,5 @@ environment{
     terrain{
         scale new Vector3(5, 1, 4)
         location new Vector3(0, 0, 0)
-    }
-}
-
-group{
-    vehicle{
-    	clickable()
-    	scale new Vector3(2.5)
-    	mass 0.1
-    }
-    vehicle{
-    	location new Vector3(20,0,0)
-        mesh new Sphere(10, 10, 1)	
     }
 }
