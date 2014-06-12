@@ -8,7 +8,7 @@ class StateMachine extends AbstractBehaviour{
 	IState currentState = null
 	
 	String currentStateName
-	BehavingEntity vehicle
+	IStateMachineTarget target
 	/**
 	 * used for identifying states with setcurrentstate "name"
 	 */

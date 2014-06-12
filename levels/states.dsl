@@ -39,7 +39,7 @@ group{
        					return
        				}	
        				energy -= decrease
-       				stateMachine.vehicle.spatial.localScale.multLocal(Converter.toJME(new Vector3(1-rate,1-rate,1-rate)))
+       				stateMachine.target.spatial.localScale.multLocal(Converter.toJME(new Vector3(1-rate,1-rate,1-rate)))
        			}
        		}
 
@@ -57,7 +57,7 @@ group{
 						return
 					}
 					energy += increase
-       				stateMachine.vehicle.spatial.localScale.multLocal(Converter.toJME(new Vector3(1+rate,1+rate,1+rate)))
+       				stateMachine.target.spatial.localScale.multLocal(Converter.toJME(new Vector3(1+rate,1+rate,1+rate)))
 				}	
        		} 
         }

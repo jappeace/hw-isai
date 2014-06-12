@@ -5,12 +5,13 @@ import com.jme3.scene.Geometry
 import com.jme3.scene.Mesh
 import com.jme3.scene.Spatial
 
+import nl.jappieklooster.ISAI.behaviour.state.IStateMachineTarget
 import nl.jappieklooster.ISAI.world.IPositionable;
 import nl.jappieklooster.math.vector.*
 import com.jme3.scene.Node
 import nl.jappieklooster.ISAI.world.IHasNode
 
-class Entity implements IPositionable, IHasNode{
+class Entity implements IPositionable, IHasNode, IStateMachineTarget{
 
 	Geometry geometry
 	private Node localSpace
@@ -27,6 +28,7 @@ class Entity implements IPositionable, IHasNode{
 		localSpace.setLocalTranslation(Converter.toJME(to))
 	}
 	
+	@Override
 	Spatial getSpatial(){
 		// returning the node instead of geometry is intentional
 		// so all tranformations would include the stuff thats attached to the node

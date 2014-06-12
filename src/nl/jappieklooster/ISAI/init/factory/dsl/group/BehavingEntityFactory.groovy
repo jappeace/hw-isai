@@ -51,7 +51,7 @@ class BehavingEntityFactory extends AMovingEntityFactory{
 		group.shouldUpdate = true
 		StateMachineFactory smFactory = new StateMachineFactory()
 		new DelegateClosure(to:smFactory).call(commands)
-		smFactory.stateMachine.vehicle = vehicle
+		smFactory.stateMachine.target = vehicle
 		vehicle.behaviours.add(smFactory.stateMachine)
 		return smFactory.stateMachine
 	}
