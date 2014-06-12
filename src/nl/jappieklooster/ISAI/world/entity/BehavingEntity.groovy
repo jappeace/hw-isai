@@ -10,7 +10,7 @@ import nl.jappieklooster.math.vector.Vector3
  * @author jappie
  *
  */
-class Actor extends MovingEntity{
+class BehavingEntity extends MovingEntity{
 	List<IBehaviour> behaviours
 	/**
 	 * circumvents concurent modification errors
@@ -19,7 +19,7 @@ class Actor extends MovingEntity{
 	 * and all items in this list will receive the behaviours to change them
 	 */
 	List<IBehaviourEditor> behaviourChanges
-	Actor(){
+	BehavingEntity(){
 		super()
 		behaviours = new LinkedList<>()
 		behaviourChanges = new LinkedList<>()

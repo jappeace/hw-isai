@@ -16,7 +16,7 @@ import nl.jappieklooster.ISAI.world.AHasNode
 import nl.jappieklooster.ISAI.world.Group
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.Entity
-import nl.jappieklooster.ISAI.world.entity.Actor;
+import nl.jappieklooster.ISAI.world.entity.BehavingEntity;
 import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter

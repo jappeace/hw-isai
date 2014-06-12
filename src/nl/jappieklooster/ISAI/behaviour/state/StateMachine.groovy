@@ -2,13 +2,13 @@ package nl.jappieklooster.ISAI.behaviour.state
 import nl.jappieklooster.ISAI.behaviour.IBehaviour
 import nl.jappieklooster.ISAI.behaviour.AbstractBehaviour
 import nl.jappieklooster.ISAI.world.entity.MovingEntity;
-import nl.jappieklooster.ISAI.world.entity.Actor
+import nl.jappieklooster.ISAI.world.entity.BehavingEntity
 class StateMachine extends AbstractBehaviour{
 
 	IState currentState = null
 	
 	String currentStateName
-	Actor vehicle
+	BehavingEntity vehicle
 	/**
 	 * used for identifying states with setcurrentstate "name"
 	 */

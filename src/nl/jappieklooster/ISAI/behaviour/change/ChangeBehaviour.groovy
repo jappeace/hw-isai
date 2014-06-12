@@ -3,7 +3,7 @@ package nl.jappieklooster.ISAI.behaviour.change
 import nl.jappieklooster.ISAI.behaviour.AbstractBehaviour
 import nl.jappieklooster.ISAI.behaviour.IBehaviour
 import nl.jappieklooster.ISAI.behaviour.ICompletableBehaviour
-import nl.jappieklooster.ISAI.world.entity.Actor
+import nl.jappieklooster.ISAI.world.entity.BehavingEntity
 import nl.jappieklooster.ISAI.world.entity.IBehaviourEditor
 
 /**
@@ -21,14 +21,14 @@ class ChangeBehaviour extends AbstractBehaviour implements ICompletableBehaviour
 	/**
 	 * the listener will be notified that the target behaviour is invalid
 	 */
-	Actor listener
+	BehavingEntity listener
 	
 	/**
 	 * the change that will be applied
 	 */
 	IBehaviourEditor change
 	
-	ChangeBehaviour(Actor listener, IBehaviourEditor target){
+	ChangeBehaviour(BehavingEntity listener, IBehaviourEditor target){
 		this.listener = listener
 		this.change = target
 	}
