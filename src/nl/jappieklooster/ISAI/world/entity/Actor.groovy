@@ -5,6 +5,11 @@ import nl.jappieklooster.ISAI.behaviour.state.StateMachine;
 import nl.jappieklooster.math.vector.Converter;
 import nl.jappieklooster.math.vector.Vector3
 
+/**
+ * an actor is anything that has behaviour, like a bullet or a character
+ * @author jappie
+ *
+ */
 class Actor extends MovingEntity{
 	List<IBehaviour> behaviours
 	/**

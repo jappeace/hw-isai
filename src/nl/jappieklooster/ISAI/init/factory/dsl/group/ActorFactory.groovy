@@ -26,12 +26,12 @@ import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
-class VehicleFactory extends AMovingEntityFactory{
+class ActorFactory extends AMovingEntityFactory{
 	Actor vehicle
 
 	NeighbourTracker neighTracker
 	ClickablesTracker clickTracker
-	VehicleFactory(NeighbourTracker tracker){
+	ActorFactory(NeighbourTracker tracker){
 		super()
 		neighTracker = tracker
 

@@ -3,6 +3,9 @@ package nl.jappieklooster.ISAI.behaviour
 /**
  * behaviours inside this behaviour will be completed and then removed
  * this is necisary for compositions like A-star, which is a bunch of seeks on run-time
+ * 
+ * this does not violate the contract that behaviours should do one thing, because the only
+ * thing this behaviour does is determening which behaviours should go next in the queue
  * @author jappie
  *
  */

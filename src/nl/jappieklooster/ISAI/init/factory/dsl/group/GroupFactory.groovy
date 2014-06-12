@@ -49,7 +49,7 @@ class GroupFactory extends AHasNodeFactory{
 
 	/** create a new vehicle */
 	Actor vehicle(Closure commands){
-		VehicleFactory factory = new VehicleFactory(neighTracker)
+		ActorFactory factory = new ActorFactory(neighTracker)
 		factory.clickTracker = clickTracker
 		delegateMovingFactory(factory, commands)
 		return factory.vehicle
