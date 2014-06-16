@@ -106,6 +106,6 @@ class Entity implements IPositionable, IHasNode, IStateMachineTarget{
 
 	@Override
 	void move(Vector3 to) {
-		spatial.move(to)
+		spatial.move(Converter.toJME(to))
 	}
 }

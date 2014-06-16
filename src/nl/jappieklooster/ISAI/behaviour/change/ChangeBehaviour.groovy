@@ -7,7 +7,10 @@ import nl.jappieklooster.ISAI.world.entity.BehavingEntity
 import nl.jappieklooster.ISAI.world.entity.IBehaviourEditor
 
 /**
- * a behaviour that lets an vehicle know that target behaviour should be removed
+ * a behaviour that lets an vehicle know that target's behaviour should be modified
+ * 
+ * this is a behaviour so it will be executed on next cycle.
+ * 
  * @author jappie
  *
  */

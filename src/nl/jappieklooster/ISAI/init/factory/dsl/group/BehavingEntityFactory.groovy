@@ -9,6 +9,7 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box
 import com.jme3.texture.Texture
 
+import nl.jappieklooster.ISAI.behaviour.state.IStateMachineTarget
 import nl.jappieklooster.ISAI.behaviour.state.StateMachine
 import nl.jappieklooster.ISAI.behaviour.text.TextWriter
 import nl.jappieklooster.ISAI.init.DelegateClosure;
@@ -23,11 +24,12 @@ import nl.jappieklooster.ISAI.world.entity.MovingEntity;
 import nl.jappieklooster.ISAI.world.entity.BehavingEntity;
 import nl.jappieklooster.ISAI.world.entity.tracking.ClickablesTracker
 import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
+import nl.jappieklooster.ISAI.world.Character
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
 class BehavingEntityFactory extends AMovingEntityFactory{
-	BehavingEntity vehicle
+	BehavingEntity behavingEntity
 
 	NeighbourTracker neighTracker
 	ClickablesTracker clickTracker
@@ -35,15 +37,22 @@ class BehavingEntityFactory extends AMovingEntityFactory{
 		super()
 		neighTracker = tracker
 
-		vehicle = new BehavingEntity()
-		vehicle.velocity = new Vector3()
-		vehicle.position = new Vector3()
+		behavingEntity = new BehavingEntity()
+		behavingEntity.velocity = new Vector3()
+		behavingEntity.position = new Vector3()
+	}
+	/**
+	 * allows injection of other statemachine targets trough overriding this method
+	 * @return
+	 */
+	IStateMachineTarget getStateMachineTarget(){
+		return behavingEntity
 	}
 	void behaviour(Closure commands){
 		group.shouldUpdate = true
 		BehaviourFactory factory = new BehaviourFactory(neighTracker)
 		factory.random = random
-		factory.vehicle = vehicle
+		factory.vehicle = behavingEntity
 		new DelegateClosure(to:factory).call(commands)
 	}
 
@@ -51,24 +60,24 @@ class BehavingEntityFactory extends AMovingEntityFactory{
 		group.shouldUpdate = true
 		StateMachineFactory smFactory = new StateMachineFactory()
 		new DelegateClosure(to:smFactory).call(commands)
-		smFactory.stateMachine.target = vehicle
-		vehicle.behaviours.add(smFactory.stateMachine)
+		smFactory.stateMachine.target = getStateMachineTarget()
+		behavingEntity.behaviours.add(smFactory.stateMachine)
 		return smFactory.stateMachine
 	}
 	@Override
 	MovingEntity getMovingEntity() {
-		return vehicle
+		return behavingEntity
 	}
 
 	@Override
 	TextWriter write(Closure commands){
 		TextWriter writer = super.write(commands)
 		// allows texts to be updated
-		vehicle.behaviours.add(writer)
+		behavingEntity.behaviours.add(writer)
 		return writer
 	}
 	void clickable(){
 		group.shouldUpdate = true
-		clickTracker.track(vehicle)
+		clickTracker.track(behavingEntity)
 	}
 }

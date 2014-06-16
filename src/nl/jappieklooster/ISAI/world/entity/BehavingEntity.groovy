@@ -29,6 +29,7 @@ class BehavingEntity extends MovingEntity{
 		behaviourChanges.each{
 			it.edit(behaviours)
 		}
+		behaviourChanges.clear()
 		behaviours.each{
 			if(it.chance > random.nextDouble()){
                 it.execute()

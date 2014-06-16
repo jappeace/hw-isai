@@ -39,6 +39,17 @@ class WorldFactory extends AHasNodeFactory{
 
 	private ClickablesTracker clickTracker
     private ScheduledThreadPoolExecutor threadPool
+	
+	/**
+	 * keeping track of the environment factory allows the environment calls to be above or below the group calls
+	 * because the enviornment only creates an environment on its own creation.
+	 * 
+	 * if I just the environment in the word all the entities that require a environment needed to be created after
+	 * the environment was created
+	 * because the world sets its environment to null and waits till its added later. keeping track of the env factory
+	 * circumvents the problem
+	 */
+	private EnvironmentFactory environmentFactory
 	/**
 	 * allows levelloader check if default lighting is necisary
 	 */
@@ -48,6 +59,7 @@ class WorldFactory extends AHasNodeFactory{
 		threadPool = exec
 		world = new World()
 		this.clickTracker = clickables
+		environmentFactory = new EnvironmentFactory()
 	}
 	
 	/**
@@ -56,20 +68,19 @@ class WorldFactory extends AHasNodeFactory{
 	 * @return
 	 */
 	Environment environment(Closure commands){
-		EnvironmentFactory factory = new EnvironmentFactory()
-		factory.game = game
+		environmentFactory.game = game
 		
-		new DelegateClosure(to: factory).call(commands)
+		new DelegateClosure(to: environmentFactory).call(commands)
 		
 		TerrainNavGraphFactory navfac = new TerrainNavGraphFactory()
 
-		navfac.graph = factory.environment.navGraph
-		navfac.collidable.attachChild(factory.environment.node.clone())
+		navfac.graph = environmentFactory.environment.navGraph
+		navfac.collidable.attachChild(environmentFactory.environment.node.clone())
         navfac.connectVerticiCloserThenAsync(30, new TaskSynchronizer(application: game))
 
-		world.environment = factory.environment
-		world.node.attachChild(factory.environment.node)
-		return factory.environment
+		world.environment = environmentFactory.environment
+		world.node.attachChild(environmentFactory.environment.node)
+		return environmentFactory.environment
 	}
 
 	void light(Closure commands){
@@ -87,6 +98,7 @@ class WorldFactory extends AHasNodeFactory{
 	@Override
 	protected AHasNodeFactory createChildFactory() {
 		GroupFactory factory = new GroupFactory(threadPool)
+		factory.environment = environmentFactory.environment
 		factory.clickTracker = clickTracker
 		factory.random = new Random()
 		return factory

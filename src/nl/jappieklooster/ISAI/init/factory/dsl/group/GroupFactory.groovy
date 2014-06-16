@@ -10,7 +10,9 @@ import nl.jappieklooster.ISAI.init.factory.dsl.AHasNodeFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.AMovingEntityFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.ASpatialFactory;
 import nl.jappieklooster.ISAI.world.AHasNode;
+import nl.jappieklooster.ISAI.world.Environment
 import nl.jappieklooster.ISAI.world.Group
+import nl.jappieklooster.ISAI.world.Character
 import nl.jappieklooster.ISAI.world.entity.BehavingEntity;
 import nl.jappieklooster.ISAI.world.entity.tracking.ClickablesTracker
 import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
@@ -34,6 +36,7 @@ class GroupFactory extends AHasNodeFactory{
 	NeighbourTracker neighTracker
 	Random random
 	ClickablesTracker clickTracker
+	private Environment environment
 
     private ScheduledThreadPoolExecutor threadPool
 	GroupFactory(ScheduledThreadPoolExecutor exec){
@@ -46,15 +49,28 @@ class GroupFactory extends AHasNodeFactory{
 
 		neighTracker.group = group
 	}
+	
+	void setEnvironment(Environment to){
+		environment = to
+	}
 
 	/** create a new vehicle */
 	BehavingEntity vehicle(Closure commands){
-		BehavingEntityFactory factory = new BehavingEntityFactory(neighTracker)
-		factory.clickTracker = clickTracker
-		delegateMovingFactory(factory, commands)
-		return factory.vehicle
+		return callBehavingFactroy(new BehavingEntityFactory(neighTracker), commands)
+	}
+	
+	Character character(Closure commands){
+		CharacterFactory factory = new CharacterFactory(neighTracker)
+		factory.character = new Character(environment.navGraph)
+		factory.character.body = callBehavingFactroy(factory, commands)
+		return factory.character
 	}
 
+	private BehavingEntity callBehavingFactroy(BehavingEntityFactory factory, Closure commands){
+		factory.clickTracker = clickTracker
+		delegateMovingFactory(factory, commands)
+		return factory.behavingEntity
+	}
 	@Override
 	protected AHasNode getAHasNode() {
 		return group
