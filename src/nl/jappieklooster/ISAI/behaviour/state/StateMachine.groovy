@@ -8,7 +8,6 @@ class StateMachine extends AbstractBehaviour{
 	IState currentState = null
 	
 	String currentStateName
-	IStateMachineTarget target
 	/**
 	 * used for identifying states with setcurrentstate "name"
 	 */

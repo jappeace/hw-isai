@@ -9,7 +9,6 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box
 import com.jme3.texture.Texture
 
-import nl.jappieklooster.ISAI.behaviour.state.IStateMachineTarget
 import nl.jappieklooster.ISAI.behaviour.state.StateMachine
 import nl.jappieklooster.ISAI.behaviour.text.TextWriter
 import nl.jappieklooster.ISAI.init.DelegateClosure;
@@ -41,13 +40,6 @@ class BehavingEntityFactory extends AMovingEntityFactory{
 		behavingEntity.velocity = new Vector3()
 		behavingEntity.position = new Vector3()
 	}
-	/**
-	 * allows injection of other statemachine targets trough overriding this method
-	 * @return
-	 */
-	IStateMachineTarget getStateMachineTarget(){
-		return behavingEntity
-	}
 	void behaviour(Closure commands){
 		group.shouldUpdate = true
 		BehaviourFactory factory = new BehaviourFactory(neighTracker)
@@ -60,7 +52,6 @@ class BehavingEntityFactory extends AMovingEntityFactory{
 		group.shouldUpdate = true
 		StateMachineFactory smFactory = new StateMachineFactory()
 		new DelegateClosure(to:smFactory).call(commands)
-		smFactory.stateMachine.target = getStateMachineTarget()
 		behavingEntity.behaviours.add(smFactory.stateMachine)
 		return smFactory.stateMachine
 	}

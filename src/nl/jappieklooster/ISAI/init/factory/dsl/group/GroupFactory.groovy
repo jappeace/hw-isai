@@ -60,10 +60,10 @@ class GroupFactory extends AHasNodeFactory{
 	}
 	
 	Character character(Closure commands){
-		CharacterFactory factory = new CharacterFactory(neighTracker)
-		factory.character = new Character(environment.navGraph)
-		factory.character.body = callBehavingFactroy(factory, commands)
-		return factory.character
+		Character result = new Character(environment.navGraph)
+		BehavingEntityFactory factory = new BehavingEntityFactory(neighTracker)
+		result.body = callBehavingFactroy(factory, commands)
+		return result
 	}
 
 	private BehavingEntity callBehavingFactroy(BehavingEntityFactory factory, Closure commands){

@@ -2,10 +2,12 @@ import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 import nl.jappieklooster.ISAI.behaviour.state.StateMachine
 import nl.jappieklooster.ISAI.behaviour.steer.Seek
+import nl.jappieklooster.ISAI.world.Character
 import com.jme3.scene.shape.*
 
 group{
-    character{
+	Character person 
+	person = character{
     	location new Vector3(0,10,0)
         mesh new Sphere(10, 10, 1)	
 		mass 0.01
@@ -19,7 +21,7 @@ group{
        			name="farming"
        			enter{StateMachine stateMachine ->
        				println "I am farming"	
-					stateMachine.target?.move(new Vector3(100, 0, 20))
+					person?.move(new Vector3(100, 0, 20))
 					  
        			}
        			execute{ StateMachine stateMachine ->
@@ -37,7 +39,7 @@ group{
        			active = true
        			enter{StateMachine stateMachine ->
        				println "I am resting"	
-					stateMachine.target?.move(new Vector3(0, 0, 0))
+					person?.move(new Vector3(0, 0, 0))
        			}
 				execute{ StateMachine stateMachine ->
 					if(energy > enoughEnergy){

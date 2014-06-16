@@ -4,13 +4,12 @@ import com.jme3.scene.Spatial;
 
 import nl.jappieklooster.ISAI.behaviour.IBehaviour
 import nl.jappieklooster.ISAI.behaviour.change.AddBehaviour
-import nl.jappieklooster.ISAI.behaviour.state.IStateMachineTarget
 import nl.jappieklooster.ISAI.collection.graph.Graph
 import nl.jappieklooster.ISAI.init.factory.path.PathFindFactory
 import nl.jappieklooster.ISAI.world.entity.BehavingEntity
 import nl.jappieklooster.math.vector.Vector3;
 
-class Character implements IStateMachineTarget{
+class Character{
 
 	BehavingEntity body
 	private PathFindFactory pathfinder

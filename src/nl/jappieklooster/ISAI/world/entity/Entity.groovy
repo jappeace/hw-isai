@@ -5,7 +5,6 @@ import com.jme3.scene.Geometry
 import com.jme3.scene.Mesh
 import com.jme3.scene.Spatial
 
-import nl.jappieklooster.ISAI.behaviour.state.IStateMachineTarget
 import nl.jappieklooster.ISAI.world.IPositionable;
 import nl.jappieklooster.math.vector.*
 
@@ -13,7 +12,7 @@ import com.jme3.scene.Node
 
 import nl.jappieklooster.ISAI.world.IHasNode
 
-class Entity implements IPositionable, IHasNode, IStateMachineTarget{
+class Entity implements IPositionable, IHasNode{
 
 	Geometry geometry
 	private Node localSpace
