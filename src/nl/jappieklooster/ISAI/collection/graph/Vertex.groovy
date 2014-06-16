@@ -27,7 +27,7 @@ class Vertex extends Entity{
 		geometry = WireFrameFactory.getInstance().createSphere(1)
 		material.setColor("Color", new ColorRGBA(0.1,0.1,0.1,1))
 	
-		position = pos
+		spatial.setLocalTranslation(Converter.toJME(pos))
 		connections = new LinkedList<>() // memory effiecient and index acces not required
 	}
 	
@@ -48,7 +48,7 @@ class Vertex extends Entity{
 		
 		// allows later manipulation of the edge color
 		edge.geometry = edgeConnection
-		edge.position = conpos
+		edge.spatial.setLocalTranslation(Converter.toJME( conpos))
 		edge.weight = difference.length
 		
 		attach(edgeConnection)

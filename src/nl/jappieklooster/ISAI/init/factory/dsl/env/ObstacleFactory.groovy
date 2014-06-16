@@ -14,9 +14,7 @@ class ObstacleFactory extends AEntityFactory{
 	 */
 	AHasNode parent
 	ObstacleFactory(){
-
 		obstacle = new Entity()
-		obstacle.position = new Vector3()
 	}
 	@Override
 	public Entity getEntity() {

@@ -6,8 +6,13 @@ import nl.jappieklooster.ISAI.world.Character
 import com.jme3.scene.shape.*
 
 group{
-	Character person 
+	// declaring the variable here allows acces inside the states because scoping
+	Character person = null
+	
+	// if I where to declare and initilize on method call it would be to late
+	// in groovy the decleration is made after the init call (tried it and it failed so must be true)
 	person = character{
+
     	location new Vector3(0,10,0)
         mesh new Sphere(10, 10, 1)	
 		mass 0.01
@@ -19,43 +24,69 @@ group{
        		state{ 
        			float requiredEnergy = 0
        			name="farming"
-       			enter{StateMachine stateMachine ->
+       			enter{
        				println "I am farming"	
-					person?.move(new Vector3(100, 0, 20))
 					  
        			}
        			execute{ StateMachine stateMachine ->
+					
        				if(energy < requiredEnergy){
-       					stateMachine.changeState "resting"	
+       					stateMachine.changeState "moveToHome"	
        					return
        				}	
        				energy -= rate
        			}
        		}
 
+			state{
+				name="moveToHome"
+				enter{
+					println "going home"
+                    person?.move(new Vector3(0, 0, 0))
+				}
+
+				execute{StateMachine stateMachine ->
+					if(person.isDone()){
+						stateMachine.changeState "resting"
+					}
+				}
+			}
        		state{
+
        			float enoughEnergy = 100
        			name="resting"
        			active = true
        			enter{StateMachine stateMachine ->
        				println "I am resting"	
-					person?.move(new Vector3(0, 0, 0))
        			}
+
 				execute{ StateMachine stateMachine ->
 					if(energy > enoughEnergy){
-						stateMachine.changeState "farming"
+						stateMachine.changeState "moveToFarm"
 						return
 					}
 					energy += rate
 				}	
        		} 
+			state{
+				name="moveToFarm"
+				enter{
+					println "going to work"
+                    person?.move(new Vector3(100, 0, 20))
+				}
+				execute{StateMachine stateMachine ->
+					println person?.body.velocity
+					if(person.isDone()){
+						stateMachine.changeState "farming"
+					}
+				}
+			}
         }
         
         write{
         	text {machine.currentStateName}
         	scale 0.5f
         	location 2f, 5f, 0f
-            rotation new Vector3(0, 0,-0.25*Math.PI)
         }
     }
 }

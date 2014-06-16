@@ -23,10 +23,7 @@ class BehaviourScheduler extends AbstractBehaviour implements ICompletable{
 		}
 		if(current.isDone()){
 			behaviours.pollFirst();
-			current = behaviours.peekFirst()
-			if(current == null){
-				return
-			}
+			execute()
 		}
 		current.execute()
 	}

@@ -52,7 +52,6 @@ abstract class AEntityFactory extends AMaterialFactory{
 	@Override
 	void location(Vector3 where){
 		super.location(where)
-		entity.position = where
 	}
 	@Override
 	protected Spatial getSpatial() {

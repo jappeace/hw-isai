@@ -36,9 +36,6 @@ class MovingEntity extends Entity implements IGroupItem{
 		velocity += (force / new Vector3(mass))  * new Vector3(tpf) // calculate speed
 		Vector3 movement = velocity * new Vector3(tpf) // calculate movement
 		
-		// keep track of the world location
-		position += movement
-		
 		if(velocity.length != 0){
             setHeading(velocity.normalized)
 		}
