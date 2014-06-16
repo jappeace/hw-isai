@@ -75,7 +75,6 @@ group{
                     person?.move(new Vector3(100, 0, 20))
 				}
 				execute{StateMachine stateMachine ->
-					println person?.body.velocity
 					if(person.isDone()){
 						stateMachine.changeState "farming"
 					}

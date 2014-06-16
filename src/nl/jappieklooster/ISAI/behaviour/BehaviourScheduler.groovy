@@ -34,7 +34,18 @@ class BehaviourScheduler extends AbstractBehaviour implements ICompletable{
 	}
 	@Override
 	public boolean isDone() {
-		return behaviours.size() == 0;
+		if(behaviours.size() == 0){
+			return true
+		}
+		if(behaviours.peekFirst() == null){
+			return true
+		}
+		// their might be just a cleanup active
+		if(behaviours.size() != 1){
+            return false
+		}
+
+		return behaviours.peekFirst().isDone()
 	}
 	
 }
