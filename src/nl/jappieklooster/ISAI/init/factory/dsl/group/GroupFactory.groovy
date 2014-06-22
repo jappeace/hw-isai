@@ -87,7 +87,7 @@ class GroupFactory extends AHasNodeFactory{
 	protected void integrateChildFactory(AHasNodeFactory child) {
 		GroupFactory factory = (GroupFactory) child
 		group.shouldUpdate = group.shouldUpdate ?: factory.group.shouldUpdate
-		group.entities.add(factory.group)
+		group.members.add(factory.group)
 	}
 	
 	
@@ -98,7 +98,7 @@ class GroupFactory extends AHasNodeFactory{
 		factory.setToDefault()
 
 		new DelegateClosure(to:factory).call(commands)
-		group.entities.add(factory.movingEntity)
+		group.members.add(factory.movingEntity)
 	}
 
 }

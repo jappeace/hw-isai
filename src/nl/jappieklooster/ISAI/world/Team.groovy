@@ -1,14 +1,15 @@
 package nl.jappieklooster.ISAI.world
 
 
-class Team {
-	/**
-	 * the state of a team equals its name
-	 * two teams with the same name are the same team
-	 */
-	String name
+/**
+ * the team functionality extends groups in that it has a list of rival teams
+ * this meta data allows group members to interact with their enemies
+ * 
+ * it also overrides the equals method, teams or equals to eachother when they share
+ * the same name
+ */
+class Team extends Group{
 
-	Collection<IPositionable> members
 	Collection<Team> rivalTeams
 
 	@Override
