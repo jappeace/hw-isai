@@ -10,10 +10,12 @@ import nl.jappieklooster.ISAI.init.DelegateClosure;
 import nl.jappieklooster.ISAI.init.factory.dsl.env.EnvironmentFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.env.LightFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.group.GroupFactory;
+import nl.jappieklooster.ISAI.init.factory.dsl.group.TeamFactory
 import nl.jappieklooster.ISAI.init.factory.path.TerrainNavGraphFactory;
 import nl.jappieklooster.ISAI.world.AHasNode;
 import nl.jappieklooster.ISAI.world.Environment
 import nl.jappieklooster.ISAI.world.Group
+import nl.jappieklooster.ISAI.world.Team
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.BehavingEntity;
 import nl.jappieklooster.ISAI.world.entity.tracking.ClickablesTracker
@@ -27,11 +29,8 @@ import com.jme3.terrain.geomipmap.TerrainQuad
 import com.jme3.math.ColorRGBA
 
 /**
- * primary factory that delegates tasks to all other factory,
+ * primary factory that delegates tasks to all other factories,
  * it is also a big encapsulation unit since it knows game but lets it little worker factories only know what they need
- * (usaly those things are 
- * @author jappie
- *
  */
 class WorldFactory extends AHasNodeFactory{
 
@@ -54,12 +53,18 @@ class WorldFactory extends AHasNodeFactory{
 	 * allows levelloader check if default lighting is necisary
 	 */
 	boolean lightAttached = false
+	
+	/**
+	 * randomness is shared amongst all children
+	 */
+	private Random random
 
 	WorldFactory(ScheduledThreadPoolExecutor exec, ClickablesTracker clickables){
 		threadPool = exec
 		world = new World()
 		this.clickTracker = clickables
 		environmentFactory = new EnvironmentFactory()
+		random = new Random()
 	}
 	
 	/**
@@ -83,6 +88,20 @@ class WorldFactory extends AHasNodeFactory{
 		return environmentFactory.environment
 	}
 
+	Team team(Closure commands){
+        TeamFactory factory = bindGroupFactory(new TeamFactory(threadPool))
+		factory.game = game
+
+		new DelegateClosure(to: factory).call(commands)
+
+		world.node.attachChild(factory.team.node)
+		world.actors.add(factory.team)
+		factory.team.rivalTeams.each{Team team ->
+			world.node.attachChild(team.node)
+			world.actors.add(team)
+		}
+		return factory.team
+	}
 	void light(Closure commands){
 		lightAttached = true
 		LightFactory lightFactory = new LightFactory()
@@ -97,16 +116,19 @@ class WorldFactory extends AHasNodeFactory{
 
 	@Override
 	protected AHasNodeFactory createChildFactory() {
-		GroupFactory factory = new GroupFactory(threadPool)
-		factory.environment = environmentFactory.environment
-		factory.clickTracker = clickTracker
-		factory.random = new Random()
-		return factory
+		return bindGroupFactory(new GroupFactory(threadPool))
 	}
 
 	@Override
 	protected void integrateChildFactory(AHasNodeFactory child) {
 		
 		world.actors.add(child.AHasNode)
+	}
+
+	private GroupFactory bindGroupFactory(GroupFactory factory){
+		factory.environment = environmentFactory.environment
+		factory.clickTracker = clickTracker
+		factory.random = random
+		return factory
 	}
 }
