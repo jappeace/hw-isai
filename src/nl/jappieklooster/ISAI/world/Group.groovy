@@ -38,6 +38,18 @@ class Group extends AHasNode implements IGroupItem{
 		members = new LinkedList<>()
 		listeners = new LinkedList<>()
 	}
+	
+	/**
+	 * copy constructor
+	 */
+	Group(Group source){
+		super()
+		members = new LinkedList<>(source.members)
+		listeners = new LinkedList<>(source.listeners)
+		shouldUpdate = source.shouldUpdate
+		node = source.node.clone(false)
+	}
+
 	void update(float tpf){
 		if(!shouldUpdate){
 			return

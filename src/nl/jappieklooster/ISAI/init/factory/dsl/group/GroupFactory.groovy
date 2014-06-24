@@ -36,20 +36,33 @@ class GroupFactory extends AHasNodeFactory{
 	NeighbourTracker neighTracker
 	Random random
 	ClickablesTracker clickTracker
-	private Environment environment
+	protected Environment environment
 
-    private ScheduledThreadPoolExecutor threadPool
+    protected ScheduledThreadPoolExecutor threadPool
 	GroupFactory(ScheduledThreadPoolExecutor exec){
-		exec.corePoolSize += 1
-		neighTracker = new NeighbourTracker(exec)
 		threadPool = exec
+		init()
+	}
+	/**
+	 * copies all external information of the other group factory
+	 * but still creates its own group to work with
+	 * @param source
+	 */
+	GroupFactory(GroupFactory source){
+		game = source.game
+		random = source.random
+		clickTracker = source.clickTracker
+		environment = source.environment
+		threadPool = source.threadPool
+		init()
+	}
+	private void init(){
+		threadPool.corePoolSize += 1
+		neighTracker = new NeighbourTracker(threadPool)
 		group = new Group()
-
 		group.listeners.add(neighTracker)
-
 		neighTracker.group = group
 	}
-	
 	void setEnvironment(Environment to){
 		environment = to
 	}
@@ -68,7 +81,15 @@ class GroupFactory extends AHasNodeFactory{
 
 	private BehavingEntity callBehavingFactroy(BehavingEntityFactory factory, Closure commands){
 		factory.clickTracker = clickTracker
-		delegateMovingFactory(factory, commands)
+		factory.group = group
+		factory.assetManager = assetManager
+		factory.random = random
+		factory.setToDefault()
+
+		new DelegateClosure(to:factory).call(commands)
+
+		group.members.add(factory.movingEntity)
+
 		return factory.behavingEntity
 	}
 	@Override
@@ -89,16 +110,4 @@ class GroupFactory extends AHasNodeFactory{
 		group.shouldUpdate = group.shouldUpdate ?: factory.group.shouldUpdate
 		group.members.add(factory.group)
 	}
-	
-	
-	private void delegateMovingFactory(AMovingEntityFactory factory, Closure commands){
-		factory.group = group
-		factory.assetManager = assetManager
-		factory.random = random
-		factory.setToDefault()
-
-		new DelegateClosure(to:factory).call(commands)
-		group.members.add(factory.movingEntity)
-	}
-
 }
