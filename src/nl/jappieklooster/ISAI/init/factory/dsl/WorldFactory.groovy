@@ -10,12 +10,10 @@ import nl.jappieklooster.ISAI.init.DelegateClosure;
 import nl.jappieklooster.ISAI.init.factory.dsl.env.EnvironmentFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.env.LightFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.group.GroupFactory;
-import nl.jappieklooster.ISAI.init.factory.dsl.group.TeamFactory
 import nl.jappieklooster.ISAI.init.factory.path.TerrainNavGraphFactory;
 import nl.jappieklooster.ISAI.world.AHasNode;
 import nl.jappieklooster.ISAI.world.Environment
 import nl.jappieklooster.ISAI.world.Group
-import nl.jappieklooster.ISAI.world.Team
 import nl.jappieklooster.ISAI.world.World;
 import nl.jappieklooster.ISAI.world.entity.BehavingEntity;
 import nl.jappieklooster.ISAI.world.entity.tracking.ClickablesTracker
@@ -88,20 +86,6 @@ class WorldFactory extends AHasNodeFactory{
 		return environmentFactory.environment
 	}
 
-	Team team(Closure commands){
-        TeamFactory factory = bindGroupFactory(new TeamFactory(threadPool))
-		factory.game = game
-
-		new DelegateClosure(to: factory).call(commands)
-
-		world.node.attachChild(factory.team.node)
-		world.actors.add(factory.team)
-		factory.team.rivalTeams.each{Team team ->
-			world.node.attachChild(team.node)
-			world.actors.add(team)
-		}
-		return factory.team
-	}
 	void light(Closure commands){
 		lightAttached = true
 		LightFactory lightFactory = new LightFactory()

@@ -14,8 +14,8 @@ class Graph extends AHasNode{
 
 	Graph(){
 		super()
-        min = new Vector3(Float.POSITIVE_INFINITY)
-        max = new Vector3(Float.NEGATIVE_INFINITY)	
+        min = Vector3.CreateNegativeInfinite()
+        max = Vector3.CreatePositiveInfinite()	
 
         verteci = new LinkedList<>() // reserve some space, you don't make a graph for 10 elements
 		clearCache()

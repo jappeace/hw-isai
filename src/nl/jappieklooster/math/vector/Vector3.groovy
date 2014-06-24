@@ -30,6 +30,27 @@ class Vector3 implements IVector3{
 		compareStrategy = new ThreeWayComparator()
 		this.z = z;
 	}
+	/**
+	 * good for comparison but bad for calculations
+	 * @return
+	 */
+	static Vector3 CreatePositiveInfinite(){
+		return new Vector3(Float.POSITIVE_INFINITY)	
+	}
+	/**
+	 * good for comparison but bad for calculations
+	 * @return
+	 */
+	static Vector3 CreateNegativeInfinite(){
+		return new Vector3(Float.NEGATIVE_INFINITY)	
+	}
+	/**
+	 * works with calculation, but beware of overflow
+	 * @return
+	 */
+	static Vector3 CreateBiggestFloat(){
+		return new Vector3(Float.MAX_VALUE)
+	}
 	float getX(){
 		base.x
 	}
