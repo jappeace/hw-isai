@@ -1,4 +1,4 @@
-package nl.jappieklooster.ISAI.relation
+package nl.jappieklooster.ISAI
 
 import nl.jappieklooster.ISAI.world.IPositionable
 import nl.jappieklooster.math.vector.Vector3
@@ -8,7 +8,11 @@ class Team implements Comparable<Team>{
 	Collection<IPositionable> members
 	
 	Team(){
+		this("")
+	}
+	Team(String name){
 		members = new LinkedList<>()
+		this.name = name
 	}
 	@Override
 	int compareTo(Team team) {
