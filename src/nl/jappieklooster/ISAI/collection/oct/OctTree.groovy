@@ -20,11 +20,18 @@ class OctTree implements Collection<IPositionable>{
 	private OctTree<T>[] children
 	IPositionable data
 
-	
 	OctTree(Vector3 center, Vector3 halfDimension){
 		this.center = center
 		this.halfDimension = halfDimension
 		clear()
+	}
+	
+	/**
+	 * this octree has a size of 0 so nothing will ever be stored in here
+	 * @return
+	 */
+	static OctTree createEmpty(){
+		return new OctTree(new Vector3(0), new Vector3(0))	
 	}
 
 	OctTree[] getChildren(){
@@ -41,7 +48,7 @@ class OctTree implements Collection<IPositionable>{
 		// I conteplated moving this to the add, but putting it here is less bug prone
 		if(!hasPoint(element.position)){
 			throw new IndexOutOfBoundsException("this octree does not contain: " + element.position + "\n"
-				+ " the octree is " + center + " \n with a halfdimension of" + halfDimension +"\n\n"
+				+ " the octree's center is " + center + " \n with a halfdimension of" + halfDimension +"\n\n"
 				+ "the bounding box min: " + (center - halfDimension) + "\n"
 				+ "the bounding box max: " + (center + halfDimension) + "\n")
 		}

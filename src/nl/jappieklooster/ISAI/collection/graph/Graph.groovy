@@ -14,8 +14,8 @@ class Graph extends AHasNode{
 
 	Graph(){
 		super()
-        min = Vector3.CreateNegativeInfinite()
-        max = Vector3.CreatePositiveInfinite()	
+        min = Vector3.CreatePositiveInfinite()
+        max = Vector3.CreateNegativeInfinite()	
 
         verteci = new LinkedList<>() // reserve some space, you don't make a graph for 10 elements
 		clearCache()
@@ -69,8 +69,11 @@ class Graph extends AHasNode{
 	 * @return
 	 */
 	OctTree toOctTree(){
-	if(cachedOctTree){
+		if(cachedOctTree){
 			return cachedOctTree
+		}
+		if(max == Vector3.CreateNegativeInfinite() || min == Vector3.CreatePositiveInfinite()){
+			cachedOctTree = OctTree.createEmpty()
 		}
 		cachedOctTree = new OctTree(
 			(max + min) / new Vector3(2) ,

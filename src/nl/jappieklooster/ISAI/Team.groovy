@@ -36,7 +36,7 @@ class Team implements Comparable<Team>{
 		Vector3 closest = Vector3.CreateBiggestFloat()
 		IPositionable result = null
 		members.each{
-			if(to.position.lengthSq - it.position.lengthSq < to.position.lengthSq - closest.lengthSq){
+			if((to.position - it.position).lengthSq < (to.position - closest).lengthSq){
 				closest = it.position
 				result = it
 			}

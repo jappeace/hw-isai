@@ -15,7 +15,7 @@ import nl.jappieklooster.math.vector.Vector3;
  * @author jappie
  *
  */
-class Character implements ICompletable{
+class Character implements ICompletable, IPositionable{
 
 	BehavingEntity body
 	private PathFindFactory pathfinder
@@ -43,5 +43,10 @@ class Character implements ICompletable{
 			return true
 		}
 		return currentTask.isDone()
+	}
+
+	@Override
+	public Vector3 getPosition() {
+		return body.position
 	}
 }
