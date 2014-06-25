@@ -3,7 +3,7 @@ import nl.jappieklooster.math.vector.Converter
 import nl.jappieklooster.ISAI.behaviour.state.StateMachine
 import nl.jappieklooster.ISAI.behaviour.steer.Seek
 import nl.jappieklooster.ISAI.world.Character
-import nl.jappieklooster.ISAI.Team
+import nl.jappieklooster.ISAI.world.mortal.Team
 
 import com.jme3.scene.shape.*
 

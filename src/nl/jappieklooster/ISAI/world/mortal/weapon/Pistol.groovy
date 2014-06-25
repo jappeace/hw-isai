@@ -6,6 +6,7 @@ import nl.jappieklooster.ISAI.world.mortal.IWeapon;
 import nl.jappieklooster.ISAI.world.mortal.attack.Bullet
 
 class Pistol implements IWeapon{
+	
 
 	@Override
 	public IAttack createAttack(IPositionable target) {
