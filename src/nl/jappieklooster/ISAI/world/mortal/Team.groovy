@@ -1,11 +1,16 @@
-package nl.jappieklooster.ISAI
+package nl.jappieklooster.ISAI.world.mortal
 
 import nl.jappieklooster.ISAI.world.IPositionable
 import nl.jappieklooster.math.vector.Vector3
 
+/**
+ * this class groups targets for attacks together in a team
+ * @author jappie
+ *
+ */
 class Team implements Comparable<Team>{
 	String name
-	Collection<IPositionable> members
+	Collection<IMortal> members
 	
 	Team(){
 		this("")
