@@ -2,6 +2,7 @@ package nl.jappieklooster.ISAI.world.mortal.attack
 import com.jme3.collision.CollisionResults
 import com.jme3.scene.Spatial
 import nl.jappieklooster.ISAI.world.Environment
+import nl.jappieklooster.ISAI.world.IHasNode
 import nl.jappieklooster.ISAI.world.entity.MovingEntity
 import nl.jappieklooster.ISAI.world.mortal.IAttack
 import nl.jappieklooster.ISAI.world.mortal.IMortal
@@ -28,7 +29,7 @@ abstract class AAttack implements IAttack {
 	/**
 	 * can also collide with environment
 	 */
-	Environment environment = null
+	IHasNode environment = null
 	
 	
 	/**

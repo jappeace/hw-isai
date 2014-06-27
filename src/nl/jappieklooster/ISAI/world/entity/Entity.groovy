@@ -24,6 +24,7 @@ class Entity implements IPositionable, IHasNode{
 	Vector3 getPosition(){
 		return Converter.fromJME(localSpace.getWorldTranslation())
 	}
+	
 
 	@Override
 	Spatial getSpatial(){

@@ -13,12 +13,6 @@ abstract class ASpatialFactory{
 		super()
 	}
 	protected abstract Spatial getSpatial()
-	void location(Vector3 where){
-		getSpatial().setLocalTranslation(Converter.toJME(where))	
-	}
-	void rotation(Vector3 how){
-		getSpatial().rotateUpTo(Converter.toJME(how))
-	}
 	void scale(Vector3 to){
 		getSpatial().setLocalScale(Converter.toJME(to))
 	}
@@ -33,9 +27,17 @@ abstract class ASpatialFactory{
 	void location(float x, float y, float z){
 		getSpatial().setLocalTranslation(x, y, z)
 	}
+
+	void location(Vector3 where){
+		getSpatial().setLocalTranslation(Converter.toJME(where))	
+	}
+	
 	
 	void rotation(float x, float y, float z){
 		getSpatial().rotate(x, y, z)
+	}
+	void rotation(Vector3 how){
+		getSpatial().rotateUpTo(Converter.toJME(how))
 	}
 
 	/**

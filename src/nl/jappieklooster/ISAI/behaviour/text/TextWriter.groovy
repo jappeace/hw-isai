@@ -2,6 +2,8 @@ package nl.jappieklooster.ISAI.behaviour.text
 
 import nl.jappieklooster.ISAI.behaviour.AbstractBehaviour;
 import nl.jappieklooster.ISAI.world.IHasNode
+import nl.jappieklooster.math.vector.Vector3;
+import nl.jappieklooster.math.vector.Converter
 
 import com.jme3.font.BitmapFont
 import com.jme3.font.BitmapText
@@ -38,11 +40,11 @@ class TextWriter extends AbstractBehaviour implements IHasNode{
 		nodeContainer.node.attachChild(transformTarget)
 	}
 	@Override
-	public Node getNode() {
+	Node getNode() {
 		return transformTarget;
 	}
 	@Override
-	public void execute() {
+	void execute() {
 		String text = source.getText()
 		if(text.hashCode() == previousTextHash){
 			// text does not need to be updated
@@ -66,5 +68,10 @@ class TextWriter extends AbstractBehaviour implements IHasNode{
 		result.color = color
 		result.size = font.charSet.renderedSize
 		return result
+	}
+
+	@Override
+	public Vector3 getPosition() {
+		return Converter.fromJME(transformTarget.localTransform)
 	}
 }

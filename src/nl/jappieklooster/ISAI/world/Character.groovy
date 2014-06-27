@@ -8,6 +8,7 @@ import nl.jappieklooster.ISAI.behaviour.change.AddBehaviour
 import nl.jappieklooster.ISAI.collection.graph.Graph
 import nl.jappieklooster.ISAI.init.factory.path.PathFindFactory
 import nl.jappieklooster.ISAI.world.entity.BehavingEntity
+import nl.jappieklooster.ISAI.world.mortal.IWeapon
 import nl.jappieklooster.math.vector.Vector3;
 
 /**
@@ -21,6 +22,7 @@ class Character implements ICompletable, IPositionable{
 	private PathFindFactory pathfinder
 	private ICompletable currentTask
 	
+	IWeapon primary
 	Character(Graph graph){
 		currentTask = null
 		body = null

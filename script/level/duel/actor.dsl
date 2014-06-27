@@ -8,6 +8,7 @@ import nl.jappieklooster.ISAI.world.mortal.Team
 import com.jme3.scene.shape.*
 
 Team[] teams = [new Team("red"), new Team("blue")]
+
 group {
     (0..2).each { int number ->
         
@@ -75,6 +76,7 @@ group {
                         person?.move(new Vector3(100, 0, 20))
                     }
                     execute{StateMachine stateMachine ->
+						person.primary.createAttack(teams[number % 2].findClosest(person))
                         if(person.isDone()){
                             stateMachine.changeState "farming"
                         }
@@ -89,5 +91,10 @@ group {
             }
         }
         teams[(number + 1) % 2].members.add(person)
+		
+		weapons{
+			targetTeam = teams[number%2]
+			person.primary = pistol(person)
+		}
     }
 }

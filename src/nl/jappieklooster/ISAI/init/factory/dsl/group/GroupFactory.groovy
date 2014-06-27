@@ -14,8 +14,10 @@ import nl.jappieklooster.ISAI.world.Environment
 import nl.jappieklooster.ISAI.world.Group
 import nl.jappieklooster.ISAI.world.Character
 import nl.jappieklooster.ISAI.world.entity.BehavingEntity;
+import nl.jappieklooster.ISAI.world.entity.MovingEntity
 import nl.jappieklooster.ISAI.world.entity.tracking.ClickablesTracker
 import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
+import nl.jappieklooster.ISAI.world.mortal.weapon.Pistol
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
@@ -56,6 +58,11 @@ class GroupFactory extends AHasNodeFactory{
 		threadPool = source.threadPool
 		init()
 	}
+	/**
+	 * creates a group factory without creating the group and neighbour tracker
+	 * use this to add stuff to an existing group with the dsl
+	 */
+	GroupFactory(){}
 	private void init(){
 		threadPool.corePoolSize += 1
 		neighTracker = new NeighbourTracker(threadPool)
@@ -74,23 +81,42 @@ class GroupFactory extends AHasNodeFactory{
 	
 	Character character(Closure commands){
 		Character result = new Character(environment.navGraph)
+		
 		BehavingEntityFactory factory = new BehavingEntityFactory(neighTracker)
+
 		result.body = callBehavingFactroy(factory, commands)
 		return result
+	}
+	
+	/**
+	 * a moving entity without behaviours to steer it is just a projectile
+	 * @param commands
+	 * @return
+	 */
+	MovingEntity projectile(Closure commands){
+		MovingEntityFactory factory = new MovingEntityFactory()
+		bindMovingEntityFactory(factory)
+		new DelegateClosure(to: factory).call(commands)
+		group.members.add(factory.movingEntity)
+		group.shouldUpdate = true
+		return factory.movingEntity
 	}
 
 	private BehavingEntity callBehavingFactroy(BehavingEntityFactory factory, Closure commands){
 		factory.clickTracker = clickTracker
-		factory.group = group
-		factory.assetManager = assetManager
-		factory.random = random
-		factory.setToDefault()
+		bindMovingEntityFactory(factory)
 
 		new DelegateClosure(to:factory).call(commands)
 
 		group.members.add(factory.movingEntity)
 
 		return factory.behavingEntity
+	}
+	private void bindMovingEntityFactory(AMovingEntityFactory factory){
+		factory.group = group
+		factory.assetManager = assetManager
+		factory.random = random
+		factory.setToDefault()
 	}
 	@Override
 	protected AHasNode getAHasNode() {

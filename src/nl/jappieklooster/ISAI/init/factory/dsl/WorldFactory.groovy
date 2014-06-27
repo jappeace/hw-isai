@@ -47,10 +47,6 @@ class WorldFactory extends AHasNodeFactory{
 	 * circumvents the problem
 	 */
 	private EnvironmentFactory environmentFactory
-	/**
-	 * allows levelloader check if default lighting is necisary
-	 */
-	boolean lightAttached = false
 	
 	/**
 	 * randomness is shared amongst all children
@@ -87,10 +83,18 @@ class WorldFactory extends AHasNodeFactory{
 	}
 
 	void light(Closure commands){
-		lightAttached = true
 		LightFactory lightFactory = new LightFactory()
 		new DelegateClosure(to:lightFactory).call(commands)
 		world.node.addLight(lightFactory.light)
+	}
+	
+	void weapons(Closure commands){
+		GroupFactory groupFactory = createGroupFactory()
+		groupFactory.game = game
+		WeaponFactory factory = new WeaponFactory(groupFactory, world.environment)
+		new DelegateClosure(to:factory).call(commands)
+		world.node.attachChild(groupFactory.group.node)
+		integrateChildFactory(groupFactory)
 	}
 
 	@Override
@@ -100,7 +104,7 @@ class WorldFactory extends AHasNodeFactory{
 
 	@Override
 	protected AHasNodeFactory createChildFactory() {
-		return bindGroupFactory(new GroupFactory(threadPool))
+		return createGroupFactory()
 	}
 
 	@Override
@@ -109,7 +113,8 @@ class WorldFactory extends AHasNodeFactory{
 		world.actors.add(child.AHasNode)
 	}
 
-	private GroupFactory bindGroupFactory(GroupFactory factory){
+	private GroupFactory createGroupFactory(){
+		GroupFactory factory = new GroupFactory(threadPool)
 		factory.environment = environmentFactory.environment
 		factory.clickTracker = clickTracker
 		factory.random = random

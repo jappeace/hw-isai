@@ -1,4 +1,4 @@
-package nl.jappieklooster.ISAI.init.factory.dsl
+package nl.jappieklooster.ISAI.init.factory.dsl.group
 
 import com.jme3.asset.AssetManager
 import com.jme3.material.Material
@@ -12,6 +12,7 @@ import com.jme3.texture.Texture
 import nl.jappieklooster.ISAI.init.DelegateClosure;
 import nl.jappieklooster.ISAI.init.factory.dsl.AEntityFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.AMaterialFactory;
+import nl.jappieklooster.ISAI.init.factory.dsl.AMovingEntityFactory
 import nl.jappieklooster.ISAI.world.AHasNode;
 import nl.jappieklooster.ISAI.world.Group
 import nl.jappieklooster.ISAI.world.World;
@@ -22,36 +23,11 @@ import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
 
-abstract class AMovingEntityFactory extends AEntityFactory{
+class MovingEntityFactory extends AMovingEntityFactory{
 
-	AHasNode group
-	Random random
+	MovingEntity movingEntity
 
-	@Override
-	void setToDefault(){
-		super.setToDefault()
-		movingEntity.random = random
+	MovingEntityFactory(){
+		movingEntity = new MovingEntity()
 	}
-	
-	void friction(float to){
-		movingEntity.friction = to
-	}
-	
-	void mass(float mass){
-		movingEntity.mass = mass
-	}
-	
-	void heading(Vector3 to){
-		movingEntity.heading = to.normalized
-	}
-	@Override
-	Entity getEntity() {
-		return movingEntity;
-	}
-	@Override
-	AHasNode getNodeContainer() {
-		return group;
-	}
-
-	abstract MovingEntity getMovingEntity() 
 }
