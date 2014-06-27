@@ -2,6 +2,7 @@ package nl.jappieklooster.ISAI.world.entity
 
 import nl.jappieklooster.ISAI.behaviour.IBehaviour;
 import nl.jappieklooster.ISAI.behaviour.state.StateMachine;
+import nl.jappieklooster.ISAI.collection.ICollectionEditor
 import nl.jappieklooster.math.vector.Converter;
 import nl.jappieklooster.math.vector.Vector3
 
@@ -18,7 +19,7 @@ class BehavingEntity extends MovingEntity{
 	 * in the behaviours loop you can add changes to this list.
 	 * and all items in this list will receive the behaviours to change them
 	 */
-	List<IBehaviourEditor> behaviourChanges
+	List<ICollectionEditor<IBehaviour>> behaviourChanges
 	BehavingEntity(){
 		super()
 		behaviours = new LinkedList<>()

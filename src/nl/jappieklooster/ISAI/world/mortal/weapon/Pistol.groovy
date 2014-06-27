@@ -13,13 +13,9 @@ import nl.jappieklooster.math.vector.Vector3
 class Pistol extends AWeapon implements IWeapon{
 	
 	/**
-	 * the object resp
+	 * to avoid nameclases with a closure owner, prepended with pistol
 	 */
 	IPositionable pistolOwner
-	/**
-	 * a acuracy of one will always shoot in a straight line
-	 */
-	float acuracy = 1
 	
 	private static final float force = 10000
 

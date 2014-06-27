@@ -4,10 +4,11 @@ import com.jme3.scene.Spatial;
 
 import nl.jappieklooster.ISAI.behaviour.IBehaviour
 import nl.jappieklooster.ISAI.behaviour.ICompletable
-import nl.jappieklooster.ISAI.behaviour.change.AddBehaviour
+import nl.jappieklooster.ISAI.collection.AddToCollection
 import nl.jappieklooster.ISAI.collection.graph.Graph
 import nl.jappieklooster.ISAI.init.factory.path.PathFindFactory
 import nl.jappieklooster.ISAI.world.entity.BehavingEntity
+import nl.jappieklooster.ISAI.world.mortal.IMortal
 import nl.jappieklooster.ISAI.world.mortal.IWeapon
 import nl.jappieklooster.math.vector.Vector3;
 
@@ -16,7 +17,7 @@ import nl.jappieklooster.math.vector.Vector3;
  * @author jappie
  *
  */
-class Character implements ICompletable, IPositionable{
+class Character implements ICompletable, IPositionable, IMortal{
 
 	BehavingEntity body
 	private PathFindFactory pathfinder
@@ -35,7 +36,7 @@ class Character implements ICompletable, IPositionable{
 
 	void move(Vector3 to) {
 		currentTask = pathfinder.planPath(body, to)
-		body.behaviourChanges.add(new AddBehaviour(currentTask))
+		body.behaviourChanges.add(new AddToCollection<IBehaviour>(currentTask))
 
 	}
 
@@ -48,7 +49,13 @@ class Character implements ICompletable, IPositionable{
 	}
 
 	@Override
-	public Vector3 getPosition() {
+	Vector3 getPosition() {
 		return body.position
+	}
+	void setHealth(float to){
+		
+	}
+	Spatial getBody(){
+		return getSpatial()
 	}
 }

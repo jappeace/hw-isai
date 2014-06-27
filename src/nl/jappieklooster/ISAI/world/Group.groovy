@@ -3,6 +3,7 @@ import com.jme3.math.Vector3f
 import com.jme3.scene.Node
 import com.jme3.scene.shape.Sphere;
 
+import nl.jappieklooster.ISAI.collection.ICollectionEditor
 import nl.jappieklooster.ISAI.world.entity.Entity;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
@@ -16,6 +17,7 @@ import nl.jappieklooster.math.vector.Converter
  */
 class Group extends AHasNode implements IGroupItem{
 	
+	List<ICollectionEditor<IGroupItem>> memberChanges
 	/**
 	 * stuff in the world that receves update notifactions
 	 */
@@ -37,6 +39,7 @@ class Group extends AHasNode implements IGroupItem{
 		// they are the better choice for storing stuff
 		members = new LinkedList<>()
 		listeners = new LinkedList<>()
+		memberChanges = new LinkedList<>()
 	}
 	
 	/**
@@ -46,6 +49,7 @@ class Group extends AHasNode implements IGroupItem{
 		super()
 		members = new LinkedList<>(source.members)
 		listeners = new LinkedList<>(source.listeners)
+		memberChanges = new LinkedList<>(source.memberChanges)
 		shouldUpdate = source.shouldUpdate
 		node = source.node.clone(false)
 	}
@@ -57,6 +61,10 @@ class Group extends AHasNode implements IGroupItem{
 		listeners.each{
 			it.update(tpf)
 		}
+		memberChanges.each{
+			it.edit(members)
+		}
+		memberChanges.clear()
 		members.each{
 			it.update(tpf)
 		}

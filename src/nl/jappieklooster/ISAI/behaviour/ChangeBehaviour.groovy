@@ -1,11 +1,8 @@
-package nl.jappieklooster.ISAI.behaviour.change
+package nl.jappieklooster.ISAI.behaviour
 
-import nl.jappieklooster.ISAI.behaviour.AbstractBehaviour
-import nl.jappieklooster.ISAI.behaviour.IBehaviour
-import nl.jappieklooster.ISAI.behaviour.ICompletableBehaviour
 import nl.jappieklooster.ISAI.world.entity.BehavingEntity
-import nl.jappieklooster.ISAI.world.entity.IBehaviourEditor
-
+import nl.jappieklooster.ISAI.collection.ICollectionEditor
+import nl.jappieklooster.ISAI.collection.RemoveFromCollection
 /**
  * a behaviour that lets an vehicle know that target's behaviour should be modified
  * 
@@ -29,9 +26,9 @@ class ChangeBehaviour extends AbstractBehaviour implements ICompletableBehaviour
 	/**
 	 * the change that will be applied
 	 */
-	IBehaviourEditor change
+	ICollectionEditor<IBehaviour> change
 	
-	ChangeBehaviour(BehavingEntity listener, IBehaviourEditor target){
+	ChangeBehaviour(BehavingEntity listener, ICollectionEditor<IBehaviour> target){
 		this.listener = listener
 		this.change = target
 	}
@@ -40,7 +37,7 @@ class ChangeBehaviour extends AbstractBehaviour implements ICompletableBehaviour
 	public void execute() {
 		listener.behaviourChanges.add(change)
 		if(listener.behaviours.contains(this)){
-			listener.behaviourChanges.add(new RemoveBehaviour(this))
+			listener.behaviourChanges.add(new RemoveFromCollection<IBehaviour>(this))
 		}
 		isDone = true
 	}

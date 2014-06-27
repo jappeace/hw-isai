@@ -1,9 +1,10 @@
 package nl.jappieklooster.ISAI.init.factory.path
 
 import nl.jappieklooster.ISAI.behaviour.BehaviourScheduler
-import nl.jappieklooster.ISAI.behaviour.change.ChangeBehaviour
-import nl.jappieklooster.ISAI.behaviour.change.RemoveBehaviour
+import nl.jappieklooster.ISAI.behaviour.ChangeBehaviour;
+import nl.jappieklooster.ISAI.behaviour.IBehaviour
 import nl.jappieklooster.ISAI.behaviour.steer.Seek
+import nl.jappieklooster.ISAI.collection.RemoveFromCollection
 import nl.jappieklooster.ISAI.collection.graph.Graph
 import nl.jappieklooster.ISAI.collection.graph.Vertex
 import nl.jappieklooster.ISAI.collection.oct.OctTree
@@ -42,7 +43,7 @@ class PathFindFactory {
 		
 		result.add(new Seek(entity: forVehicle, toPosition:{to}))
 		
-		result.add(new ChangeBehaviour(forVehicle, new RemoveBehaviour(result)))
+		result.add(new ChangeBehaviour(forVehicle, new RemoveFromCollection<IBehaviour>(result)))
 		
 		return result
 	}

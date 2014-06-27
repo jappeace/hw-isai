@@ -21,6 +21,9 @@ class AmmoFactory {
 		Bullet result = new Bullet()
 		result.body = groupFactory.projectile commands
 
+		Group group = groupFactory.group
+		group.members.remove(result.body)
+		group.members.add(result)
 		result.environment = environment
 		return result
 	}
