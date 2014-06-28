@@ -22,6 +22,7 @@ class Character implements ICompletable, IPositionable, IMortal{
 	BehavingEntity body
 	private PathFindFactory pathfinder
 	private ICompletable currentTask
+	float health
 	
 	IWeapon primary
 	Character(Graph graph){
@@ -54,6 +55,8 @@ class Character implements ICompletable, IPositionable, IMortal{
 	}
 	void setHealth(float to){
 		
+		health = to
+		println "new health = " + to
 	}
 	Spatial getBody(){
 		return getSpatial()

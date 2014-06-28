@@ -4,8 +4,8 @@ import com.jme3.asset.AssetManager
 
 import java.util.concurrent.ScheduledThreadPoolExecutor
 
+import nl.jappieklooster.DelegateClosure;
 import nl.jappieklooster.ISAI.Game
-import nl.jappieklooster.ISAI.init.DelegateClosure;
 import nl.jappieklooster.ISAI.init.factory.dsl.AHasNodeFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.AMovingEntityFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.ASpatialFactory;

@@ -2,8 +2,9 @@ package nl.jappieklooster.ISAI.init.factory.dsl
 
 import com.jme3.asset.AssetManager
 import com.jme3.scene.Spatial;
+
+import nl.jappieklooster.DelegateClosure;
 import nl.jappieklooster.ISAI.Game
-import nl.jappieklooster.ISAI.init.DelegateClosure
 import nl.jappieklooster.ISAI.init.factory.dsl.env.ObstacleFactory
 import nl.jappieklooster.ISAI.world.AHasNode
 import nl.jappieklooster.ISAI.world.entity.Entity

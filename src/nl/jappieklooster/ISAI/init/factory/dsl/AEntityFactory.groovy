@@ -9,8 +9,8 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box
 import com.jme3.texture.Texture
 
+import nl.jappieklooster.DelegateClosure;
 import nl.jappieklooster.ISAI.behaviour.text.TextWriter
-import nl.jappieklooster.ISAI.init.DelegateClosure;
 import nl.jappieklooster.ISAI.init.factory.dsl.AMaterialFactory;
 import nl.jappieklooster.ISAI.world.AHasNode
 import nl.jappieklooster.ISAI.world.Group
@@ -20,6 +20,7 @@ import nl.jappieklooster.ISAI.world.entity.BehavingEntity;
 import nl.jappieklooster.ISAI.world.entity.tracking.NeighbourTracker;
 import nl.jappieklooster.math.vector.Vector3
 import nl.jappieklooster.math.vector.Converter
+
 import com.jme3.math.ColorRGBA;
 /**
  * specifies what a default entity should look like and also gives acces to the dsl to change those defaults

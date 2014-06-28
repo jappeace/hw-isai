@@ -1,8 +1,8 @@
 package nl.jappieklooster.ISAI.init.factory.dsl.group
 
+import nl.jappieklooster.DelegateClosure;
 import nl.jappieklooster.ISAI.behaviour.state.IState
 import nl.jappieklooster.ISAI.behaviour.state.StateMachine
-import nl.jappieklooster.ISAI.init.DelegateClosure
 import groovy.util.logging.*
 /**
  * the state machine allows users to change the state and acces the entity to attach behaviours to on runtime

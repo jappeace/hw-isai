@@ -9,9 +9,9 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box
 import com.jme3.texture.Texture
 
+import nl.jappieklooster.DelegateClosure;
 import nl.jappieklooster.ISAI.behaviour.state.StateMachine
 import nl.jappieklooster.ISAI.behaviour.text.TextWriter
-import nl.jappieklooster.ISAI.init.DelegateClosure;
 import nl.jappieklooster.ISAI.init.factory.dsl.AEntityFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.AMaterialFactory;
 import nl.jappieklooster.ISAI.init.factory.dsl.AMovingEntityFactory

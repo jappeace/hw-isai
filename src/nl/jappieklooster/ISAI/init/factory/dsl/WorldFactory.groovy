@@ -4,9 +4,9 @@ import com.jme3.asset.AssetManager
 
 import java.util.concurrent.ScheduledThreadPoolExecutor
 
+import nl.jappieklooster.DelegateClosure;
 import nl.jappieklooster.ISAI.Game
 import nl.jappieklooster.ISAI.TaskSynchronizer;
-import nl.jappieklooster.ISAI.init.DelegateClosure;
 import nl.jappieklooster.ISAI.init.factory.dsl.env.EnvironmentFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.env.LightFactory
 import nl.jappieklooster.ISAI.init.factory.dsl.group.GroupFactory;
@@ -23,7 +23,6 @@ import nl.jappieklooster.math.vector.Converter
 
 import com.jme3.scene.Spatial;
 import com.jme3.terrain.geomipmap.TerrainQuad
-
 import com.jme3.math.ColorRGBA
 
 /**

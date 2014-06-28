@@ -1,4 +1,6 @@
 package nl.jappieklooster.ISAI.world.mortal.attack
+import com.jme3.bounding.BoundingSphere
+import com.jme3.bounding.BoundingVolume
 import com.jme3.collision.CollisionResults
 import com.jme3.scene.Spatial
 import nl.jappieklooster.ISAI.world.Environment
@@ -32,6 +34,10 @@ abstract class AAttack implements IAttack {
 	IHasNode environment = null
 	
 	
+	@Override
+	Vector3 getPosition(){
+		return body.position
+	}
 	/**
 	 * determins if the attack is colliding with the target team
 	 * @return
@@ -46,14 +52,20 @@ abstract class AAttack implements IAttack {
 		}
 		CollisionResults collisions = new CollisionResults()
 		
+		BoundingVolume volume = new BoundingSphere()
+		body.node.setModelBound(volume)
+		body.node.updateModelBound()
 		for(IMortal mortal : target.members){
-            body.node.collideWith(mortal.body, collisions)
+
+			mortal.body.collideWith(volume, collisions)
+
 			if(collisions.size() > 0){
 				return mortal
 			}
 		}
 		
-		body.node.collideWith(environment.node, collisions)
+		environment.node.collideWith(volume,collisions)
+
 		if(collisions.size() > 0){
 			return new IMortal(){
 				Vector3 getPosition(){
