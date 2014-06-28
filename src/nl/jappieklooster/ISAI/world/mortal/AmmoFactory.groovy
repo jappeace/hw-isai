@@ -13,15 +13,27 @@ import nl.jappieklooster.math.vector.Vector3
  */
 class AmmoFactory {
 
-	IHasNode environment
+	private IHasNode environment
 	
-	GroupFactory groupFactory
+	private GroupFactory groupFactory
 
+	private AttackCleaner attackCleaner
+	
+	AmmoFactory(GroupFactory factory, IHasNode env){
+		groupFactory = factory
+		environment = env
+		attackCleaner = new AttackCleaner()
+		attackCleaner.ammoGroup = factory.group
+		factory.group.listeners.add(attackCleaner)
+		
+	}
 	Bullet createBullet(Closure commands){
 		Bullet result = new Bullet()
 		result.body = groupFactory.projectile commands
 
 		Group group = groupFactory.group
+		group.shouldUpdate = true
+
 
 		// replace the added body with the result
 		// use index based remove for speed (linkedlist implementation will start from the behind if index is bigger then half,
@@ -29,6 +41,7 @@ class AmmoFactory {
 		group.members.remove(group.members.size() - 1)
 		group.members.add(result)
 
+		attackCleaner.attacks.add(result)
 		result.environment = environment
 		return result
 	}

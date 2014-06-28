@@ -83,4 +83,8 @@ abstract class AAttack implements IAttack {
 		return null
 	}
 	
+	@Override
+	public Spatial getSpatial() {
+		return body.spatial
+	}
 }

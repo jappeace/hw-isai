@@ -1,11 +1,13 @@
 package nl.jappieklooster.ISAI.world.mortal.attack
 
+import com.jme3.scene.Spatial;
+
 import nl.jappieklooster.ISAI.world.mortal.IMortal
 import nl.jappieklooster.math.vector.Vector3
 
 class Bullet extends AAttack{
 	float damage = 100
-	float decay = 0.1
+	float decay = 5
 	private boolean hasHit = false
 
 	@Override
@@ -20,6 +22,10 @@ class Bullet extends AAttack{
 		}
 		damage -= decay * tpf
 		
+		if(damage < 0){
+			hasHit = true
+			return
+		}
 		body.update(tpf)
 		IMortal victim = findCollidingMortal()
 		
@@ -31,5 +37,7 @@ class Bullet extends AAttack{
 		hasHit = true
 		
 	}
+
+
 
 }

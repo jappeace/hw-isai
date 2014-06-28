@@ -1,6 +1,7 @@
 package nl.jappieklooster.ISAI.world
 import com.jme3.math.Vector3f
 import com.jme3.scene.Node
+import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Sphere;
 
 import nl.jappieklooster.ISAI.collection.ICollectionEditor
@@ -84,6 +85,11 @@ class Group extends AHasNode implements IGroupItem{
 	@Override
 	int hashCode(){
 		(node.hashCode() + members.hashCode() * 3 + 48 * name.hashCode()).hashCode()
+	}
+
+	@Override
+	public Spatial getSpatial() {
+		return node
 	}
 
 }

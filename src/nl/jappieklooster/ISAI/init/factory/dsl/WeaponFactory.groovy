@@ -11,16 +11,37 @@ import nl.jappieklooster.ISAI.world.mortal.weapon.Pistol
 
 class WeaponFactory {
 
-	private AmmoFactory ammoFactory
+	/**
+	 * the group factory containing the ammo group
+	 * 
+	 * the ammo group consist of groups
+	 * these sub groups hold the attacks of the different weapons.
+	 * 
+	 * this is an optimzation in that deleting no longer relevant ammo can be done faster
+	 * because the memberslists are smaller
+	 */
+	private GroupFactory groupFactory
+	private Environment environment
 	Team targetTeam
-	WeaponFactory(GroupFactory ammoGroupFactory, Environment environment){
-		ammoFactory = new AmmoFactory()
-		ammoFactory.groupFactory = ammoGroupFactory
-		ammoFactory.environment = environment
+	WeaponFactory(GroupFactory ammoGroupFactory, Environment env){
+		groupFactory = ammoGroupFactory
+		environment = env
 	}
 	
 	IWeapon pistol(IPositionable owner){
-		return new Pistol(ammoFactory: ammoFactory, targetTeam:targetTeam, pistolOwner:owner)
+		
+		GroupFactory subGroupFactory = new GroupFactory(groupFactory)
+		groupFactory.group.shouldUpdate = true
+		subGroupFactory.group = groupFactory.group{
+			name "ammo group"
+		}
+		subGroupFactory.group.listeners.clear()
+
+		return new Pistol(
+			ammoFactory: new AmmoFactory(subGroupFactory, environment), 
+			targetTeam:targetTeam, 
+			pistolOwner:owner
+        )
 	}
 }
 
