@@ -22,8 +22,13 @@ class AmmoFactory {
 		result.body = groupFactory.projectile commands
 
 		Group group = groupFactory.group
-		group.members.remove(result.body)
+
+		// replace the added body with the result
+		// use index based remove for speed (linkedlist implementation will start from the behind if index is bigger then half,
+		// so it will find it directly)
+		group.members.remove(group.members.size() - 1)
 		group.members.add(result)
+
 		result.environment = environment
 		return result
 	}

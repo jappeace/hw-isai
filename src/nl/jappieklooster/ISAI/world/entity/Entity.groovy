@@ -21,6 +21,7 @@ class Entity implements IPositionable, IHasNode{
 		localSpace = new Node("Local entity space")
 	}
 	
+	@Override
 	Vector3 getPosition(){
 		return Converter.fromJME(localSpace.getWorldTranslation())
 	}
@@ -34,6 +35,7 @@ class Entity implements IPositionable, IHasNode{
 		return localSpace
 	}
 	
+	@Override
 	Node getNode(){
 		return localSpace
 	}

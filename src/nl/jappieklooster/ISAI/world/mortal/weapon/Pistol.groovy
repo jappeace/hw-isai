@@ -17,7 +17,7 @@ class Pistol extends AWeapon implements IWeapon{
 	 */
 	IPositionable pistolOwner
 	
-	private static final float force = 10000
+	private static final float force = 100000
 
 	@Override
 	public IAttack createAttack(IPositionable target) {
