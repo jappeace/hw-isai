@@ -260,4 +260,5 @@ class Vector3 implements IVector3{
 			z = input.z
 		}
 	}
+	
 }

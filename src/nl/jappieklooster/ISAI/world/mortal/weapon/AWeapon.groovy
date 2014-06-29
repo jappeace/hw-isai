@@ -16,6 +16,11 @@ abstract class AWeapon implements IWeapon{
 	Team targetTeam
 	
 	/**
+	 * to avoid nameclases with a closure owner, prepended with pistol
+	 */
+	IPositionable weaponOwner
+
+	/**
 	 * in seconds the reload time
 	 */
 	protected float reloadTime

@@ -12,21 +12,17 @@ import nl.jappieklooster.math.vector.Vector3
 
 class Pistol extends AWeapon implements IWeapon{
 	
-	/**
-	 * to avoid nameclases with a closure owner, prepended with pistol
-	 */
-	IPositionable pistolOwner
 	
 	private static final float force = 4000
 
 	@Override
 	protected IAttack createAttack(IPositionable target) {
 		Bullet result = ammoFactory.createBullet{
-			location pistolOwner.position
+			location weaponOwner.position
 			scale 0.3f
 		}
 		
-		Vector3 direction = (target.position - pistolOwner.position).normalized
+		Vector3 direction = (target.position - weaponOwner.position).normalized
 
 		result.body.position
 		result.body.force = direction * new Vector3(force)
