@@ -1,9 +1,13 @@
 package nl.jappieklooster.ISAI.world.entity
 
+import com.jme3.bounding.BoundingVolume
 import com.jme3.material.Material
 import com.jme3.scene.Geometry
 import com.jme3.scene.Mesh
 import com.jme3.scene.Spatial
+import com.jme3.collision.Collidable;
+import com.jme3.collision.CollisionResults;
+import com.jme3.collision.UnsupportedCollisionException;
 
 import nl.jappieklooster.ISAI.world.IPositionable;
 import nl.jappieklooster.math.vector.*
@@ -12,7 +16,7 @@ import com.jme3.scene.Node
 
 import nl.jappieklooster.ISAI.world.IHasNode
 
-class Entity implements IPositionable, IHasNode{
+class Entity implements IPositionable, IHasNode, Collidable{
 
 	Geometry geometry
 	private Node localSpace
@@ -26,7 +30,6 @@ class Entity implements IPositionable, IHasNode{
 		return Converter.fromJME(localSpace.getWorldTranslation())
 	}
 	
-
 	@Override
 	Spatial getSpatial(){
 		// returning the node instead of geometry is intentional
@@ -105,5 +108,10 @@ class Entity implements IPositionable, IHasNode{
 	@Override
 	void move(Vector3 to) {
 		spatial.move(Converter.toJME(to))
+	}
+
+	@Override
+	int collideWith(Collidable other, CollisionResults results) throws UnsupportedCollisionException {
+		return other.collideWith(localSpace.getWorldBound(), results)
 	}
 }

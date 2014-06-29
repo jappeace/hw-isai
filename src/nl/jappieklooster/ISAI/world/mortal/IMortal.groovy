@@ -1,6 +1,7 @@
 package nl.jappieklooster.ISAI.world.mortal
 
 import com.jme3.scene.Spatial
+import nl.jappieklooster.ISAI.world.IHasSpatial
 import nl.jappieklooster.ISAI.world.IPositionable
 
 /**
@@ -9,7 +10,6 @@ import nl.jappieklooster.ISAI.world.IPositionable
  * @author jappie
  *
  */
-interface IMortal extends IPositionable{
+interface IMortal extends IPositionable, IHasSpatial{
 	void setHealth(float to)
-	Spatial getBody()
 }

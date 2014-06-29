@@ -52,19 +52,16 @@ abstract class AAttack implements IAttack {
 		}
 		CollisionResults collisions = new CollisionResults()
 		
-		BoundingVolume volume = new BoundingSphere()
-		body.node.setModelBound(volume)
-		body.node.updateModelBound()
 		for(IMortal mortal : target.members){
 
-			mortal.body.collideWith(volume, collisions)
+			body.collideWith(mortal.spatial, collisions)
 
 			if(collisions.size() > 0){
 				return mortal
 			}
 		}
 		
-		environment.node.collideWith(volume,collisions)
+		body.collideWith(environment.node,collisions)
 
 		if(collisions.size() > 0){
 			return new IMortal(){
@@ -74,7 +71,7 @@ abstract class AAttack implements IAttack {
 				void setHealth(float to){
 					// don't kill the environment
 				}
-				Spatial getBody(){
+				Spatial getSpatial(){
 					return environment.node
 				}
 			}

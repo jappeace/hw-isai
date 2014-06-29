@@ -17,7 +17,7 @@ import nl.jappieklooster.math.vector.Vector3;
  * @author jappie
  *
  */
-class Character implements ICompletable, IPositionable, IMortal{
+class Character implements ICompletable, IMortal, IGroupItem{
 
 	BehavingEntity body
 	private PathFindFactory pathfinder
@@ -38,7 +38,6 @@ class Character implements ICompletable, IPositionable, IMortal{
 	void move(Vector3 to) {
 		currentTask = pathfinder.planPath(body, to)
 		body.behaviourChanges.add(new AddToCollection<IBehaviour>(currentTask))
-
 	}
 
 	@Override
@@ -53,12 +52,15 @@ class Character implements ICompletable, IPositionable, IMortal{
 	Vector3 getPosition() {
 		return body.position
 	}
+
 	void setHealth(float to){
-		
 		health = to
 		println "new health = " + to
 	}
-	Spatial getBody(){
-		return getSpatial()
+
+	@Override
+	public void update(float tpf) {
+		body.update(tpf)
+		primary.update(tpf)
 	}
 }

@@ -17,12 +17,13 @@ class Pistol extends AWeapon implements IWeapon{
 	 */
 	IPositionable pistolOwner
 	
-	private static final float force = 3000
+	private static final float force = 4000
 
 	@Override
-	public IAttack createAttack(IPositionable target) {
+	protected IAttack createAttack(IPositionable target) {
 		Bullet result = ammoFactory.createBullet{
 			location pistolOwner.position
+			scale 0.3f
 		}
 		
 		Vector3 direction = (target.position - pistolOwner.position).normalized

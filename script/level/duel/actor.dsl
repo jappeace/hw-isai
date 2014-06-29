@@ -76,7 +76,7 @@ group {
                         person?.move(new Vector3(100, 0, 20))
                     }
                     execute{StateMachine stateMachine ->
-						person.primary.createAttack(teams[number % 2].findClosest(person))
+						person.primary.attack(teams[number % 2].findClosest(person))
                         if(person.isDone()){
                             stateMachine.changeState "farming"
                         }

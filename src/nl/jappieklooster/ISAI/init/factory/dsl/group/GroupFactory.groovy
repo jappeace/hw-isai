@@ -76,7 +76,9 @@ class GroupFactory extends AHasNodeFactory{
 
 	/** create a new vehicle */
 	BehavingEntity vehicle(Closure commands){
-		return callBehavingFactroy(new BehavingEntityFactory(neighTracker), commands)
+		BehavingEntity result = callBehavingFactroy(new BehavingEntityFactory(neighTracker), commands)
+		group.members.add(result)
+		return result
 	}
 	
 	Character character(Closure commands){
@@ -85,6 +87,7 @@ class GroupFactory extends AHasNodeFactory{
 		BehavingEntityFactory factory = new BehavingEntityFactory(neighTracker)
 
 		result.body = callBehavingFactroy(factory, commands)
+		group.members.add(result)
 		return result
 	}
 	
@@ -108,7 +111,6 @@ class GroupFactory extends AHasNodeFactory{
 
 		new DelegateClosure(to:factory).call(commands)
 
-		group.members.add(factory.movingEntity)
 
 		return factory.behavingEntity
 	}
