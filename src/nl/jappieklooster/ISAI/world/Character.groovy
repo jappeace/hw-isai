@@ -24,7 +24,8 @@ class Character implements ICompletable, IMortal, IGroupItem{
 	private ICompletable currentTask
 	float health
 	
-	IWeapon primary
+	IWeapon shotgun
+	IWeapon pistol
 	Character(Graph graph){
 		currentTask = null
 		body = null
@@ -61,6 +62,7 @@ class Character implements ICompletable, IMortal, IGroupItem{
 	@Override
 	public void update(float tpf) {
 		body.update(tpf)
-		primary.update(tpf)
+		pistol.update(tpf)
+		shotgun.update(tpf)
 	}
 }
