@@ -41,8 +41,8 @@ abstract class AMovingEntityFactory extends AEntityFactory{
 		movingEntity.mass = mass
 	}
 	
-	void heading(Vector3 to){
-		movingEntity.heading = to.normalized
+	void force(Vector3 initialForce){
+		movingEntity.force = initialForce
 	}
 	@Override
 	Entity getEntity() {

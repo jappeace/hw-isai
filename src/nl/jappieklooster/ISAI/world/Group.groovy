@@ -18,6 +18,10 @@ import nl.jappieklooster.math.vector.Converter
  */
 class Group extends AHasNode implements IGroupItem{
 	
+	/**
+	 * applies forces to this group
+	 */
+	private SpatialForceAplier forces
 	List<ICollectionEditor<IGroupItem>> memberChanges
 	/**
 	 * stuff in the world that receves update notifactions
@@ -43,17 +47,6 @@ class Group extends AHasNode implements IGroupItem{
 		memberChanges = new LinkedList<>()
 	}
 	
-	/**
-	 * copy constructor
-	 */
-	Group(Group source){
-		super()
-		members = new LinkedList<>(source.members)
-		listeners = new LinkedList<>(source.listeners)
-		memberChanges = new LinkedList<>(source.memberChanges)
-		shouldUpdate = source.shouldUpdate
-		node = source.node.clone(false)
-	}
 
 	void update(float tpf){
 		if(!shouldUpdate){

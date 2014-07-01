@@ -39,7 +39,7 @@ class WeaponFactory {
 		return new Pistol(
 			ammoFactory: new AmmoFactory(subGroupFactory, environment), 
 			targetTeam:targetTeam, 
-			pistolOwner:owner
+			weaponOwner:owner
         )
 	}
 }

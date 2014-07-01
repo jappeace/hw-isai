@@ -37,7 +37,6 @@ class BehavingEntityFactory extends AMovingEntityFactory{
 		neighTracker = tracker
 
 		behavingEntity = new BehavingEntity()
-		behavingEntity.velocity = new Vector3()
 	}
 	void behaviour(Closure commands){
 		group.shouldUpdate = true
