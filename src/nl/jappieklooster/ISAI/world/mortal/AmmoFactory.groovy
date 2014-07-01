@@ -68,7 +68,9 @@ class AmmoFactory {
 		AttackCollection result = new AttackCollection(childFactory.group)
 		
 		(0..amount).each{
-			result.add(childFactory.createBullet(commands))
+			Bullet grain = childFactory.createBullet(commands)
+			grain.decay *= 10 // faster decay
+			result.add(grain)
 		}
 		group.attach(result)
 		updateCleaner(result)

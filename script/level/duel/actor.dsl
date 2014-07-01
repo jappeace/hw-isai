@@ -29,7 +29,7 @@ group {
                     name="moveUp"
                     enter{
                         println "going home"
-                        person?.move(new Vector3(100*number, 0, 0))
+                        person?.move(new Vector3(100, 0, 10*number))
                     }
 
                     execute{StateMachine stateMachine ->
@@ -43,7 +43,7 @@ group {
                     name="moveDown"
                     enter{
                         println "going to work, while shooting at: " + teams[number % 2].findClosest(person).position
-                        person?.move(new Vector3(100 * (number-1), 0, 0))
+                        person?.move(new Vector3(-100, 0, 10*number))
                     }
                     execute{StateMachine stateMachine ->
 						person.primary.attack(teams[number % 2].findClosest(person))
