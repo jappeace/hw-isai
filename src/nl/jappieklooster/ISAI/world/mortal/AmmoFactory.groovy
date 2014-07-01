@@ -28,7 +28,7 @@ class AmmoFactory {
 	
 	AmmoFactory(AmmoFactory src){
 		groupFactory = new GroupFactory(src.groupFactory)
-		environment = src.env
+		environment = src.environment
 		init()
 	}
 	
@@ -62,13 +62,15 @@ class AmmoFactory {
 	
 	AttackCollection createHail(int amount, Closure commands){
 		AmmoFactory childFactory = new AmmoFactory(this)
-		group.attach(childFactory.group)
+		group.shouldUpdate = true
+		childFactory.group.shouldUpdate = true
 		
 		AttackCollection result = new AttackCollection(childFactory.group)
 		
-		[0..amount].each{
+		(0..amount).each{
 			result.add(childFactory.createBullet(commands))
 		}
+		group.attach(result)
 		updateCleaner(result)
 		return result
 	}

@@ -45,10 +45,13 @@ class Group extends AHasNode implements IGroupItem{
 		members = new LinkedList<>()
 		listeners = new LinkedList<>()
 		memberChanges = new LinkedList<>()
+		forces = new SpatialForceAplier(this)
 	}
 	
 
 	void update(float tpf){
+		forces.update(tpf)
+
 		if(!shouldUpdate){
 			return
 		}
@@ -94,4 +97,7 @@ class Group extends AHasNode implements IGroupItem{
 		node.attachChild(item.spatial)
 	}
 
+	void setForce(Vector3 to){
+		forces.force = to
+	}
 }

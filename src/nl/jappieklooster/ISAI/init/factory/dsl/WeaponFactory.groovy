@@ -8,6 +8,7 @@ import nl.jappieklooster.ISAI.world.mortal.AmmoFactory
 import nl.jappieklooster.ISAI.world.mortal.IWeapon
 import nl.jappieklooster.ISAI.world.mortal.Team
 import nl.jappieklooster.ISAI.world.mortal.weapon.Pistol
+import nl.jappieklooster.ISAI.world.mortal.weapon.Shotgun
 
 class WeaponFactory {
 
@@ -29,18 +30,28 @@ class WeaponFactory {
 	}
 	
 	IWeapon pistol(IPositionable owner){
-		
+		return new Pistol(
+			ammoFactory: createAmmo(), 
+			targetTeam:targetTeam, 
+			weaponOwner:owner
+        )
+	}
+	
+	IWeapon shotgun(IPositionable owner){
+		return new Shotgun(
+			ammoFactory: createAmmo(), 
+			targetTeam:targetTeam, 
+			weaponOwner:owner
+		)
+	}
+	
+	private AmmoFactory createAmmo(){
 		GroupFactory subGroupFactory = new GroupFactory(groupFactory)
 		groupFactory.group.shouldUpdate = true
 		subGroupFactory.group = groupFactory.group{
 			name "ammo group"
 		}
-
-		return new Pistol(
-			ammoFactory: new AmmoFactory(subGroupFactory, environment), 
-			targetTeam:targetTeam, 
-			weaponOwner:owner
-        )
+		return new AmmoFactory(subGroupFactory, environment)
 	}
 }
 

@@ -10,7 +10,7 @@ import com.jme3.scene.shape.*
 Team[] teams = [new Team("red"), new Team("blue")]
 
 group {
-    (0..2).each { int number ->
+    (0..1).each { int number ->
         
         // declaring the variable here allows acces inside the states because scoping
         Character person = null
@@ -24,77 +24,41 @@ group {
             mass 0.01
 
             StateMachine machine = states{
-                float energy = 0
-
-                float rate = 0.1
-                state{
-                    float requiredEnergy = 0
-                    name="farming"
-                    enter{ println "I am farming"	 }
-                    execute{ StateMachine stateMachine ->
-
-                        if(energy < requiredEnergy){
-                            stateMachine.changeState "moveToHome"
-                            return
-                        }
-                        energy -= rate
-                    }
-                }
 
                 state{
-                    name="moveToHome"
+                    name="moveUp"
                     enter{
                         println "going home"
-                        person?.move(new Vector3(0, 0, 0))
+                        person?.move(new Vector3(100*number, 0, 0))
                     }
 
                     execute{StateMachine stateMachine ->
+						person.primary.attack(teams[number % 2].findClosest(person))
                         if(person.isDone()){
-                            stateMachine.changeState "resting"
+                            stateMachine.changeState "moveDown"
                         }
                     }
                 }
                 state{
-
-                    float enoughEnergy = 100
-                    name="resting"
-                    active = true
-                    enter{ println "I am resting" }
-
-                    execute{ StateMachine stateMachine ->
-                        if(energy > enoughEnergy){
-                            stateMachine.changeState "moveToFarm"
-                            return
-                        }
-                        energy += rate
-                    }
-                }
-                state{
-                    name="moveToFarm"
+                    name="moveDown"
                     enter{
                         println "going to work, while shooting at: " + teams[number % 2].findClosest(person).position
-                        person?.move(new Vector3(100, 0, 20))
+                        person?.move(new Vector3(100 * (number-1), 0, 0))
                     }
                     execute{StateMachine stateMachine ->
 						person.primary.attack(teams[number % 2].findClosest(person))
                         if(person.isDone()){
-                            stateMachine.changeState "farming"
+                            stateMachine.changeState "moveUp"
                         }
                     }
                 }
-            }
-
-            write{
-                text {machine.currentStateName}
-                scale 0.5f
-                location 2f, 5f, 0f
             }
         }
         teams[(number + 1) % 2].members.add(person)
 		
 		weapons{
 			targetTeam = teams[number%2]
-			person.primary = pistol(person)
+			person.primary =  shotgun(person) 
 		}
     }
 }

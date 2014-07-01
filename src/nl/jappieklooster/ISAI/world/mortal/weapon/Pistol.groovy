@@ -22,10 +22,8 @@ class Pistol extends AWeapon implements IWeapon{
 			scale 0.3f
 		}
 		
-		Vector3 direction = (target.position - weaponOwner.position).normalized
 
-		result.body.position
-		result.body.force = direction * new Vector3(force)
+		result.body.force = toDirection(target) * new Vector3(force)
 		result.target = targetTeam
 
 		return result;

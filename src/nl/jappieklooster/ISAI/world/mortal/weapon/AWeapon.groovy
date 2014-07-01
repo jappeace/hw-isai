@@ -46,4 +46,8 @@ abstract class AWeapon implements IWeapon{
 	void update(float tpf){
 		timeSinceLastAttack += tpf
 	}
+
+	Vector3 toDirection(IPositionable target){
+		 return (target.position - weaponOwner.position).normalized
+	}
 }

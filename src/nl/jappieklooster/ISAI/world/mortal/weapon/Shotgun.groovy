@@ -3,11 +3,12 @@ package nl.jappieklooster.ISAI.world.mortal.weapon
 import nl.jappieklooster.ISAI.world.IPositionable;
 import nl.jappieklooster.ISAI.world.mortal.IAttack;
 import nl.jappieklooster.ISAI.world.mortal.attack.AttackCollection
-import nl.jappieklooster.math.vector.Vector3
+import nl.jappieklooster.math.vector.*
 
 class Shotgun extends AWeapon{
 
 	private Random random
+	private static final float power = 2000
 	int maxGrainCount = 20
 	float maxGrainDirectionalForce = 100
 	Shotgun(){
@@ -21,9 +22,13 @@ class Shotgun extends AWeapon{
 				random.nextFloat() * maxGrainDirectionalForce, 
 				random.nextFloat() * maxGrainDirectionalForce
             )
-			location weaponOwner.position
-			scale 0.3f
+			scale 0.1f
 		}
+		
+		result.spatial.setLocalTranslation(Converter.toJME(weaponOwner.position))
+		result.force = toDirection(target) * new Vector3(power)
+		result.target = targetTeam
+		return result
 	}
 
 

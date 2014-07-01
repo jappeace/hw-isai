@@ -4,6 +4,7 @@ import com.jme3.scene.Spatial;
 
 import nl.jappieklooster.ISAI.world.Group
 import nl.jappieklooster.ISAI.world.mortal.IAttack
+import nl.jappieklooster.ISAI.world.mortal.Team
 import nl.jappieklooster.math.vector.Vector3;
 import nl.jappieklooster.ISAI.Util
 
@@ -29,11 +30,10 @@ class AttackCollection implements IAttack{
 	
 	void add(IAttack attack){
 		attacks.add(attack)
-		attackGroup.members.add(attack)
 	}
 
 	@Override
-	public boolean isDone() {
+	boolean isDone() {
 		for(IAttack attack : attacks){
 			if(!attack.isDone()){
 				return false
@@ -46,16 +46,28 @@ class AttackCollection implements IAttack{
 	 * update is done by group hierachy so we can just ignore it
 	 */
 	@Override
-	public void update(float tpf) {}
+	void update(float tpf) {
+		attackGroup.update(tpf)
+	}
 
 	@Override
-	public Vector3 getPosition() {
+	Vector3 getPosition() {
 		return attackGroup.position
 	}
 
+	void setForce(Vector3 to){
+		attackGroup.force = to
+	}
+
 	@Override
-	public Spatial getSpatial() {
+	Spatial getSpatial() {
 		return attackGroup.spatial
 	}
 
+	@Override
+	void setTarget(Team to){
+		attacks.each{
+			it.setTarget(to)
+		}
+	}
 }
