@@ -4,6 +4,7 @@ import nl.jappieklooster.ISAI.init.factory.dsl.group.GroupFactory
 import nl.jappieklooster.ISAI.world.Group
 import nl.jappieklooster.ISAI.world.IHasNode
 import nl.jappieklooster.ISAI.world.World
+import nl.jappieklooster.ISAI.world.mortal.attack.AttackCollection
 import nl.jappieklooster.ISAI.world.mortal.attack.Bullet;
 import nl.jappieklooster.math.vector.Vector3
 
@@ -22,10 +23,23 @@ class AmmoFactory {
 	AmmoFactory(GroupFactory factory, IHasNode env){
 		groupFactory = factory
 		environment = env
+		init()
+	}
+	
+	AmmoFactory(AmmoFactory src){
+		groupFactory = new GroupFactory(src.groupFactory)
+		environment = src.env
+		init()
+	}
+	
+	private void init(){
 		attackCleaner = new AttackCleaner()
-		attackCleaner.ammoGroup = factory.group
-		factory.group.listeners.add(attackCleaner)
+		attackCleaner.ammoGroup = groupFactory.group
+		// clear default listeners
+		groupFactory.group.listeners.clear()
 		
+		// add own listener
+		groupFactory.group.listeners.add(attackCleaner)
 	}
 	Bullet createBullet(Closure commands){
 		Bullet result = new Bullet()
@@ -41,8 +55,35 @@ class AmmoFactory {
 		group.members.remove(group.members.size() - 1)
 		group.members.add(result)
 
-		attackCleaner.attacks.add(result)
+		updateCleaner(result)
 		result.environment = environment
 		return result
 	}
+	
+	AttackCollection createHail(int amount, Closure commands){
+		AmmoFactory childFactory = new AmmoFactory(this)
+		group.attach(childFactory.group)
+		
+		AttackCollection result = new AttackCollection(childFactory.group)
+		
+		[0..amount].each{
+			result.add(childFactory.createBullet(commands))
+		}
+		updateCleaner(result)
+		return result
+	}
+
+	
+	void updateCleaner(IAttack with){
+		attackCleaner.attacks.add(with)
+	}
+	
+	/**
+	 * shorthand
+	 * @return
+	 */
+	private Group getGroup(){
+		return groupFactory.group
+	}
+
 }

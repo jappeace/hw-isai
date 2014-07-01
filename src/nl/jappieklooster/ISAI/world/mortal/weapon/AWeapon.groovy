@@ -41,7 +41,7 @@ abstract class AWeapon implements IWeapon{
 		return createAttack(target)
 	}
 	
-	protected abstract createAttack(IPositionable target)
+	protected abstract IAttack createAttack(IPositionable target)
 	
 	void update(float tpf){
 		timeSinceLastAttack += tpf

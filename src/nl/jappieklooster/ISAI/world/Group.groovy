@@ -91,5 +91,14 @@ class Group extends AHasNode implements IGroupItem{
 	public Spatial getSpatial() {
 		return node
 	}
+	
+	/**
+	 * attach a groupitem to the group, and make it visible (attach to node)
+	 * @param item
+	 */
+	void attach(IGroupItem item){
+		members.add(item)
+		node.attachChild(item.spatial)
+	}
 
 }

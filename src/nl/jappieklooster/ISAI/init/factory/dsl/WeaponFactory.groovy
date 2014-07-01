@@ -35,7 +35,6 @@ class WeaponFactory {
 		subGroupFactory.group = groupFactory.group{
 			name "ammo group"
 		}
-		subGroupFactory.group.listeners.clear()
 
 		return new Pistol(
 			ammoFactory: new AmmoFactory(subGroupFactory, environment), 
